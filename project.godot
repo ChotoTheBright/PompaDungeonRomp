@@ -220,7 +220,7 @@ window/size/test_height=900
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/fun_coding/plugin.cfg", "res://addons/qodot/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/qodot/plugin.cfg" )
 
 [gui]
 
