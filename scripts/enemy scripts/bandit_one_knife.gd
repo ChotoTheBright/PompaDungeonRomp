@@ -52,6 +52,7 @@ func damage(damage):
 
 func attack():
 	battle_scene.pain(dmg)
+	#not finding the second argument? -- 3/25/24
 	emit_signal("action", "bleed_hit")
 
 

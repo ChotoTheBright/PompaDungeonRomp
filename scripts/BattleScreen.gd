@@ -4,6 +4,7 @@ onready var diorama_container = $diorama_container
 onready var main_hud = $HUD/main_hud
 onready var item_hud = $HUD/item_hud
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
+onready var player = get_tree().get_nodes_in_group("player")[0]
 
 
 var stored_action : String =""
@@ -15,7 +16,6 @@ var player_action_targets : Array = []
 var player_actions : int = 0
 var action_index : int = 0
 var queued_knives : float = 0
-var _dam #damage
 
 var queued_enemy_actions : Array = []
 var enemy_action_targets : Array = []
@@ -34,6 +34,7 @@ func _ready():
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
+# warning-ignore:return_value_discarded
 #	PlayerStats.connect("hurt", self, "pain")
 #	PlayerStats.connect("dead", self, "death")
 	
@@ -103,18 +104,13 @@ func start_enemy_turn():
 
 
 
-<<<<<<< HEAD
-func pain(__dam):
+func pain(_dam):
 	PlayerStats.hurt(_dam)
-	_STAT.update_display()
+	_STAT.update_health(_dam)#update_display()
+	print("hurtin ya?")
 	
 
 func queue_enemy_action(action: String, target : NodePath):
-=======
-
-func queue_enemy_action(action: String):
->>>>>>> 2adf3e8d0a5bd930ecdcc79379ed386f7727e264
-
 	queued_enemy_actions.append(action)
 
 
