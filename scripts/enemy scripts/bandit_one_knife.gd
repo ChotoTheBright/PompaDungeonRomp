@@ -1,6 +1,7 @@
 extends TextureButton
 
 signal action
+signal death
 
 onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
@@ -23,11 +24,11 @@ var motivated : bool = false
 
 var bodyblocked : bool = false
 
-
+var dead : bool = false
 
 
 func _ready():
-
+	connect("death", get_parent(), "on_enemy_death")
 # warning-ignore:return_value_discarded
 	connect("action", battle_scene, "queue_enemy_action")
 # warning-ignore:return_value_discarded
@@ -47,13 +48,17 @@ func damage(damage):
 	print(hp)
 
 	if hp <= 0:
-		queue_free()
+		hide()
+		dead = true
+		emit_signal("death")
+
+
 
 
 func attack():
-	battle_scene.pain(dmg)
-	#not finding the second argument? -- 3/25/24
-	emit_signal("action", "bleed_hit")
+
+
+	emit_signal("action", "bleed_hit", "player")
 
 
 

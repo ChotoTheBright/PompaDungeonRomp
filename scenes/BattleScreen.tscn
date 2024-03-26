@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/fonts-images/Gamaliel.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/BattleScreen.gd" type="Script" id=2]
@@ -19,15 +19,6 @@ colors = PoolColorArray( 0, 0, 0.0980392, 0.686275 )
 
 [sub_resource type="GradientTexture2D" id=390]
 gradient = SubResource( 389 )
-
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 0, 0, 0, 1 )
-
-[sub_resource type="GradientTexture2D" id=2]
-gradient = SubResource( 1 )
-width = 320
-height = 240
 
 [sub_resource type="DynamicFont" id=388]
 size = 28
@@ -120,11 +111,6 @@ margin_right = 124.0
 margin_bottom = -40.0
 
 [node name="encounter_1" parent="diorama_container" instance=ExtResource( 6 )]
-margin_left = 0.0
-margin_top = 0.0
-margin_right = 0.0
-margin_bottom = 0.0
-texture = SubResource( 2 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -292,6 +278,8 @@ margin_bottom = 14.0
 custom_fonts/font = SubResource( 388 )
 script = ExtResource( 3 )
 
-[connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "attack" ]]
+[connection signal="enemy_action_finished" from="." to="." method="activate_enemy_actions"]
+[connection signal="player_action_finished" from="." to="." method="activate_player_actions"]
+[connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "melee_attack" ]]
 [connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]
 [connection signal="pressed" from="HUD/main_hud/Button3" to="." method="_on_action_button_pressed" binds= [ "defend" ]]

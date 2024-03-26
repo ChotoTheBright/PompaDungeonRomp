@@ -9,6 +9,8 @@ signal gibbed
 var max_health = 100 #
 var cur_health# = 1
 
+var defending : bool = false
+
 export var gib_at = -10
 
 func _ready():
@@ -21,6 +23,8 @@ func init():
 func hurt(damage: int): #, _dir: Vector3
 	if cur_health <= 0:
 		return
+	if defending:
+		damage = damage * .5
 	cur_health -= damage
 	if cur_health <= gib_at:
 		emit_signal("gibbed")
