@@ -1,0 +1,287 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://assets/fonts-images/Gamaliel.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/BattleScreen.gd" type="Script" id=2]
+[ext_resource path="res://scripts/StatsText.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts-images/text_bubble.png" type="Texture" id=4]
+[ext_resource path="res://UI Theme.tres" type="Theme" id=5]
+[ext_resource path="res://scenes/combat/encounter_1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/fonts-images/items.png" type="Texture" id=7]
+[ext_resource path="res://assets/fonts-images/hud.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=386]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="Gradient" id=389]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0, 0, 0.0980392, 0.686275 )
+
+[sub_resource type="GradientTexture2D" id=390]
+gradient = SubResource( 389 )
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture2D" id=2]
+gradient = SubResource( 1 )
+width = 320
+height = 240
+
+[sub_resource type="DynamicFont" id=388]
+size = 28
+font_data = ExtResource( 1 )
+
+[sub_resource type="StreamTexture" id=391]
+load_path = "res://.import/items.png-3f9a95b2ddab03b7d2a4b26146345c7c.stex"
+
+[sub_resource type="AtlasTexture" id=396]
+atlas = SubResource( 391 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=395]
+atlas = SubResource( 391 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=393]
+atlas = ExtResource( 7 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=394]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=392]
+atlas = SubResource( 391 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=397]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=398]
+atlas = ExtResource( 7 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="DynamicFont" id=399]
+size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.698039 )
+font_data = ExtResource( 1 )
+
+[node name="BattleScreen" type="CanvasLayer" groups=["battle_screen"]]
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ActionBox" type="TextureRect" parent="."]
+visible = false
+anchor_left = 0.38
+anchor_right = 0.38
+margin_right = 434.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 434, 56 )
+size_flags_horizontal = 0
+texture = ExtResource( 4 )
+stretch_mode = 1
+
+[node name="Text" type="Label" parent="ActionBox"]
+margin_left = 11.0
+margin_top = 6.0
+margin_right = 427.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 386 )
+text = "Starla used flexual tension!"
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -204.0
+margin_top = -52.0
+margin_right = 1676.0
+margin_bottom = 660.0
+texture = SubResource( 390 )
+expand = true
+stretch_mode = 1
+
+[node name="diorama_container" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -196.0
+margin_top = -280.0
+margin_right = 124.0
+margin_bottom = -40.0
+
+[node name="encounter_1" parent="diorama_container" instance=ExtResource( 6 )]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+texture = SubResource( 2 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="HUD"]
+anchor_top = 0.75
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -15.0
+rect_pivot_offset = Vector2( 471, -233 )
+texture = ExtResource( 8 )
+
+[node name="main_hud" type="GridContainer" parent="HUD"]
+anchor_left = 0.165
+anchor_top = 0.787778
+anchor_right = 0.83
+anchor_bottom = 0.956667
+theme = ExtResource( 5 )
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button" type="Button" parent="HUD/main_hud"]
+margin_right = 352.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 352, 152 )
+custom_fonts/font = SubResource( 388 )
+text = "Attack"
+
+[node name="Button2" type="Button" parent="HUD/main_hud"]
+margin_left = 356.0
+margin_right = 708.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 352, 152 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 388 )
+text = "Item"
+
+[node name="Button3" type="Button" parent="HUD/main_hud"]
+margin_left = 712.0
+margin_right = 1064.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 352, 152 )
+custom_fonts/font = SubResource( 388 )
+text = "Defend"
+
+[node name="inventory" type="Label" parent="HUD"]
+margin_left = 44.0
+margin_top = 699.0
+margin_right = 156.0
+margin_bottom = 733.0
+custom_fonts/font = SubResource( 388 )
+text = "Inventory"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="log" type="Label" parent="HUD"]
+anchor_left = 0.92375
+anchor_top = 0.762222
+anchor_right = 0.94875
+anchor_bottom = 0.841111
+custom_fonts/font = SubResource( 388 )
+text = "Log
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="item_hud" type="Control" parent="HUD"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 5 )
+
+[node name="items" type="GridContainer" parent="HUD/item_hud"]
+margin_left = 267.0
+margin_top = 719.0
+margin_right = 363.0
+margin_bottom = 763.0
+rect_scale = Vector2( 3, 3 )
+columns = 5
+
+[node name="throwing_knife" type="TextureButton" parent="HUD/item_hud/items"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture_normal = SubResource( 396 )
+
+[node name="sleep_gas" type="TextureButton" parent="HUD/item_hud/items"]
+margin_left = 20.0
+margin_right = 36.0
+margin_bottom = 16.0
+texture_normal = SubResource( 395 )
+
+[node name="fuzzy_dust" type="TextureButton" parent="HUD/item_hud/items"]
+margin_left = 40.0
+margin_right = 56.0
+margin_bottom = 16.0
+texture_normal = SubResource( 393 )
+
+[node name="web_ball" type="TextureButton" parent="HUD/item_hud/items"]
+margin_left = 60.0
+margin_right = 76.0
+margin_bottom = 16.0
+texture_normal = SubResource( 394 )
+
+[node name="sphere" type="TextureButton" parent="HUD/item_hud/items"]
+margin_left = 80.0
+margin_right = 96.0
+margin_bottom = 16.0
+texture_normal = SubResource( 392 )
+
+[node name="bandage" type="TextureButton" parent="HUD/item_hud/items"]
+margin_top = 20.0
+margin_right = 16.0
+margin_bottom = 36.0
+texture_normal = SubResource( 397 )
+
+[node name="potion" type="TextureButton" parent="HUD/item_hud/items"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 36.0
+margin_bottom = 36.0
+texture_normal = SubResource( 398 )
+
+[node name="back" type="Button" parent="HUD/item_hud"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 667.0
+margin_top = 753.0
+margin_right = 842.0
+margin_bottom = 828.0
+rect_min_size = Vector2( 175, 75 )
+text = "Back"
+
+[node name="RichTextLabel" type="Label" parent="HUD/item_hud"]
+margin_left = 934.0
+margin_top = 685.0
+margin_right = 1376.0
+margin_bottom = 874.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 399 )
+text = "Deals a small amount of damage without consuming an action.
+
+fdsafsadfsdfsadfgsadgasdghsfhfsdhd
+
+fhdfghjdfgjfdgjsgj"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "attack" ]]
+[connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]
+[connection signal="pressed" from="HUD/main_hud/Button3" to="." method="_on_action_button_pressed" binds= [ "defend" ]]
