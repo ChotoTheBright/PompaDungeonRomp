@@ -3,6 +3,7 @@ extends AnimatedSprite
 signal action
 signal bodyblock
 
+onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
 
@@ -38,7 +39,7 @@ func _ready():
 
 func guard():
 
-	emit_signal("bodyblock")
+	emit_signal("action", "bodyblock")
 
 
 

@@ -2,8 +2,10 @@ extends TextureButton
 
 signal action
 
+onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
+
 var hp = 10
 
 var evasive : bool = true
@@ -30,6 +32,8 @@ func _ready():
 	
 	connect("action", battle_scene, "queue_enemy_action")
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
+
+
 
 func attack():
 
