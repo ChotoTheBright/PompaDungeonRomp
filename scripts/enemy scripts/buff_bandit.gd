@@ -4,13 +4,16 @@ signal action
 
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
+
 var hp = 25
 
 var action_rando : float
 export var dmg = 5 
 var charging : bool = false
 
+var target_list
 
+var target
 
 ##statuses
 
@@ -28,6 +31,8 @@ var bodyblocked : bool = false
 
 
 func _ready():
+	
+	var target_list = get_parent().get_children()
 
 	connect("action", battle_scene, "queue_enemy_action")
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
@@ -36,14 +41,15 @@ func _ready():
 func attack():
 
 #	battle_scene.pain(dmg) #no attacks ^^
+	set_target()
 
 	action_rando = rand_range(0, 2)
 
 	if action_rando >= 1:
-		emit_signal("action", "spot")
+		emit_signal("action", "spot", target)
 
 	else:
-		emit_signal("action", "hype")
+		emit_signal("action", "hype", target)
 
 	charging = true
 
@@ -70,6 +76,12 @@ func on_animation_finished():
 
 
 
+func set_target():
+	
+	target_list.shuffle()
+	
+	target = target_list.front()
+	
+	if target == self:
 
-
-
+		set_target()

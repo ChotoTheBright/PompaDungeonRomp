@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+onready var diorama_container = $diorama_container
 onready var main_hud = $HUD/main_hud
 onready var item_hud = $HUD/item_hud
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
@@ -21,9 +22,15 @@ var enemy_action_targets : Array = []
 
 var enemies 
 
+var encounter
 
+
+var defending : bool = false
 
 func _ready():
+	
+	player.inbattle = true
+	
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
@@ -56,16 +63,32 @@ func _on_item_pressed():
 	item_hud.visible = true
 
 
-func start_combat():
 
+
+
+
+##turn functions
+
+func start_combat():
+	
+	
 	enemies = get_tree().get_nodes_in_group("encounter").front()
 	
 	start_player_turn()
 
+
+
+
+
 func start_player_turn():
+
+	if defending == true:
+		defending = false
 
 	player_actions = 2
 	main_hud.visible = true
+
+
 
 
 func start_enemy_turn():
@@ -73,24 +96,27 @@ func start_enemy_turn():
 	for i in enemies.get_children():
 
 		i.attack()
-
+		print("attack")
+		
 	start_player_turn()
 
 
-func death():
-	print("penis wenis pro shenis")
-	pass
 
 
+<<<<<<< HEAD
 func pain(__dam):
 	PlayerStats.hurt(_dam)
 	_STAT.update_display()
 	
 
 func queue_enemy_action(action: String, target : NodePath):
+=======
+
+func queue_enemy_action(action: String):
+>>>>>>> 2adf3e8d0a5bd930ecdcc79379ed386f7727e264
 
 	queued_enemy_actions.append(action)
-	enemy_action_targets.append(target)
+
 
 
 
@@ -104,17 +130,23 @@ func queue_player_action(target : NodePath):
 		queued_knives += 1
 		queued_knife_targets.append(target)
 
-	elif stored_action != "throwing_knife":
+	else:
+
 		player_actions -= 1
 		queued_player_actions.append(stored_action)
-		player_action_targets.append(target)
+		
+		if stored_action != "defend":
+			player_action_targets.append(target)
+
+
 
 	if player_actions == 0:
 		activate_player_actions()
 
-	elif player_actions > 0:
+	else:
 		main_hud.visible = true
 		item_hud.visible = false
+
 
 	for i in enemies.get_children():
 		i.mouse_filter = false
@@ -123,27 +155,59 @@ func queue_player_action(target : NodePath):
 
 
 
+
+
+
+
+
 func activate_player_actions():
 	
-	if queued_player_actions.size() == 0:
-		start_enemy_turn()
+
+	main_hud.visible = false
+	item_hud.visible = false
 	
-	else:
-		main_hud.visible = false
-		item_hud.visible = false
+	if queued_knives > 0:
+		throwing_knife(queued_knives)
 	
-		if queued_knives > 0:
-			throwing_knife(queued_knives)
-	
-		call(queued_player_actions.pop_front(), player_action_targets.pop_front())
+	call(queued_player_actions.pop_front(), player_action_targets.pop_front())
+
+
 
 	
 	if queued_player_actions.size() > 0:
 		activate_player_actions()
 
+	elif queued_player_actions.size() == 0:
+		call_deferred("end_player_turn")
+
+
+func end_player_turn():
+
+
+
+	print(enemies.get_children().size())
+	
+	if enemies.get_children().size() == 0:
+		end_combat()
+
+	else:
+		start_enemy_turn()
+
+
+func end_combat():
+
+	main_hud.visible = false
+	item_hud.visible = false
+	self.visible = false
+	
+	player.inbattle = false
 
 
 ##player actions
+
+func death():
+	print("penis wenis pro shenis")
+	pass
 
 
 func attack(target):
@@ -151,33 +215,37 @@ func attack(target):
 	get_node(target).damage(10)
 
 
-
 func sleep_gas(target):
 
-	print("sleep_gas")
+	get_node(target).sleep = true
+
 
 func throwing_knife(knives):
 	queued_knives = 0
-	print("knife")
-
-func sphere():
-
-	print("sphere")
-
-func fuzzy_dust():
-
-	print("fuzzy_dust")
-
-func defend():
-
-	print("defend")
+	print(knives)
 
 
-func bandage():
+func sphere(target):
 
-	print("bandage")
+	target.sphere()
 
-func potion():
+
+func fuzzy_dust(target):
+
+	target.dizzy = true
+
+
+func defend(target):
+
+	defending = true
+
+
+func bandage(target):
+
+	pass
+
+
+func potion(target):
 
 	print("potion")
 
@@ -197,12 +265,12 @@ func double_hit():
 	print("double hit")
 
 
-func spot():
+func spot(target):
 
 	print("spot")
 
 
-func hype():
+func hype(target):
 
 	print("hype")
 
@@ -217,7 +285,9 @@ func rally():
 	print("rally")
 
 
-
+func bodyblock():
+	
+	print("bodyblock")
 
 
 

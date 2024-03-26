@@ -46,4 +46,3 @@ func on_battlestart() -> void: #_on_DualCircles_pressed
 	bhud_time.one_shot = true
 	add_child(bhud_time)
 	bhud_time.start()
-
