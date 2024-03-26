@@ -691,7 +691,7 @@ shape = SubResource( 378 )
 shape = SubResource( 379 )
 
 [node name="Trigger" type="Area" parent="ViewportContainer/Viewport/MAIN/World"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -3, -6 )
 visible = false
 collision_layer = 2
 collision_mask = 2

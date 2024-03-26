@@ -5,7 +5,7 @@ signal action
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
 var hp = 10
-
+export var dmg = 5 
 var evasive : bool = true
 
 
@@ -32,7 +32,7 @@ func _ready():
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
 
 func attack():
-
+	battle_scene.pain(dmg)
 	emit_signal("action", "double_hit")
 
 

@@ -7,7 +7,7 @@ onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front(
 onready var sprite = $AnimatedSprite
 
 var hp = 35
-
+export var dmg = 5 
 var charging : bool = false
 
 
@@ -44,7 +44,7 @@ func guard():
 
 func attack():
 
-
+	battle_scene.pain(dmg)
 	emit_signal("action", "shield_slam")
 	charging = true
 

@@ -7,7 +7,7 @@ onready var sprite = $AnimatedSprite
 var hp = 25
 
 var action_rando : float
-
+export var dmg = 5 
 var charging : bool = false
 
 
@@ -34,6 +34,8 @@ func _ready():
 
 
 func attack():
+
+#	battle_scene.pain(dmg) #no attacks ^^
 
 	action_rando = rand_range(0, 2)
 

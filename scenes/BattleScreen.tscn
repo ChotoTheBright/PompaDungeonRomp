@@ -282,6 +282,16 @@ valign = 1
 autowrap = true
 clip_text = true
 
+[node name="STATSLABEL" type="Label" parent="HUD" groups=["STATLABEL"]]
+anchor_left = 0.45
+anchor_top = 0.745
+anchor_right = 0.45
+anchor_bottom = 0.745
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 388 )
+script = ExtResource( 3 )
+
 [connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "attack" ]]
 [connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]
 [connection signal="pressed" from="HUD/main_hud/Button3" to="." method="_on_action_button_pressed" binds= [ "defend" ]]

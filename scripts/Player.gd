@@ -106,5 +106,8 @@ func battle_signal():
 		return
 
 #INFO: Vector3(x,y,z)--FORWARD:0,0,-1,//BACK:0,0,1//RIGHT:1,0,0//LEFT:-1,0,0
-func blastingwenis():
-	print("peepeepoopoocaca - cathy")
+func plapping():
+	pass
+
+func blasting():
+	pass

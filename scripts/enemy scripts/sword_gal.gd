@@ -7,7 +7,7 @@ onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front(
 onready var sprite = $AnimatedSprite
 
 var hp = 35
-
+export var dmg = 5 #
 
 ##statuses
 
@@ -32,7 +32,7 @@ func _ready():
 
 func attack():
 
-
+	battle_scene.pain(dmg)
 	emit_signal("action", "rally")
 
 	if not motivated:

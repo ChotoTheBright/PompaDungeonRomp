@@ -2,6 +2,8 @@ extends CanvasLayer
 
 onready var main_hud = $HUD/main_hud
 onready var item_hud = $HUD/item_hud
+onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
+
 
 var stored_action : String =""
 var stored_target
@@ -12,7 +14,7 @@ var player_action_targets : Array = []
 var player_actions : int = 0
 var action_index : int = 0
 var queued_knives : float = 0
-
+var _dam #damage
 
 var queued_enemy_actions : Array = []
 var enemy_action_targets : Array = []
@@ -25,6 +27,8 @@ func _ready():
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
+#	PlayerStats.connect("hurt", self, "pain")
+#	PlayerStats.connect("dead", self, "death")
 	
 	start_combat()
 	pass
@@ -78,7 +82,10 @@ func death():
 	pass
 
 
-
+func pain(__dam):
+	PlayerStats.hurt(_dam)
+	_STAT.update_display()
+	
 
 func queue_enemy_action(action: String, target : NodePath):
 
@@ -181,7 +188,7 @@ func potion():
 
 
 func bleed_hit():
-
+#	playerstats
 	print("bleed hit")
 
 
