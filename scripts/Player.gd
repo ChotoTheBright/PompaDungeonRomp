@@ -1,6 +1,6 @@
 extends KinematicBody
 
-#signal wall_signal
+enum STATES {SPLORE,BATTLE,DEAD,MENU}
 signal battle_signal
 
 onready var GridUp = Vector3(0,0,-2) #FORWARD #*see bottom for ref.
@@ -10,6 +10,7 @@ onready var GridRight = Vector3(2,0,0) #RIGHT
 onready var mesh = $Mesh
 onready var ray_b = $Mesh/Camera/RayBattle
 onready var ray_w = $Mesh/Camera/RayWall
+var cur_state = STATES.SPLORE
 var speed = 5
 var angle_speed = 10
 var current_dir = Vector3()
@@ -35,63 +36,64 @@ func _physics_process(delta):
 	translation = translation.move_toward(destination,speed * delta)
 	self.rotation.y = lerp_angle(self.rotation.y, atan2(-next_pos.x, -next_pos.z), delta * angle_speed)
 	
-	if Input.is_action_pressed("walk_front") and btn_time.is_stopped():
-		next_pos = next_pos
-		current_dir = current_dir
-		if ray_w.is_colliding(): #Wall
-			can_move = false
-		else:
-			can_move = true
-		btn_time.start()
-	if Input.is_action_pressed("look_left") and btn_time.is_stopped():
-		match next_pos:
-			GridRight:
-				next_pos = GridUp
-				current_dir = "up"
-				btn_time.start()
-				pass
-			GridLeft:
-				next_pos = GridDown
-				current_dir = "down"
-				btn_time.start()
-				pass
-			GridUp:
-				next_pos = GridLeft
-				current_dir = "left"
-				btn_time.start()
-				pass
-			GridDown:
-				next_pos = GridRight
-				current_dir = "right"
-				btn_time.start()
-				pass
-#----------------------------------------------------------------------------#
-	if Input.is_action_pressed("look_right") and btn_time.is_stopped():
-		match next_pos:
-			GridRight:
-				next_pos = GridDown
-				current_dir = "down"
-				btn_time.start()
-				pass
-			GridLeft:
-				next_pos = GridUp
-				current_dir = "up"
-				btn_time.start()
-				pass
-			GridUp:
-				next_pos = GridRight
-				current_dir = "right"
-				btn_time.start()
-				pass
-			GridDown:
-				next_pos = GridLeft
-				current_dir = "left"
-				btn_time.start()
-				pass
+	if !inbattle:
+		if Input.is_action_pressed("walk_front") and btn_time.is_stopped():
+			next_pos = next_pos
+			current_dir = current_dir
+			if ray_w.is_colliding(): #Wall
+				can_move = false
+			else:
+				can_move = true
+			btn_time.start()
+		if Input.is_action_pressed("look_left") and btn_time.is_stopped():
+			match next_pos:
+				GridRight:
+					next_pos = GridUp
+					current_dir = "up"
+					btn_time.start()
+					pass
+				GridLeft:
+					next_pos = GridDown
+					current_dir = "down"
+					btn_time.start()
+					pass
+				GridUp:
+					next_pos = GridLeft
+					current_dir = "left"
+					btn_time.start()
+					pass
+				GridDown:
+					next_pos = GridRight
+					current_dir = "right"
+					btn_time.start()
+					pass
+	#----------------------------------------------------------------------------#
+		if Input.is_action_pressed("look_right") and btn_time.is_stopped():
+			match next_pos:
+				GridRight:
+					next_pos = GridDown
+					current_dir = "down"
+					btn_time.start()
+					pass
+				GridLeft:
+					next_pos = GridUp
+					current_dir = "up"
+					btn_time.start()
+					pass
+				GridUp:
+					next_pos = GridRight
+					current_dir = "right"
+					btn_time.start()
+					pass
+				GridDown:
+					next_pos = GridLeft
+					current_dir = "left"
+					btn_time.start()
+					pass
 
-	if translation.distance_to(destination) <= 0.0000 and can_move:
-		destination = translation + (next_pos)
-		can_move = false
+		if translation.distance_to(destination) <= 0.0000 and can_move:
+			destination = translation + (next_pos)
+			can_move = false
 
 func time_end():
 	return
@@ -100,8 +102,9 @@ func battle_signal():
 	if ray_b.is_colliding(): #Battle
 		emit_signal("battle_signal")
 		can_move = false
+		inbattle = true
 		return
 
 #INFO: Vector3(x,y,z)--FORWARD:0,0,-1,//BACK:0,0,1//RIGHT:1,0,0//LEFT:-1,0,0
-func blastinwenis():
-	print("peepeepoopoocaca - cathy")
+func select_target():
+	print("click")

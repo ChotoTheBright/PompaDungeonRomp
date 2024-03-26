@@ -1,10 +1,11 @@
-[gd_scene load_steps=97 format=2]
+[gd_scene load_steps=116 format=2]
 
 [ext_resource path="res://assets/fonts-images/Dither2nd.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts-images/hud.png" type="Texture" id=2]
 [ext_resource path="res://textures/JamTextures/FLOOR_2C.png" type="Texture" id=3]
 [ext_resource path="res://textures/JamTextures/DIRT_1B.png" type="Texture" id=4]
 [ext_resource path="res://UI Theme.tres" type="Theme" id=5]
+[ext_resource path="res://scenes/combat/encounter_1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://textures/JamTextures/BRICK_1A_2.png" type="Texture" id=7]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://textures/JamTextures/sky.png" type="Texture" id=9]
@@ -14,6 +15,11 @@
 [ext_resource path="res://textures/JamTextures/D_FLR_2.png" type="Texture" id=13]
 [ext_resource path="res://textures/CONCRETE_1A.png" type="Texture" id=14]
 [ext_resource path="res://textures/JamTextures/D_WAL_1.png" type="Texture" id=15]
+[ext_resource path="res://assets/fonts-images/Gamaliel.otf" type="DynamicFontData" id=16]
+[ext_resource path="res://assets/fonts-images/text_bubble.png" type="Texture" id=17]
+[ext_resource path="res://scripts/BattleScreen.gd" type="Script" id=19]
+[ext_resource path="res://scripts/StatsText.gd" type="Script" id=20]
+[ext_resource path="res://assets/fonts-images/items.png" type="Texture" id=21]
 
 [sub_resource type="Shader" id=28]
 code = "shader_type canvas_item;
@@ -431,6 +437,58 @@ points = PoolVector3Array( -10, 0, -46, -10, -0.25, -46, 54, -0.25, -46, 54, 0, 
 
 [sub_resource type="BoxShape" id=385]
 
+[sub_resource type="DynamicFont" id=386]
+size = 32
+font_data = ExtResource( 16 )
+
+[sub_resource type="Gradient" id=389]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0, 0, 0.0980392, 0.686275 )
+
+[sub_resource type="GradientTexture2D" id=390]
+gradient = SubResource( 389 )
+
+[sub_resource type="DynamicFont" id=388]
+size = 28
+font_data = ExtResource( 16 )
+
+[sub_resource type="StreamTexture" id=391]
+load_path = "res://.import/items.png-3f9a95b2ddab03b7d2a4b26146345c7c.stex"
+
+[sub_resource type="AtlasTexture" id=396]
+atlas = SubResource( 391 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=395]
+atlas = SubResource( 391 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=393]
+atlas = ExtResource( 21 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=394]
+atlas = ExtResource( 21 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=392]
+atlas = SubResource( 391 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=397]
+atlas = ExtResource( 21 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=398]
+atlas = ExtResource( 21 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="DynamicFont" id=399]
+size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.698039 )
+font_data = ExtResource( 16 )
+
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -442,6 +500,7 @@ material = SubResource( 29 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 436, 239 )
+mouse_filter = 1
 size_flags_vertical = 2
 stretch = true
 
@@ -460,7 +519,6 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000114858, -0.00435138, 0.00021708 )
 
 [node name="Mesh" parent="ViewportContainer/Viewport/MAIN/player" index="0"]
-visible = false
 software_skinning_transform_normals = false
 
 [node name="arrow" parent="ViewportContainer/Viewport/MAIN/player/Mesh" index="0"]
@@ -693,7 +751,8 @@ shape = SubResource( 378 )
 shape = SubResource( 379 )
 
 [node name="Trigger" type="Area" parent="ViewportContainer/Viewport/MAIN/World"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -6 )
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -706,70 +765,125 @@ shape = SubResource( 385 )
 
 [node name="memes" type="Spatial" parent="ViewportContainer/Viewport/MAIN/World"]
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="BattleScreen" type="CanvasLayer" parent="." groups=["battle_screen"]]
+script = ExtResource( 19 )
 
-[node name="TextureRect" type="TextureRect" parent="HUD"]
+[node name="CenterContainer" type="CenterContainer" parent="BattleScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ActionBox" type="TextureRect" parent="BattleScreen"]
+visible = false
+anchor_left = 0.38
+anchor_right = 0.38
+margin_right = 434.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 434, 56 )
+size_flags_horizontal = 0
+texture = ExtResource( 17 )
+stretch_mode = 1
+
+[node name="Text" type="Label" parent="BattleScreen/ActionBox"]
+margin_left = 11.0
+margin_top = 6.0
+margin_right = 427.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 386 )
+text = "Starla used flexual tension!"
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 20 )
+
+[node name="TextureRect" type="TextureRect" parent="BattleScreen"]
+margin_left = -204.0
+margin_top = -52.0
+margin_right = 1676.0
+margin_bottom = 660.0
+texture = SubResource( 390 )
+expand = true
+stretch_mode = 1
+
+[node name="diorama_container" type="Control" parent="BattleScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -196.0
+margin_top = -280.0
+margin_right = 124.0
+margin_bottom = -40.0
+
+[node name="encounter_1" parent="BattleScreen/diorama_container" instance=ExtResource( 6 )]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = -73.0
+margin_bottom = -64.0
+
+[node name="HUD" type="CanvasLayer" parent="BattleScreen"]
+
+[node name="TextureRect" type="TextureRect" parent="BattleScreen/HUD"]
 anchor_top = 0.75
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -15.0
 rect_pivot_offset = Vector2( 471, -233 )
 texture = ExtResource( 2 )
-stretch_mode = 1
 
-[node name="GridContainer" type="GridContainer" parent="HUD"]
-anchor_left = 0.153125
-anchor_top = 0.782222
-anchor_right = 0.860625
-anchor_bottom = 1.00444
-margin_left = 15.0
-margin_top = 5.0
-margin_right = 15.0
-margin_bottom = 4.99994
+[node name="main_hud" type="GridContainer" parent="BattleScreen/HUD"]
+anchor_left = 0.165
+anchor_top = 0.787778
+anchor_right = 0.83
+anchor_bottom = 0.956667
 theme = ExtResource( 5 )
 columns = 3
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Button" type="Button" parent="HUD/GridContainer"]
+[node name="Button" type="Button" parent="BattleScreen/HUD/main_hud"]
 margin_right = 352.0
 margin_bottom = 152.0
 rect_min_size = Vector2( 352, 152 )
+custom_fonts/font = SubResource( 388 )
 text = "Attack"
 
-[node name="Button2" type="Button" parent="HUD/GridContainer"]
+[node name="Button2" type="Button" parent="BattleScreen/HUD/main_hud"]
 margin_left = 356.0
 margin_right = 708.0
 margin_bottom = 152.0
 rect_min_size = Vector2( 352, 152 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
+custom_fonts/font = SubResource( 388 )
 text = "Item"
 
-[node name="Button3" type="Button" parent="HUD/GridContainer"]
+[node name="Button3" type="Button" parent="BattleScreen/HUD/main_hud"]
 margin_left = 712.0
 margin_right = 1064.0
 margin_bottom = 152.0
-rect_min_size = Vector2( 352, 0 )
+rect_min_size = Vector2( 352, 152 )
+custom_fonts/font = SubResource( 388 )
 text = "Defend"
 
-[node name="inventory" type="Label" parent="HUD"]
-anchor_left = 0.025
-anchor_top = 0.754444
-anchor_right = 0.09875
-anchor_bottom = 0.797778
+[node name="inventory" type="Label" parent="BattleScreen/HUD"]
+margin_left = 44.0
+margin_top = 699.0
+margin_right = 156.0
+margin_bottom = 733.0
+custom_fonts/font = SubResource( 388 )
 text = "Inventory"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="log" type="Label" parent="HUD"]
-anchor_left = 0.901875
-anchor_top = 0.757778
-anchor_right = 0.975625
-anchor_bottom = 0.801111
+[node name="log" type="Label" parent="BattleScreen/HUD"]
+anchor_left = 0.92375
+anchor_top = 0.762222
+anchor_right = 0.94875
+anchor_bottom = 0.841111
+custom_fonts/font = SubResource( 388 )
 text = "Log
 "
 align = 1
@@ -777,8 +891,96 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="BattleScreen" type="CanvasLayer" parent="."]
+[node name="item_hud" type="Control" parent="BattleScreen/HUD"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 5 )
 
-[connection signal="battle_signal" from="ViewportContainer/Viewport/MAIN/player" to="." method="show_hud" flags=3]
+[node name="items" type="GridContainer" parent="BattleScreen/HUD/item_hud"]
+margin_left = 267.0
+margin_top = 719.0
+margin_right = 363.0
+margin_bottom = 763.0
+rect_scale = Vector2( 3, 3 )
+columns = 5
+
+[node name="throwing_knife" type="TextureButton" parent="BattleScreen/HUD/item_hud/items"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture_normal = SubResource( 396 )
+
+[node name="sleep_gas" type="TextureButton" parent="BattleScreen/HUD/item_hud/items"]
+margin_left = 20.0
+margin_right = 36.0
+margin_bottom = 16.0
+texture_normal = SubResource( 395 )
+
+[node name="fuzzy_dust" type="TextureButton" parent="BattleScreen/HUD/item_hud/items"]
+margin_left = 40.0
+margin_right = 56.0
+margin_bottom = 16.0
+texture_normal = SubResource( 393 )
+
+[node name="web_ball" type="TextureButton" parent="BattleScreen/HUD/item_hud/items"]
+margin_left = 60.0
+margin_right = 76.0
+margin_bottom = 16.0
+texture_normal = SubResource( 394 )
+
+[node name="sphere" type="TextureButton" parent="BattleScreen/HUD/item_hud/items"]
+margin_left = 80.0
+margin_right = 96.0
+margin_bottom = 16.0
+texture_normal = SubResource( 392 )
+
+[node name="bandage" type="TextureButton" parent="BattleScreen/HUD/item_hud/items"]
+margin_top = 20.0
+margin_right = 16.0
+margin_bottom = 36.0
+texture_normal = SubResource( 397 )
+
+[node name="potion" type="TextureButton" parent="BattleScreen/HUD/item_hud/items"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 36.0
+margin_bottom = 36.0
+texture_normal = SubResource( 398 )
+
+[node name="back" type="Button" parent="BattleScreen/HUD/item_hud"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 667.0
+margin_top = 753.0
+margin_right = 842.0
+margin_bottom = 828.0
+rect_min_size = Vector2( 175, 75 )
+text = "Back"
+
+[node name="RichTextLabel" type="Label" parent="BattleScreen/HUD/item_hud"]
+margin_left = 934.0
+margin_top = 685.0
+margin_right = 1376.0
+margin_bottom = 874.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 399 )
+text = "Deals a small amount of damage without consuming an action.
+
+fdsafsadfsdfsadfgsadgasdghsfhfsdhd
+
+fhdfghjdfgjfdgjsgj"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[connection signal="battle_signal" from="ViewportContainer/Viewport/MAIN/player" to="." method="on_battlestart" flags=7]
+[connection signal="pressed" from="BattleScreen/HUD/main_hud/Button" to="BattleScreen" method="_on_UI_button_pressed" binds= [ "attack" ]]
+[connection signal="pressed" from="BattleScreen/HUD/main_hud/Button2" to="BattleScreen" method="_on_item_pressed"]
+[connection signal="pressed" from="BattleScreen/HUD/main_hud/Button3" to="BattleScreen" method="_on_UI_button_pressed" binds= [ "defend", "player" ]]
+[connection signal="pressed" from="BattleScreen/HUD/item_hud/items/throwing_knife" to="BattleScreen" method="_on_UI_button_pressed" binds= [ "throwing_knife" ]]
+[connection signal="pressed" from="BattleScreen/HUD/item_hud/items/fuzzy_dust" to="BattleScreen" method="_on_UI_button_pressed" binds= [ "fuzzy_dust" ]]
 
 [editable path="ViewportContainer/Viewport/MAIN/player"]

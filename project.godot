@@ -210,17 +210,24 @@ config/name="DungeonCrawler_GameJam"
 run/main_scene="res://MAIN.tscn"
 config/icon="res://textures/JamDC.png"
 
+[autoload]
+
+Transitions="*res://addons/godot_transitions/transitions.gd"
+PlayerStats="*res://scripts/PlayerStats.gd"
+
 [display]
 
 window/size/width=1600
 window/size/height=900
+window/size/borderless=true
 window/size/fullscreen=true
 window/size/test_width=1600
 window/size/test_height=900
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/qodot/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/godot_transitions/plugin.cfg", "res://addons/qodot/plugin.cfg" )
 
 [gui]
 
@@ -347,5 +354,7 @@ common/enable_pause_aware_picking=true
 
 quality/filters/sharpen_intensity=1.0
 quality/filters/anisotropic_filter_level=1
+quality/filters/use_nearest_mipmap_filter=true
+quality/filters/msaa=4
 quality/filters/use_debanding=true
 environment/default_environment="res://default_env.tres"

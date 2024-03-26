@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/combat/sword_gal.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/combat/shield_guy.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture2D" id=2]
+gradient = SubResource( 1 )
+width = 320
+height = 240
+
+[node name="encounter_8" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 477.0
+margin_top = 92.0
+margin_right = -803.0
+margin_bottom = -568.0
+texture = SubResource( 2 )
+
+[node name="shield_guy" parent="." instance=ExtResource( 2 )]
+position = Vector2( 210, 133 )
+
+[node name="sword_gal" parent="." instance=ExtResource( 1 )]
+position = Vector2( 128, 100 )
