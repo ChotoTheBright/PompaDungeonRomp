@@ -9,25 +9,37 @@ onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front(
 onready var sprite = $AnimatedSprite
 
 var hp = 35
-export var dmg = 5 #
+export var dmg = 20 #
 
+var action : Dictionary = {
+	"damage" : 15,
+	"heal" : 5,
+	"status" : null,
+	"target" : "player",
+	"animation" : "player_slash",
+	"description" : "The knights passion rallies her allies."
+}
 ##statuses
 
 var spot : bool = false
 
-var hype : bool = false
+var hype : bool = true
 
 var dizzy : bool = false
 
 var sleep : bool = false
 
-var disoriented : bool = false
+var destabilized : bool = false
 
-var motivated : bool = true
+var webbed : bool = false
+
+var disoriented : bool = false
 
 var bodyblocked : bool = false
 
 var dead : bool = false
+
+
 
 
 func _ready():
@@ -39,10 +51,9 @@ func _ready():
 func attack():
 
 	battle_scene.pain(dmg)
-	emit_signal("action", "rally")
+	emit_signal("action", action)
 
-	if not motivated:
-		motivated = true
+
 
 
 

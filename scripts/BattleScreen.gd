@@ -1,7 +1,6 @@
 extends CanvasLayer
 
-signal player_action_finished
-signal enemy_action_finished
+
 
 onready var diorama_container = $diorama_container
 onready var hud = $HUD
@@ -27,15 +26,56 @@ var player_actions : Dictionary = {
 	"target" : null,
 	"status" : null,
 	"animation" : "player_slash",
-	"description": "\n Jimbo lashes out"},
+	"description": "\n Jimbo lashes out."},
 	
-	"item_placeholder" : {
-	"damage" : 0,
+	"throwing_knife" : {
+	"damage" : 5,
 	"target" : null,
-	"status" : "sleep",
-	"animation" : "party",
-	"description" : "\n Jimbo parties"}
+	"status" : null,
+	"animation" : "player_slash",
+	"description" : "\n A blur seeks bone."},
+
+	"web_ball" : {
+		"damage" : 0,
+		"target" : null,
+		"status" : "webbed",
+		"animation" : "player_slash",
+		"description" : "\n A sticky web covers every."},
+	
+	"sleep_gas" : {
+		"damage" : 0,
+		"target" : null,
+		"status" : "sleep",
+		"animation" : "player_slash",
+		"description" : "\n The bomb explodes into a relaxing mist."},
+	
+	"impossibly_dense_sphere" : {
+		"damage" : 0,
+		"target" : null,
+		"status" : "destabilized",
+		"animation" : "player_slash",
+		"description" : "\n The floor cracks on impact."},
+	
+	"fuzzy_dust" : {
+		"damage" : 0,
+		"target" : null,
+		"status" : "dizzy",
+		"animation" : "player_slash",
+		"description" : "\n Touch fuzzy, get dizzy."},
+	
+	"bandage" : {
+		"heal" : 20,
+		"animation" : "player_slash",
+		"description" : "It would stop the bleeding, had you time to."},
+	
+	"potion" : {
+		"heal" : 80,
+		"animation" : "player_slash",
+		"description" : "Strangely savory."},
+	
 }
+
+
 
 
 var queued_enemy_actions : Array = []
@@ -78,7 +118,8 @@ func _on_action_button_pressed(action):
 	item_hud.visible = false
 	
 	for i in enemies.get_children():
-		i.mouse_filter = 0
+		if i.dead == false:
+			i.mouse_filter = 0
 
 
 
@@ -155,6 +196,8 @@ func activate_enemy_actions():
 	if queued_enemy_actions.size() > 0:
 		call("enemy_attack", queued_enemy_actions.pop_front())
 
+	else:
+		start_player_turn()
 
 
 func enemy_attack(attack_dictionary: Dictionary):
@@ -180,18 +223,14 @@ func enemy_attack(attack_dictionary: Dictionary):
 func queue_player_action(target : NodePath):
 	
 	for i in enemies.get_children():
-		i.mouse_filter = false
+		i.mouse_filter = 2
 
 	if stored_action != "throwing_knife":
-
 		action_points -= 1
 
 
 	var queued_action = player_actions[stored_action].duplicate()
-
 	queued_action["target"] = target
-
-
 	queued_player_actions.append(queued_action)
 
 	if action_points == 0:
@@ -248,20 +287,10 @@ func player_attack(attack_dictionary: Dictionary):
 
 
 	if attack_dictionary.get("damage") > 0:
-
 		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
 	
 	if attack_dictionary.get("status") != null:
-<<<<<<< HEAD
-
 		attack_dictionary.get("target").set_status(attack_dictionary.get("status"))
-=======
-# warning-ignore:unused_variable
-		var status = attack_dictionary.get("status")
-		attack_dictionary.get("target").status = true
-	
-	#battle_effects.play(attack_dictionary.get("animation")
->>>>>>> 3065c1b60b3b46380873cfebcfbd5b39114c0b80
 	
 
 	update_log(attack_dictionary.get("description"))

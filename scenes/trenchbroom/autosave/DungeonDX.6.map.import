@@ -1,0 +1,13 @@
+[remap]
+
+importer="qodot.map"
+type="Resource"
+path="res://.import/DungeonDX.6.map-af0eaa4a097e1cdf5d1c137705ae92e3.tres"
+
+[deps]
+
+source_file="res://scenes/trenchbroom/autosave/DungeonDX.6.map"
+dest_files=[ "res://.import/DungeonDX.6.map-af0eaa4a097e1cdf5d1c137705ae92e3.tres" ]
+
+[params]
+

@@ -15,7 +15,7 @@ region = Rect2( 0, 0, 112, 112 )
 animations = [ {
 "frames": [ SubResource( 3 ), null, SubResource( 3 ), null, SubResource( 3 ), null ],
 "loop": false,
-"name": "damage flash",
+"name": "damage_flash",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 1 ) ],

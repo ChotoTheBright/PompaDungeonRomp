@@ -22,6 +22,10 @@ var sleep : bool = false
 
 var disoriented : bool = false
 
+var destabilized : bool = false
+
+var webbed : bool = false
+
 var motivated : bool = false
 
 var bodyblocked : bool = false
@@ -66,6 +70,7 @@ func damage(damage):
 	print(hp)
 
 	if hp <= 0:
+		yield(sprite, "animation_finished")
 		hide()
 		dead = true
 		emit_signal("death")

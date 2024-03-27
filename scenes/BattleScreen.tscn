@@ -5,7 +5,7 @@
 [ext_resource path="res://scripts/StatsText.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts-images/text_bubble.png" type="Texture" id=4]
 [ext_resource path="res://UI Theme.tres" type="Theme" id=5]
-[ext_resource path="res://scenes/combat/encounter_1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/combat/encounter_7.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fonts-images/items.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts-images/hud.png" type="Texture" id=8]
 [ext_resource path="res://assets/fonts-images/OpenDyslexicAlta-Bold.otf" type="DynamicFontData" id=9]
@@ -149,10 +149,13 @@ margin_top = -280.0
 margin_right = 124.0
 margin_bottom = -40.0
 
-[node name="encounter_1" parent="diorama_container" instance=ExtResource( 6 )]
+[node name="encounter_7" parent="diorama_container" instance=ExtResource( 6 )]
 
 [node name="battle_effects" type="AnimatedSprite" parent="diorama_container"]
+position = Vector2( 91, 123 )
 frames = SubResource( 405 )
+animation = "player_slash"
+frame = 4
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -331,8 +334,6 @@ margin_bottom = 14.0
 custom_fonts/font = SubResource( 388 )
 script = ExtResource( 3 )
 
-[connection signal="enemy_action_finished" from="." to="." method="activate_enemy_actions"]
-[connection signal="player_action_finished" from="." to="." method="activate_player_actions"]
 [connection signal="animation_finished" from="diorama_container/battle_effects" to="." method="_on_battle_effects_animation_finished" flags=3]
 [connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "melee_attack" ]]
 [connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]

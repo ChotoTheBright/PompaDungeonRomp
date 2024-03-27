@@ -50,6 +50,10 @@ var sleep : bool = false
 
 var disoriented : bool = false
 
+var destabilized : bool = false
+
+var webbed : bool = false
+
 var motivated : bool = false
 
 var bodyblocked : bool = false

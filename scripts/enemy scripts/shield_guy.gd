@@ -1,19 +1,27 @@
-extends AnimatedSprite
+extends TextureButton
 
 signal action
 signal bodyblock
 signal death
+signal update_log
+
 
 onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
 
+var party
 var hp = 35
 export var dmg = 5 
 var charging : bool = false
 
-
-
+var action : Dictionary = {
+	"damage" : 20,
+	"status" : "dizzy",
+	"target" : "player",
+	"animation" : "player_slash",
+	"description" : "Stars fill your vision."
+}
 
 
 ##statuses
@@ -28,6 +36,10 @@ var sleep : bool = false
 
 var disoriented : bool = false
 
+var destabilized : bool = false
+
+var webbed : bool = false
+
 var motivated : bool = false
 
 var bodyblocked : bool = false
@@ -35,7 +47,13 @@ var bodyblocked : bool = false
 var dead : bool = false
 
 
+
+
 func _ready():
+	
+	party = get_parent().get_children()
+	
+	connect("update_log", battle_scene, "update_log", ["The gargantuan knight readies his shield."])
 	connect("death", get_parent(), "on_enemy_death")
 	connect("action", battle_scene, "queue_enemy_action")
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
@@ -44,15 +62,22 @@ func _ready():
 
 func guard():
 
-	emit_signal("action", "bodyblock")
+	for i in party:
+		if i.dead == false:
+			i.set_status("bodyblocked")
 
 
 
 func attack():
+	
+	if charging == true:
 
-	battle_scene.pain(dmg)
-	emit_signal("action", "shield_slam")
-	charging = true
+		emit_signal("action", action)
+		charging = false
+
+	elif charging == false:
+		charging = true
+		emit_signal("update_log")
 
 	if not bodyblocked:
 		guard()

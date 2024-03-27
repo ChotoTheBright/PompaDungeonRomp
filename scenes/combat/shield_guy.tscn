@@ -14,14 +14,14 @@ region = Rect2( 0, 0, 112, 112 )
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ SubResource( 1 ), null, SubResource( 1 ), null, SubResource( 1 ), null ],
-"loop": true,
+"loop": false,
 "name": "damage_flash",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 2 ) ],
-"loop": true,
+"loop": false,
 "name": "idle",
-"speed": 5.0
+"speed": 1.0
 } ]
 
 [node name="shield_guy" type="TextureButton"]
