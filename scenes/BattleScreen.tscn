@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/fonts-images/Gamaliel.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/BattleScreen.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/combat/encounter_1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fonts-images/items.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts-images/hud.png" type="Texture" id=8]
+[ext_resource path="res://assets/fonts-images/OpenDyslexicAlta-Bold.otf" type="DynamicFontData" id=9]
 
 [sub_resource type="DynamicFont" id=386]
 size = 32
@@ -23,6 +24,10 @@ gradient = SubResource( 389 )
 [sub_resource type="DynamicFont" id=388]
 size = 28
 font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=400]
+size = 14
+font_data = ExtResource( 9 )
 
 [sub_resource type="StreamTexture" id=391]
 load_path = "res://.import/items.png-3f9a95b2ddab03b7d2a4b26146345c7c.stex"
@@ -182,6 +187,19 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="log_text" type="Label" parent="HUD/log"]
+margin_left = -53.0
+margin_top = 41.0
+margin_right = 101.0
+margin_bottom = 189.0
+custom_fonts/font = SubResource( 400 )
+text = "fasdasdasfawffwfa
+
+fwfawf"
+align = 1
+autowrap = true
+max_lines_visible = 10
 
 [node name="item_hud" type="Control" parent="HUD"]
 visible = false

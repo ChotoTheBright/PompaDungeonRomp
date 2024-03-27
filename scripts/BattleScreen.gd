@@ -7,11 +7,11 @@ onready var diorama_container = $diorama_container
 onready var hud = $HUD
 onready var action_hud = $HUD/main_hud
 onready var item_hud = $HUD/item_hud
+onready var combat_log = $HUD/log/log_text
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
 onready var player = get_tree().get_nodes_in_group("player")[0]
 
 
-var stored_action : String
 
 
 var queued_player_actions : Array = []
@@ -24,21 +24,22 @@ var player_actions : Dictionary = {
 	"target" : null,
 	"status" : null,
 	"animation" : "player_slash",
-	"description": "Jimbo lashes out"},
+	"description": "\n Jimbo lashes out"},
 	
 	"item_placeholder" : {
 	"damage" : 0,
 	"target" : null,
 	"status" : "sleep",
 	"animation" : "party",
-	"description" : "Jimbo parties"}
+	"description" : "\n Jimbo parties"}
 }
-
 
 
 var queued_enemy_actions : Array = []
 
 var enemies 
+
+var stored_action : String
 
 
 
@@ -120,7 +121,8 @@ func start_enemy_turn():
 		print("attack")
 		
 	
-	start_player_turn()
+	activate_enemy_actions()
+
 
 
 
@@ -131,13 +133,12 @@ func pain(_dam):
 	print("hurtin ya?")
 	
 
-func queue_enemy_action(action: String, target):
+func queue_enemy_action(action: Dictionary):
 
-	if target == "player":
-		target = player
 	queued_enemy_actions.append(action)
 	
-	activate_enemy_actions()
+	
+
 
 
 
@@ -151,9 +152,9 @@ func queue_player_action(target : NodePath):
 
 
 	var queued_action = player_actions[stored_action].duplicate()
-	print(queued_action)
+
 	queued_action["target"] = target
-	print(queued_action["target"])
+
 
 	queued_player_actions.append(queued_action)
 
@@ -188,6 +189,25 @@ func activate_enemy_actions():
 
 
 
+func enemy_attack(attack_dictionary: Dictionary):
+
+	if attack_dictionary.get("target") == "player":
+		PlayerStats.hurt(attack_dictionary.get("damage"))
+
+		if attack_dictionary.get("status") != null:
+			PlayerStats.set_status(attack_dictionary.get("status"))
+
+	else:
+
+		get_node(attack_dictionary.get("target")).set_status(attack_dictionary.get("status"))
+
+
+	#battle_effects.play(attack_dictionary.get("animation")
+
+	update_log(attack_dictionary.get("description"))
+
+
+
 
 
 
@@ -211,8 +231,42 @@ func activate_player_actions():
 
 
 
-func end_player_turn():
+func player_attack(attack_dictionary: Dictionary):
 
+
+	if get_node(attack_dictionary.get("target")).dead == true:
+
+		var new_target
+
+		for i in enemies.get_children():
+			
+			if i.dead == false:
+				
+				new_target = self.get_path_to(i)
+
+		attack_dictionary["target"] = new_target
+	
+	if attack_dictionary.get("damage") > 0:
+
+		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
+	
+	if attack_dictionary.get("status") != null:
+		var status = attack_dictionary.get("status")
+		attack_dictionary.get("target").status = true
+	
+	#battle_effects.play(attack_dictionary.get("animation")
+	
+	update_log(attack_dictionary.get("description"))
+
+
+
+
+
+
+
+func end_player_turn():
+	print(enemies.dead_dudes)
+	print(enemies.get_children().size())
 	if enemies.dead_dudes >= enemies.get_children().size():
 		end_combat()
 		enemies.queue_free()
@@ -245,30 +299,10 @@ func death():
 
 
 
-func player_attack(attack_dictionary: Dictionary):
-
-	print(attack_dictionary)
-	
-	if attack_dictionary.get("damage") > 0:
-
-		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
-	
-	if attack_dictionary.get("status") != null:
-		var status = attack_dictionary.get("status")
-		attack_dictionary.get("target").status = true
-	
-	#battle_effects.play(attack_dictionary.get("animation")
-	
-	$HUD/log.text += attack_dictionary.get("description")
 
 
 
 
+func update_log(combat_text):
 
-func enemy_attack(attack_dictionary: Dictionary):
-
-	pass
-
-
-
-
+	combat_log.text = combat_log.text + combat_text

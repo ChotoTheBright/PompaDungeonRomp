@@ -5,11 +5,23 @@ signal action
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
 
+export var dmg = 0
+
 var hp = 25
 
+var attack : Dictionary = {
+	"Spot" : {
+		
+		"damage" : dmg
+		"status" : 
+	}
+	
+}
+
 var action_rando : float
-export var dmg = 5 
+
 var charging : bool = false
+
 
 var target_list
 
@@ -82,6 +94,6 @@ func set_target():
 	
 	target = target_list.front()
 	
-	if target == self:
+	if target != self:
 
 		set_target()

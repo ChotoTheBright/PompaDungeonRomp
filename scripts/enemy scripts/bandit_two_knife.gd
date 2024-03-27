@@ -10,7 +10,13 @@ var hp = 10
 export var dmg = 5 
 var evasive : bool = true
 
-
+var attack : Dictionary = {
+	"damage" : 10,
+	"status" : null,
+	"target" : "player",
+	"animation" : "double_slash",
+	"description" : "Bandit stabs twice idk"
+}
 
 
 ##statuses

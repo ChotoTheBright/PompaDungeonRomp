@@ -44,3 +44,10 @@ func heal(amount: int):
 	emit_signal("healed")
 	emit_signal("health_changed", cur_health)
 
+func set_status(status: String):
+
+	var changed_status = self.get(status)
+	changed_status = true
+	
+	print(status)
+	print(changed_status)
