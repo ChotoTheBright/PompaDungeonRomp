@@ -3,6 +3,8 @@ extends TextureButton
 signal action
 signal death
 
+var hp = 5
+
 onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
@@ -26,16 +28,16 @@ var bodyblocked : bool = false
 
 var dead : bool = false
 
+
+
 export var dmg : float = 5 
 
 
 
-var hp = 5
-
-var attack : Dictionary = {"damage": dmg,
+var action: Dictionary = {"damage": dmg,
 "status" : "bleed",
 "target" : "player",
-"animation" : "single_slash",
+"animation" : "player_slash",
 "description" : "\n Bandits knife flashes out of the shadows."}
 
 
@@ -69,26 +71,25 @@ func damage(damage):
 		emit_signal("death")
 
 
-
-
 func attack():
 
+	var final_dict = action.duplicate()
 
-	var final_damage = dmg
 
 	if spotted:
-		final_damage = dmg * 2
+		final_dict["damage"] = dmg * 2
+
+	emit_signal("action", final_dict)
 
 
-	emit_signal("action", attack)
 
+func set_status(status : String):
 
+	var changed_status = get(status)
 
+	changed_status = true
 
 
 func on_animation_finished():
 	sprite.play("idle")
 
-
-func _on_bandit_one_knife_pressed():
-	print("click")

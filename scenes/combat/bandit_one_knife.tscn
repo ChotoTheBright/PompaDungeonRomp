@@ -54,5 +54,3 @@ script = ExtResource( 2 )
 position = Vector2( 44, 41 )
 frames = SubResource( 3 )
 animation = "idle"
-
-[connection signal="pressed" from="." to="." method="_on_bandit_one_knife_pressed"]

@@ -1,6 +1,8 @@
 extends TextureButton
 
 signal action
+signal death
+
 
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
@@ -9,12 +11,21 @@ export var dmg = 0
 
 var hp = 25
 
-var attack : Dictionary = {
-	"Spot" : {
-		
-		"damage" : dmg
-		"status" : 
-	}
+var action : Dictionary = {
+	"spot" : {
+	
+	"damage" : dmg,
+	"status" : "spotted",
+	"target" : null,
+	"animation" : "spot",
+	"description" : "Buff Bandit spots his ally"},
+	
+	"hype" : {
+	"damage" : dmg,
+	"status" : "hyped",
+	"target" : null,
+	"animation" : "hype",
+	"description" : "Buff Bandit hypes up his ally"}
 	
 }
 
@@ -29,6 +40,10 @@ var target
 
 ##statuses
 
+var spot : bool = false
+
+var hype : bool = false
+
 var dizzy : bool = false
 
 var sleep : bool = false
@@ -39,31 +54,54 @@ var motivated : bool = false
 
 var bodyblocked : bool = false
 
-
+var dead : bool = false
 
 
 func _ready():
 	
-	var target_list = get_parent().get_children()
-
+	target_list = get_parent().get_children()
+	connect("death", get_parent(), "on_enemy_death")
 	connect("action", battle_scene, "queue_enemy_action")
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
 
 
 func attack():
 
-#	battle_scene.pain(dmg) #no attacks ^^
-	set_target()
+	if charging:
 
-	action_rando = rand_range(0, 2)
+		var final_dict : Dictionary 
+		var status : String
 
-	if action_rando >= 1:
-		emit_signal("action", "spot", target)
+
+##chooses action
+		action_rando = rand_range(0, 2)
+		if action_rando >= 1:
+			status = "spot"
+		else:
+			status = "hype"
+
+		final_dict = action[status].duplicate()
+
+
+#sets target
+
+
+		target_list.shuffle()
+	
+		for i in target_list:
+			if i != self and i.dead == false:
+				
+				final_dict["target"] = battle_scene.get_path_to(i)
+				
+				emit_signal("action", final_dict)
+				break
+		charging = false
 
 	else:
-		emit_signal("action", "hype", target)
+		charging = true
+		battle_scene.update_log("\n Buff Bandit charges up")
 
-	charging = true
+
 
 
 
@@ -77,7 +115,9 @@ func damage(damage):
 	hp -= damage
 
 	if hp <= 0:
-		queue_free()
+		hide()
+		dead = true
+		emit_signal("death")
 
 
 
@@ -88,12 +128,8 @@ func on_animation_finished():
 
 
 
-func set_target():
-	
-	target_list.shuffle()
-	
-	target = target_list.front()
-	
-	if target != self:
+func set_status(status : String):
 
-		set_target()
+	var changed_status = get(status)
+
+	changed_status = true
