@@ -67,7 +67,6 @@ func _ready():
 
 
 func _on_action_button_pressed(action):
-
 	print("click")
 	stored_action = action
 	
