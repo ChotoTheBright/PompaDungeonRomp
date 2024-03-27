@@ -22,6 +22,7 @@ show_behind_parent = true
 light_mask = 4
 margin_right = 400.0
 margin_bottom = 225.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 400, 225 )

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts-images/PlayerArrow.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
@@ -52,3 +53,12 @@ collide_with_bodies = false
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
 shape = SubResource( 4 )
 disabled = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 4, 0 )
+layers = 2
+axis = 1
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "Z = 17"
+}

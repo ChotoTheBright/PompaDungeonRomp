@@ -251,16 +251,14 @@ func player_attack(attack_dictionary: Dictionary):
 		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
 	
 	if attack_dictionary.get("status") != null:
-<<<<<<< HEAD
-
 		attack_dictionary.get("target").set_status(attack_dictionary.get("status"))
-=======
+
 # warning-ignore:unused_variable
 		var status = attack_dictionary.get("status")
 		attack_dictionary.get("target").status = true
 	
 	#battle_effects.play(attack_dictionary.get("animation")
->>>>>>> 3065c1b60b3b46380873cfebcfbd5b39114c0b80
+
 	
 
 	update_log(attack_dictionary.get("description"))
