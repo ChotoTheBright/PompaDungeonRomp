@@ -20,7 +20,8 @@ func init():
 	cur_health = max_health
 	emit_signal("health_changed", cur_health)
 
-func hurt(damage: int): #, _dir: Vector3
+func hurt(damage: float): #, _dir: Vector3
+	print(damage)
 	if cur_health <= 0:
 		return
 	if defending:
@@ -35,7 +36,7 @@ func hurt(damage: int): #, _dir: Vector3
 		emit_signal("hurt")
 	emit_signal("health_changed", cur_health)
 	
-func heal(amount: int):
+func heal(amount: float):
 	if cur_health <= 0:
 		return
 	cur_health += amount

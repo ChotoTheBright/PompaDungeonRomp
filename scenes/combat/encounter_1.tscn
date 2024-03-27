@@ -20,26 +20,20 @@ margin_bottom = -660.0
 texture = SubResource( 2 )
 script = ExtResource( 2 )
 
-[node name="bill" parent="." instance=ExtResource( 1 )]
-margin_left = 62.0
-margin_top = 94.0
-margin_right = 162.0
-margin_bottom = 194.0
-
-[node name="bob" parent="." instance=ExtResource( 1 )]
-margin_left = 174.0
-margin_top = 99.0
-margin_right = 274.0
-margin_bottom = 199.0
-
 [node name="bandit_one_knife" parent="." instance=ExtResource( 1 )]
-margin_left = 150.0
-margin_top = 32.0
-margin_right = 250.0
-margin_bottom = 132.0
+margin_left = 168.0
+margin_top = 69.0
+margin_right = 268.0
+margin_bottom = 169.0
 
 [node name="bandit_one_knife2" parent="." instance=ExtResource( 1 )]
-margin_left = 27.0
-margin_top = 32.0
-margin_right = 127.0
-margin_bottom = 132.0
+margin_left = 45.0
+margin_top = 69.0
+margin_right = 145.0
+margin_bottom = 169.0
+
+[node name="bandit_one_knife3" parent="." instance=ExtResource( 1 )]
+margin_left = 98.0
+margin_top = 119.0
+margin_right = 198.0
+margin_bottom = 219.0
