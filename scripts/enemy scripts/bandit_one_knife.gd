@@ -2,37 +2,37 @@ extends TextureButton
 
 signal action
 signal death
+signal update_log
 
 var hp = 5
 
 onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
+onready var status_bar = $status_bar
 
 ##statuses
 
 
-var spotted : bool = false
+var spotted : int = 0
 
-var hype : bool = false
+var hype : int = 0
 
-var dizzy : bool = false
+var dizzy : int = 0
 
-var sleep : bool = false
+var sleep : int = 0
 
-var disoriented : bool = false
+var destabilized : int = 0
 
-var destabilized : bool = false
+var webbed : int = 0
 
-var webbed : bool = false
-
-var motivated : bool = false
-
-var bodyblocked : bool = false
+var bodyblocked : int = 0
 
 var dead : bool = false
 
+var charging : int = 0
 
+var evasive : int = 0
 
 export var dmg : float = 5 
 
@@ -47,6 +47,27 @@ var action: Dictionary = {"damage": dmg,
 
 
 
+var interactions : Dictionary = {
+	"disoriented" : {
+		"cancels" : null,
+		"description" : "\n It does nothing."},
+
+	"webbed" : {
+		"cancels" : null,
+		"description" : "\n The webs are not match for a knife."},
+	
+	"sleep" : {
+		"status" : sleep,},
+
+	"spotted": {
+		"status" : spotted},
+	
+	"hype" : {
+		"status" : hype},
+	
+	"dizzy" : {
+		"status" : dizzy}
+	}
 
 
 func _ready():
@@ -55,7 +76,7 @@ func _ready():
 	connect("action", battle_scene, "queue_enemy_action")
 # warning-ignore:return_value_discarded
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
-
+	connect("update_log", battle_scene, "update_log")
 
 
 func damage(damage):
@@ -64,10 +85,8 @@ func damage(damage):
 
 	if bodyblocked:
 		damage = damage * .5
-	
-	hp -= damage
 
-	print(hp)
+	hp -= damage
 
 	if hp <= 0:
 		yield(sprite, "animation_finished")
@@ -88,11 +107,46 @@ func attack():
 
 
 
-func set_status(status : String):
+func set_status(status : Dictionary):
 
-	var changed_status = get(status)
 
-	changed_status = true
+	if status.has("disoriented") or status.has("webbed"):
+		cancel_actions(status["status"])
+
+	if status["duration"] > 0:
+		
+		set(status["status"], status["duration"])
+
+#		print(get(status["status"]))
+	call_deferred("update_status_bar")
+
+
+
+func update_status_bar():
+
+	for i in status_bar.get_children():
+		var status = get(i.get_name())
+		print(i.get_name())
+		print(status)
+
+		if status > 0:
+			i.show()
+
+		elif status <= 0:
+			i.hide()
+
+
+
+func cancel_actions(status):
+
+	if interactions[status]["cancels"] != null:
+		print(interactions[status]["cancels"])
+		var canceled_action = interactions[status]["cancels"]
+		canceled_action = false
+
+	emit_signal("update_log", interactions[status]["description"])
+	
+
 
 
 func _on_animation_finished():

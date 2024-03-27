@@ -6,6 +6,8 @@ signal death
 
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
+onready var status_bar = $status_bar
+
 
 export var dmg = 0
 
@@ -32,7 +34,7 @@ var action : Dictionary = {
 
 var action_rando : float
 
-var charging : bool = false
+
 
 
 var target_list
@@ -41,25 +43,26 @@ var target
 
 ##statuses
 
-var spot : bool = false
+var spotted : int = 0
 
-var hype : bool = false
+var hype : int = 0
 
-var dizzy : bool = false
+var dizzy : int = 0
 
-var sleep : bool = false
+var sleep : int = 0
 
-var disoriented : bool = false
+var destabilized : int = 0
 
-var destabilized : bool = false
+var webbed : int = 0
 
-var webbed : bool = false
+var bodyblocked : int = 0
 
-var motivated : bool = false
+var charging : int = 0
 
-var bodyblocked : bool = false
+var evasive : int = 0
 
 var dead : bool = false
+
 
 
 func _ready():
@@ -72,7 +75,7 @@ func _ready():
 
 func attack():
 
-	if charging:
+	if charging == 1:
 
 		var final_dict : Dictionary 
 		var status : String
@@ -100,10 +103,10 @@ func attack():
 				
 				emit_signal("action", final_dict)
 				break
-		charging = false
+		charging = 0
 
 	else:
-		charging = true
+		charging = 1
 		battle_scene.update_log("\n Buff Bandit charges up")
 
 

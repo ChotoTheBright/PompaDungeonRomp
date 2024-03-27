@@ -5,7 +5,7 @@
 [ext_resource path="res://scripts/StatsText.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts-images/text_bubble.png" type="Texture" id=4]
 [ext_resource path="res://UI Theme.tres" type="Theme" id=5]
-[ext_resource path="res://scenes/combat/encounter_7.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/combat/encounter_1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fonts-images/items.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts-images/hud.png" type="Texture" id=8]
 [ext_resource path="res://assets/fonts-images/slash.png" type="Texture" id=10]
@@ -126,9 +126,9 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = -204.0
+margin_left = -198.0
 margin_top = -52.0
-margin_right = 1676.0
+margin_right = 1682.0
 margin_bottom = 660.0
 texture = SubResource( 390 )
 expand = true
@@ -144,7 +144,9 @@ margin_top = -280.0
 margin_right = 124.0
 margin_bottom = -40.0
 
-[node name="encounter_7" parent="diorama_container" instance=ExtResource( 6 )]
+[node name="encounter_1" parent="diorama_container" instance=ExtResource( 6 )]
+margin_right = 0.0
+margin_bottom = 0.0
 
 [node name="battle_effects" type="AnimatedSprite" parent="diorama_container"]
 position = Vector2( 91, 123 )
@@ -247,10 +249,10 @@ margin_bottom = 40.0
 theme = ExtResource( 5 )
 
 [node name="items" type="GridContainer" parent="HUD/item_hud"]
-margin_left = 267.0
-margin_top = 719.0
-margin_right = 363.0
-margin_bottom = 763.0
+margin_left = 347.0
+margin_top = 709.0
+margin_right = 443.0
+margin_bottom = 753.0
 rect_scale = Vector2( 3, 3 )
 columns = 5
 
@@ -296,23 +298,11 @@ margin_right = 36.0
 margin_bottom = 36.0
 texture_normal = SubResource( 398 )
 
-[node name="back" type="Button" parent="HUD/item_hud"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = 667.0
-margin_top = 753.0
-margin_right = 842.0
-margin_bottom = 828.0
-rect_min_size = Vector2( 175, 75 )
-text = "Back"
-
 [node name="RichTextLabel" type="Label" parent="HUD/item_hud"]
-margin_left = 934.0
-margin_top = 685.0
-margin_right = 1376.0
-margin_bottom = 874.0
+margin_left = 862.0
+margin_top = 687.0
+margin_right = 1304.0
+margin_bottom = 876.0
 theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 399 )
 text = "Deals a small amount of damage without consuming an action.
@@ -324,6 +314,19 @@ align = 1
 valign = 1
 autowrap = true
 clip_text = true
+
+[node name="back" type="Button" parent="HUD"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -113.0
+margin_top = -107.0
+margin_right = 62.0
+margin_bottom = -32.0
+rect_min_size = Vector2( 175, 75 )
+text = "Back"
 
 [node name="STATSLABEL" type="Label" parent="HUD" groups=["STATLABEL"]]
 anchor_left = 0.45
@@ -339,3 +342,10 @@ script = ExtResource( 3 )
 [connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "melee_attack" ]]
 [connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]
 [connection signal="pressed" from="HUD/main_hud/Button3" to="." method="_on_action_button_pressed" binds= [ "defend" ]]
+[connection signal="pressed" from="HUD/item_hud/items/throwing_knife" to="." method="_on_action_button_pressed" binds= [ "throwing_knife" ]]
+[connection signal="pressed" from="HUD/item_hud/items/sleep_gas" to="." method="_on_action_button_pressed" binds= [ "sleep_gas" ]]
+[connection signal="pressed" from="HUD/item_hud/items/fuzzy_dust" to="." method="_on_action_button_pressed" binds= [ "fuzzy_dust" ]]
+[connection signal="pressed" from="HUD/item_hud/items/web_ball" to="." method="_on_action_button_pressed" binds= [ "web_ball" ]]
+[connection signal="pressed" from="HUD/item_hud/items/sphere" to="." method="_on_action_button_pressed" binds= [ "sphere" ]]
+[connection signal="pressed" from="HUD/item_hud/items/bandage" to="." method="_on_action_button_pressed" binds= [ "bandage" ]]
+[connection signal="pressed" from="HUD/back" to="." method="_on_back_pressed"]

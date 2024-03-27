@@ -7,8 +7,10 @@ signal update_log
 onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
+onready var status_bar = $status_bar
 
-var hp = 10
+
+var hp = 20
 export var dmg = 5 
 
 
@@ -26,25 +28,24 @@ var action : Dictionary = {
 
 var evasive : bool = true
 
-var spotted : bool = false
+var spotted : int = 0
 
-var hype : bool = false
+var hype : int = 0
 
-var dizzy : bool = false
+var dizzy : int = 0
 
-var sleep : bool = false
+var sleep : int = 0
 
-var disoriented : bool = false
+var destabilized : int = 0
 
-var destabilized : bool = false
+var webbed : int = 0
 
-var webbed : bool = false
+var bodyblocked : int = 0
 
-var motivated : bool = false
-
-var bodyblocked : bool = false
+var charging : int = 0
 
 var dead : bool = false
+
 
 
 func _ready():

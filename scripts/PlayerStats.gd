@@ -21,7 +21,7 @@ func init():
 	emit_signal("health_changed", cur_health)
 
 func hurt(damage: float): #, _dir: Vector3
-	print(damage)
+
 	if cur_health <= 0:
 		return
 	if defending:
@@ -47,8 +47,6 @@ func heal(amount: float):
 
 func set_status(status: String):
 
-	var changed_status = self.get(status)
-	changed_status = true
-	
+	self.set(status, true)
+
 	print(status)
-	print(changed_status)

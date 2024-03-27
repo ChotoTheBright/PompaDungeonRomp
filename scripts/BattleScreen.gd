@@ -8,7 +8,7 @@ onready var action_hud = $HUD/main_hud
 onready var item_hud = $HUD/item_hud
 onready var combat_log = $HUD/log/log_text
 onready var battle_effects = $diorama_container/battle_effects
-
+onready var back_button = $HUD/back
 
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
 onready var player = get_tree().get_nodes_in_group("player")[0]
@@ -24,18 +24,18 @@ var stored_dict : Dictionary
 var player_actions : Dictionary = {
 	"melee_attack": 
 		{
-	"damage": 10,
-	"target" : null,
-	"status" : null,
-	"animation" : "player_slash",
-	"description": "\n Jimbo lashes out."},
+		"damage": 10,
+		"target" : null,
+		"status" : null,
+		"animation" : "player_slash",
+		"description": "\n Jimbo lashes out."},
 	
 	"throwing_knife" : {
-	"damage" : 5,
-	"target" : null,
-	"status" : null,
-	"animation" : "player_slash",
-	"description" : "\n A blur seeks bone."},
+		"damage" : 5,
+		"target" : null,
+		"status" : null,
+		"animation" : "player_slash",
+		"description" : "\n A blur seeks bone."},
 
 	"web_ball" : {
 		"damage" : 0,
@@ -51,7 +51,7 @@ var player_actions : Dictionary = {
 		"animation" : "player_slash",
 		"description" : "\n The bomb explodes into a relaxing mist."},
 	
-	"impossibly_dense_sphere" : {
+	"sphere" : {
 		"damage" : 0,
 		"target" : null,
 		"status" : "destabilized",
@@ -77,6 +77,23 @@ var player_actions : Dictionary = {
 	
 }
 
+var statuses : Dictionary = {
+	"sleep" : {
+		"status" : "sleep",
+		"duration": 4,},
+	
+	"dizzy" : {
+		"status" : "dizzy",
+		"duration" : 2,},
+
+	"webbed" : {
+		"status" : "webbed",
+		"duration" :0,},
+	
+	"destabilized" : {
+		"status" : "destabilized",
+		"duration" : 0,}
+}
 
 
 
@@ -112,12 +129,13 @@ func _ready():
 
 
 func _on_action_button_pressed(action):
-	print("click")
+
 	stored_action = action
 	
-	action_hud.visible = false
-	item_hud.visible = false
-	
+	action_hud.hide()
+	item_hud.hide()
+	back_button.show()
+
 	for i in enemies.get_children():
 		if i.dead == false:
 			i.mouse_filter = 0
@@ -125,12 +143,27 @@ func _on_action_button_pressed(action):
 
 
 
+
+
 func _on_item_pressed():
 
-	action_hud.visible = false
-	item_hud.visible = true
+	action_hud.hide()
+	item_hud.show()
+	back_button.show()
 
 
+
+
+
+
+func _on_back_pressed():
+
+	action_hud.show()
+	item_hud.hide()
+	back_button.hide()
+
+	for i in enemies.get_children():
+		i.mouse_filter = 2
 
 
 
@@ -144,8 +177,9 @@ func start_combat():
 
 	start_player_turn()
 
-
-
+#-------------
+##turn order
+#-------------
 
 func start_player_turn():
 
@@ -163,7 +197,7 @@ func start_enemy_turn():
 	for i in enemies.get_children():
 		if i.dead == false:
 			i.attack()
-			print("attack")
+
 		
 	
 	activate_enemy_actions()
@@ -172,20 +206,13 @@ func start_enemy_turn():
 
 
 
-func pain(_dam):
-	PlayerStats.hurt(_dam)
-	_STAT.update_health(_dam)#update_display()
-	print("hurtin ya?")
-	
+
+
+
 
 func queue_enemy_action(action: Dictionary):
 
 	queued_enemy_actions.append(action)
-	
-	
-
-
-
 
 
 
@@ -201,6 +228,8 @@ func activate_enemy_actions():
 		start_player_turn()
 
 
+
+
 func enemy_attack(attack_dict: Dictionary):
 
 	stored_dict = attack_dict
@@ -214,7 +243,6 @@ func enemy_attack(attack_dict: Dictionary):
 			PlayerStats.set_status(stored_dict.get("status"))
 
 	else:
-
 		get_node(stored_dict.get("target")).set_status(stored_dict.get("status"))
 
 
@@ -226,6 +254,8 @@ func enemy_attack(attack_dict: Dictionary):
 
 
 func queue_player_action(target : NodePath):
+	
+	back_button.hide()
 	
 	for i in enemies.get_children():
 		i.mouse_filter = 2
@@ -248,7 +278,6 @@ func queue_player_action(target : NodePath):
 
 
 
-	print(action_points)
 
 
 
@@ -257,10 +286,10 @@ func queue_player_action(target : NodePath):
 func activate_player_actions():
 	
 
-	action_hud.visible = false
-	item_hud.visible = false
-	
-	
+	action_hud.hide()
+	item_hud.hide()
+	back_button.hide()
+
 	call("player_attack", queued_player_actions.pop_front())
 
 
@@ -282,6 +311,7 @@ func player_attack(attack_dictionary: Dictionary):
 				
 				new_target = self.get_path_to(i)
 				break
+
 		attack_dictionary["target"] = new_target
 
 
@@ -295,67 +325,18 @@ func player_attack(attack_dictionary: Dictionary):
 		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
 	
 	if attack_dictionary.get("status") != null:
-		attack_dictionary.get("target").set_status(attack_dictionary.get("status"))
+		get_node(attack_dictionary.get("target")).set_status(statuses.get(attack_dictionary["status"]))
 
-
-# warning-ignore:unused_variable
-		var status = attack_dictionary.get("status")
-		attack_dictionary.get("target").status = true
-	
-	#battle_effects.play(attack_dictionary.get("animation")
-
-
-	
+	battle_effects.play(attack_dictionary.get("animation"))
 
 	update_log(attack_dictionary.get("description"))
 
 
 
-
-
-
-
-
-
-
-
-
-
-func end_combat():
-
-	clear_log()
-	enemies.queue_free()
-
-	action_hud.visible = false
-	item_hud.visible = false
-	visible = false
-	player.inbattle = false
-
-
-
-
-##player actions
-
-func death():
-	print("penis wenis pro shenis")
-	pass
-
-
-
-func update_log(combat_text):
-
-	combat_log.text = combat_log.text + combat_text
-
-func clear_log():
-	
-	combat_log.text = ""
-
 func _on_battle_effects_animation_finished():
 
 	battle_effects.play("default")
 	battle_effects.playing = false
-
-	print(enemies.dead_dudes)
 
 	if player_turn == true:
 		if enemies.get_children().size() == enemies.dead_dudes:
@@ -374,4 +355,41 @@ func _on_battle_effects_animation_finished():
 
 		else:
 			start_player_turn()
+
+
+
+func end_combat():
+
+	clear_log()
+	enemies.queue_free()
+
+	action_hud.visible = false
+	item_hud.visible = false
+	visible = false
+	player.inbattle = false
+
+
+
+
+
+func death():
+	print("penis wenis pro shenis")
+	pass
+
+
+
+func pain(_dam):
+	PlayerStats.hurt(_dam)
+	_STAT.update_health(_dam)#update_display()
+
+
+func update_log(combat_text):
+
+	combat_log.text = combat_log.text + combat_text
+
+func clear_log():
+	
+	combat_log.text = ""
+
+
 
