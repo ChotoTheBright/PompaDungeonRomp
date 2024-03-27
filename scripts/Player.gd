@@ -3,6 +3,7 @@ extends KinematicBody
 enum STATES {SPLORE,BATTLE,DEAD,MENU}
 signal battle_signal
 
+onready var control = get_tree().get_nodes_in_group("control")[0]
 onready var GridUp = Vector3(0,0,-2) #FORWARD #*see bottom for ref.
 onready var GridDown = Vector3(0,0,2) #BACK
 onready var GridLeft = Vector3(-2,0,0) #LEFT
@@ -31,7 +32,13 @@ func _ready():
 	next_pos = GridUp
 	destination = translation
 
+func _input(_event):
+	if !inbattle:
+		if Input.is_action_just_pressed("map"):
+			control.check_map()
+
 func _physics_process(delta):
+#	print(inbattle)
 	battle_signal()
 	translation = translation.move_toward(destination,speed * delta)
 	self.rotation.y = lerp_angle(self.rotation.y, atan2(-next_pos.x, -next_pos.z), delta * angle_speed)

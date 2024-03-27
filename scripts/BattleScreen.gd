@@ -110,7 +110,6 @@ func _ready():
 
 
 func _on_action_button_pressed(action):
-
 	print("click")
 	stored_action = action
 	
@@ -291,6 +290,16 @@ func player_attack(attack_dictionary: Dictionary):
 	
 	if attack_dictionary.get("status") != null:
 		attack_dictionary.get("target").set_status(attack_dictionary.get("status"))
+<<<<<<< HEAD
+=======
+
+# warning-ignore:unused_variable
+		var status = attack_dictionary.get("status")
+		attack_dictionary.get("target").status = true
+	
+	#battle_effects.play(attack_dictionary.get("animation")
+
+>>>>>>> 3d8d22ce926b63b4a79a1eb31a1f830c4600ea78
 	
 
 	update_log(attack_dictionary.get("description"))
