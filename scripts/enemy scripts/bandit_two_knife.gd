@@ -17,7 +17,8 @@ var action : Dictionary = {
 	"status" : null,
 	"target" : "player",
 	"animation" : "player_slash",
-	"description" : "Bandit stabs twice idk"
+	"description1" : "\n Bandit stabs twice idk",
+	"description2" : "\n Stuff"
 }
 
 
@@ -86,6 +87,8 @@ func damage(damage):
 		emit_signal("update_log")
 
 
-func on_animation_finished():
+func _on_animation_finished():
 
 	sprite.play("idle")
+	sprite.stop()
+

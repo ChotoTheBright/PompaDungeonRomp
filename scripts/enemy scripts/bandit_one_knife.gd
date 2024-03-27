@@ -39,11 +39,11 @@ export var dmg : float = 5
 
 
 var action: Dictionary = {"damage": dmg,
-"status" : "bleed",
+"status" : null ,
 "target" : "player",
 "animation" : "player_slash",
-"description" : "\n Bandits knife flashes out of the shadows."}
-
+"description1" : "\n A knife flashes out of the shadows.",
+"description2" : "\n Your armor absorbs most of the force"}
 
 
 
@@ -95,6 +95,6 @@ func set_status(status : String):
 	changed_status = true
 
 
-func on_animation_finished():
+func _on_animation_finished():
 	sprite.play("idle")
-
+	sprite.stop()

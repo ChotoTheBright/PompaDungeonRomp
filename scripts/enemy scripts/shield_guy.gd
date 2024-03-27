@@ -20,7 +20,8 @@ var action : Dictionary = {
 	"status" : "dizzy",
 	"target" : "player",
 	"animation" : "player_slash",
-	"description" : "Stars fill your vision."
+	"description1" : "\n The shield jerks out towards your face.", 
+	"description2" : "\n Stars fill your vision."
 }
 
 
@@ -53,7 +54,7 @@ func _ready():
 	
 	party = get_parent().get_children()
 	
-	connect("update_log", battle_scene, "update_log", ["The gargantuan knight readies his shield."])
+	connect("update_log", battle_scene, "update_log", ["\n The gargantuan knight readies his shield."])
 	connect("death", get_parent(), "on_enemy_death")
 	connect("action", battle_scene, "queue_enemy_action")
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
@@ -94,20 +95,24 @@ func damage(damage):
 		damage = damage * .25
 
 	hp -= damage
+	print(hp)
 
 	if hp <= 0:
+		print("dead")
 		hide()
 		dead = true
 		emit_signal("death")
 
 
 
-func on_animation_finished():
-
-	sprite.play("idle")
-
 func set_status(status : String):
 
 	var changed_status = get(status)
-
 	changed_status = true
+
+
+func _on_animation_finished():
+
+	sprite.play("idle")
+	sprite.playing = false
+

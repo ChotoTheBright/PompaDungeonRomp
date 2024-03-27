@@ -18,7 +18,7 @@ animations = [ {
 "name": "damage_flash",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 2 ), SubResource( 2 ), SubResource( 2 ) ],
 "loop": false,
 "name": "idle",
 "speed": 1.0
@@ -34,3 +34,5 @@ script = ExtResource( 2 )
 position = Vector2( 65, 52 )
 frames = SubResource( 3 )
 animation = "idle"
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_animation_finished"]

@@ -19,6 +19,8 @@ var player_turn : bool = true
 var queued_player_actions : Array = []
 var action_points : int = 2
 
+var stored_dict : Dictionary
+
 var player_actions : Dictionary = {
 	"melee_attack": 
 		{
@@ -66,12 +68,12 @@ var player_actions : Dictionary = {
 	"bandage" : {
 		"heal" : 20,
 		"animation" : "player_slash",
-		"description" : "It would stop the bleeding, had you time to."},
+		"description" : "\n It would stop the bleeding, had you time to."},
 	
 	"potion" : {
 		"heal" : 80,
 		"animation" : "player_slash",
-		"description" : "Strangely savory."},
+		"description" : "\n Strangely savory."},
 	
 }
 
@@ -199,22 +201,26 @@ func activate_enemy_actions():
 		start_player_turn()
 
 
-func enemy_attack(attack_dictionary: Dictionary):
+func enemy_attack(attack_dict: Dictionary):
 
-	if attack_dictionary.get("target") is String:
-		pain(attack_dictionary.get("damage"))
+	stored_dict = attack_dict
 
-		if attack_dictionary.get("status") != null:
-			PlayerStats.set_status(attack_dictionary.get("status"))
+	update_log(stored_dict.get("description1"))
+	
+	if stored_dict.get("target") is String:
+		pain(stored_dict.get("damage"))
+
+		if stored_dict.get("status") != null:
+			PlayerStats.set_status(stored_dict.get("status"))
 
 	else:
 
-		get_node(attack_dictionary.get("target")).set_status(attack_dictionary.get("status"))
+		get_node(stored_dict.get("target")).set_status(stored_dict.get("status"))
 
 
-	battle_effects.play(attack_dictionary.get("animation"))
+	battle_effects.play(stored_dict.get("animation"))
 
-	update_log(attack_dictionary.get("description"))
+
 
 
 
@@ -290,8 +296,7 @@ func player_attack(attack_dictionary: Dictionary):
 	
 	if attack_dictionary.get("status") != null:
 		attack_dictionary.get("target").set_status(attack_dictionary.get("status"))
-<<<<<<< HEAD
-=======
+
 
 # warning-ignore:unused_variable
 		var status = attack_dictionary.get("status")
@@ -299,7 +304,7 @@ func player_attack(attack_dictionary: Dictionary):
 	
 	#battle_effects.play(attack_dictionary.get("animation")
 
->>>>>>> 3d8d22ce926b63b4a79a1eb31a1f830c4600ea78
+
 	
 
 	update_log(attack_dictionary.get("description"))
@@ -318,6 +323,7 @@ func player_attack(attack_dictionary: Dictionary):
 
 func end_combat():
 
+	clear_log()
 	enemies.queue_free()
 
 	action_hud.visible = false
@@ -340,8 +346,9 @@ func update_log(combat_text):
 
 	combat_log.text = combat_log.text + combat_text
 
-
-
+func clear_log():
+	
+	combat_log.text = ""
 
 func _on_battle_effects_animation_finished():
 
@@ -361,6 +368,7 @@ func _on_battle_effects_animation_finished():
 			start_enemy_turn()
 
 	elif player_turn == false:
+		update_log(stored_dict.get("description2"))
 		if queued_enemy_actions.size() != 0:
 			activate_enemy_actions()
 

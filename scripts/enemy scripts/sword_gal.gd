@@ -17,7 +17,8 @@ var action : Dictionary = {
 	"status" : null,
 	"target" : "player",
 	"animation" : "player_slash",
-	"description" : "The knights passion rallies her allies."
+	"description1" : "\n She seems to care a lot.",
+	"description2" : "\n The knights passion rallies her allies."
 }
 ##statuses
 
@@ -65,7 +66,11 @@ func damage(damage):
 	if bodyblocked:
 		damage = damage * .5
 
+	print(hp)
+	
+
 	if hp <= 0:
+		print("dead")
 		hide()
 		dead = true
 		emit_signal("death")
@@ -82,3 +87,8 @@ func set_status(status : String):
 	var changed_status = get(status)
 
 	changed_status = true
+
+func _on_animation_finished():
+
+	sprite.play("idle")
+	sprite.playing = false

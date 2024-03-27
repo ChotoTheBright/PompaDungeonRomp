@@ -18,16 +18,17 @@ var action : Dictionary = {
 	"status" : "spotted",
 	"target" : null,
 	"animation" : "spot",
-	"description" : "Buff Bandit spots his ally"},
-	
+	"description1" : "\n Buff Bandit spots his ally",
+	"description2" : "\n Their muscles get huge. "},
 	"hype" : {
 	"damage" : dmg,
 	"status" : "hyped",
 	"target" : null,
 	"animation" : "hype",
-	"description" : "Buff Bandit hypes up his ally"}
-	
-}
+	"description1" : "\n Buff Bandit hypes up his ally",
+	"description2" : " \n They're real ready to scrap now."}
+	}
+
 
 var action_rando : float
 
@@ -126,14 +127,17 @@ func damage(damage):
 
 
 
-func on_animation_finished():
-
-	sprite.play("idle")
 
 
 
 func set_status(status : String):
 
 	var changed_status = get(status)
-
 	changed_status = true
+
+
+
+func _on_animation_finished():
+
+	sprite.play("idle")
+	sprite.stop()

@@ -35,3 +35,5 @@ script = ExtResource( 2 )
 position = Vector2( 38, 49 )
 frames = SubResource( 3 )
 animation = "idle"
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_animation_finished"]
