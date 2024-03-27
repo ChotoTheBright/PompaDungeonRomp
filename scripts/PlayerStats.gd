@@ -24,6 +24,7 @@ func hurt(damage: int): #, _dir: Vector3
 	if cur_health <= 0:
 		return
 	if defending:
+# warning-ignore:narrowing_conversion
 		damage = damage * .5
 	cur_health -= damage
 	if cur_health <= gib_at:

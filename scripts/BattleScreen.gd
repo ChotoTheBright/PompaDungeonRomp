@@ -251,6 +251,7 @@ func player_attack(attack_dictionary: Dictionary):
 		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
 	
 	if attack_dictionary.get("status") != null:
+# warning-ignore:unused_variable
 		var status = attack_dictionary.get("status")
 		attack_dictionary.get("target").status = true
 	
