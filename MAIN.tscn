@@ -81,66 +81,6 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpatialMaterial" id=746]
-
-[sub_resource type="ArrayMesh" id=747]
-surfaces/0 = {
-"aabb": AABB( -51, -0.25, -29, 102, 0.50001, 58 ),
-"array_data": PoolByteArray( 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 193, 127, 127, 127, 193, 92, 203, 102, 190, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 193, 127, 127, 127, 193, 92, 203, 194, 189, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 193, 127, 127, 127, 193, 122, 76, 194, 189, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 193, 127, 127, 127, 193, 122, 76, 102, 190, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 193, 129, 0, 0, 63, 122, 204, 102, 190, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 65, 129, 0, 0, 63, 30, 57, 102, 190, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 65, 129, 0, 0, 63, 30, 57, 194, 189, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 193, 129, 0, 0, 63, 122, 204, 194, 189, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 193, 0, 129, 0, 193, 122, 204, 122, 204, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 193, 0, 129, 0, 193, 122, 204, 92, 75, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 65, 0, 129, 0, 193, 30, 57, 92, 75, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 65, 0, 129, 0, 193, 30, 57, 122, 204, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 193, 0, 127, 0, 63, 122, 204, 122, 204, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 65, 0, 127, 0, 63, 30, 57, 122, 204, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 65, 0, 127, 0, 63, 30, 57, 92, 75, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 193, 0, 127, 0, 63, 122, 204, 92, 75, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 193, 127, 0, 0, 193, 122, 204, 102, 190, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 193, 127, 0, 0, 193, 122, 204, 194, 189, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 65, 127, 0, 0, 193, 30, 57, 194, 189, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 65, 127, 0, 0, 193, 30, 57, 102, 190, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 65, 0, 0, 127, 63, 92, 203, 102, 190, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 65, 0, 0, 127, 63, 122, 76, 102, 190, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 65, 0, 0, 127, 63, 122, 76, 194, 189, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 65, 0, 0, 127, 63, 92, 203, 194, 189 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 4, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 8, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 12, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 16, 0, 18, 0, 19, 0, 20, 0, 21, 0, 22, 0, 20, 0, 22, 0, 23, 0 ),
-"blend_shape_data": [  ],
-"format": 2194711,
-"index_count": 36,
-"material": SubResource( 746 ),
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 24
-}
-
-[sub_resource type="Shader" id=307]
-code = "// Quake-style Sky
-// December 26, 2021
-// By Tim McCabe for Blue Key Games
-// @RhapsodyInGeek, @BlueKeyGames
-shader_type spatial;
-render_mode unshaded;
-render_mode depth_draw_always;
-// Takes a texture, cuts it in half and maps it to a sphere infinitely far away
-// Left half of the texture is the back / base, right half is the front, usually with transparency
-// We can specify different scroll speeds to give a parallax effect
-
-uniform sampler2D alb: hint_black_albedo; // Make sure the texture is a multiple of 2x1; Quake used 256x128
-uniform vec2 scroll_speed_b = vec2(0.01);
-uniform vec2 scroll_speed_f = vec2(0.02); //0.05
-uniform float sky_height = 3.0; // 4  //Sky height is a little misleading; higher numbers flatten the sky more
-uniform float sky_scale = 2.0; // 3 // Texture scale; higher numbers = more repeats
-
-void fragment(){
-	// Initial sphere map
-	vec3 n = VERTEX * mat3(INV_CAMERA_MATRIX[0].xyz, INV_CAMERA_MATRIX[1].xyz, INV_CAMERA_MATRIX[2].xyz);
-	n.y *= sky_height;
-	n = normalize(n) * sky_scale;
-	// Back albedo
-	vec2 s = scroll_speed_b * TIME;
-	vec2 u = vec2(n.x + 0.5 + s.x, n.z + s.y);
-	vec4 alb_b = texture(alb, vec2(mod(u.x, 0.5), u.y));
-	// Front albedo
-	s = scroll_speed_f * TIME;
-	u = vec2(n.x + 0.5 + s.x, n.z + s.y);
-	vec4 alb_f = texture(alb, vec2(mod(u.x, 0.5) + 0.5,u.y));
-	// Mixed albedo
-	vec3 frag = mix(alb_b.rgb, alb_f.rgb, 1.0*alb_f.a);
-	ALBEDO = frag.rgb;
-}"
-
-[sub_resource type="ShaderMaterial" id=308]
-shader = SubResource( 307 )
-shader_param/scroll_speed_b = Vector2( 0.01, 0.01 )
-shader_param/scroll_speed_f = Vector2( 0.02, 0.02 )
-shader_param/sky_height = 3.0
-shader_param/sky_scale = 2.0
-shader_param/alb = ExtResource( 4 )
-
 [sub_resource type="SpatialMaterial" id=387]
 albedo_texture = ExtResource( 7 )
 metallic_specular = 0.0
@@ -1412,6 +1352,66 @@ points = PoolVector3Array( -1.5, 1.1875, -0.125, -1.5, -0.0625, -0.125, 1.5, -0.
 [sub_resource type="ConvexPolygonShape" id=383]
 points = PoolVector3Array( -0.25, -0.0625, -0.125, -0.25, -1.0625, -0.125, 0.25, -1.0625, -0.125, 0.25, -0.0625, -0.125, -0.25, -0.0625, 0.125, -0.25, -1.0625, 0.125, 0.25, -1.0625, 0.125, 0.25, -0.0625, 0.125 )
 
+[sub_resource type="SpatialMaterial" id=746]
+
+[sub_resource type="ArrayMesh" id=747]
+surfaces/0 = {
+"aabb": AABB( -51, -0.25, -29, 102, 0.50001, 58 ),
+"array_data": PoolByteArray( 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 193, 127, 127, 127, 193, 92, 203, 102, 190, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 193, 127, 127, 127, 193, 92, 203, 194, 189, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 193, 127, 127, 127, 193, 122, 76, 194, 189, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 193, 127, 127, 127, 193, 122, 76, 102, 190, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 193, 129, 0, 0, 63, 122, 204, 102, 190, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 65, 129, 0, 0, 63, 30, 57, 102, 190, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 65, 129, 0, 0, 63, 30, 57, 194, 189, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 193, 129, 0, 0, 63, 122, 204, 194, 189, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 193, 0, 129, 0, 193, 122, 204, 122, 204, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 193, 0, 129, 0, 193, 122, 204, 92, 75, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 65, 0, 129, 0, 193, 30, 57, 92, 75, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 65, 0, 129, 0, 193, 30, 57, 122, 204, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 193, 0, 127, 0, 63, 122, 204, 122, 204, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 65, 0, 127, 0, 63, 30, 57, 122, 204, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 65, 0, 127, 0, 63, 30, 57, 92, 75, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 193, 0, 127, 0, 63, 122, 204, 92, 75, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 193, 127, 0, 0, 193, 122, 204, 102, 190, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 193, 127, 0, 0, 193, 122, 204, 194, 189, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 65, 127, 0, 0, 193, 30, 57, 194, 189, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 65, 127, 0, 0, 193, 30, 57, 102, 190, 0, 0, 76, 194, 0, 0, 128, 62, 0, 0, 232, 65, 0, 0, 127, 63, 92, 203, 102, 190, 0, 0, 76, 66, 0, 0, 128, 62, 0, 0, 232, 65, 0, 0, 127, 63, 122, 76, 102, 190, 0, 0, 76, 66, 0, 0, 128, 190, 0, 0, 232, 65, 0, 0, 127, 63, 122, 76, 194, 189, 0, 0, 76, 194, 0, 0, 128, 190, 0, 0, 232, 65, 0, 0, 127, 63, 92, 203, 194, 189 ),
+"array_index_data": PoolByteArray( 0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 4, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 8, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 12, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 16, 0, 18, 0, 19, 0, 20, 0, 21, 0, 22, 0, 20, 0, 22, 0, 23, 0 ),
+"blend_shape_data": [  ],
+"format": 2194711,
+"index_count": 36,
+"material": SubResource( 746 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 24
+}
+
+[sub_resource type="Shader" id=307]
+code = "// Quake-style Sky
+// December 26, 2021
+// By Tim McCabe for Blue Key Games
+// @RhapsodyInGeek, @BlueKeyGames
+shader_type spatial;
+render_mode unshaded;
+render_mode depth_draw_always;
+// Takes a texture, cuts it in half and maps it to a sphere infinitely far away
+// Left half of the texture is the back / base, right half is the front, usually with transparency
+// We can specify different scroll speeds to give a parallax effect
+
+uniform sampler2D alb: hint_black_albedo; // Make sure the texture is a multiple of 2x1; Quake used 256x128
+uniform vec2 scroll_speed_b = vec2(0.01);
+uniform vec2 scroll_speed_f = vec2(0.02); //0.05
+uniform float sky_height = 3.0; // 4  //Sky height is a little misleading; higher numbers flatten the sky more
+uniform float sky_scale = 2.0; // 3 // Texture scale; higher numbers = more repeats
+
+void fragment(){
+	// Initial sphere map
+	vec3 n = VERTEX * mat3(INV_CAMERA_MATRIX[0].xyz, INV_CAMERA_MATRIX[1].xyz, INV_CAMERA_MATRIX[2].xyz);
+	n.y *= sky_height;
+	n = normalize(n) * sky_scale;
+	// Back albedo
+	vec2 s = scroll_speed_b * TIME;
+	vec2 u = vec2(n.x + 0.5 + s.x, n.z + s.y);
+	vec4 alb_b = texture(alb, vec2(mod(u.x, 0.5), u.y));
+	// Front albedo
+	s = scroll_speed_f * TIME;
+	u = vec2(n.x + 0.5 + s.x, n.z + s.y);
+	vec4 alb_f = texture(alb, vec2(mod(u.x, 0.5) + 0.5,u.y));
+	// Mixed albedo
+	vec3 frag = mix(alb_b.rgb, alb_f.rgb, 1.0*alb_f.a);
+	ALBEDO = frag.rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=308]
+shader = SubResource( 307 )
+shader_param/scroll_speed_b = Vector2( 0.01, 0.01 )
+shader_param/scroll_speed_f = Vector2( 0.02, 0.02 )
+shader_param/sky_height = 3.0
+shader_param/sky_scale = 2.0
+shader_param/alb = ExtResource( 4 )
+
 [sub_resource type="CubeMesh" id=384]
 
 [sub_resource type="BoxShape" id=385]
@@ -1591,32 +1591,25 @@ texture = ExtResource( 25 )
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 36.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
+frame = 2
 playing = true
 
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 38.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 40.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimatedSprite3D4" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 42.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
 playing = true
-
-[node name="SKY" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.75, -28 )
-mesh = SubResource( 747 )
-skeleton = NodePath("")
-software_skinning_transform_normals = false
-material/0 = SubResource( 308 )
 
 [node name="DUNGIE" type="Spatial" parent="ViewportContainer/Viewport/MAIN/World"]
 
@@ -1970,47 +1963,48 @@ shape = SubResource( 502 )
 [node name="entity_3_brush_101_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ground"]
 shape = SubResource( 503 )
 
-[node name="CeilOpen" type="StaticBody" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.16667, 4.25, -47 )
+[node name="Ceil" type="StaticBody" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.666667, 4.25, -29.4167 )
+visible = false
 collision_layer = 2
 collision_mask = 2
 
-[node name="entity_5_mesh_instance" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilOpen"]
+[node name="entity_5_mesh_instance" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83334, 0, -17.5833 )
 mesh = SubResource( 749 )
+skeleton = NodePath("")
 
-[node name="entity_5_brush_0_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilOpen"]
+[node name="entity_5_brush_0_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83334, 0, -17.5833 )
 shape = SubResource( 750 )
 
-[node name="entity_5_brush_1_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilOpen"]
+[node name="entity_5_brush_1_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83334, 0, -17.5833 )
 shape = SubResource( 751 )
 
-[node name="entity_5_brush_2_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilOpen"]
+[node name="entity_5_brush_2_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.83334, 0, -17.5833 )
 shape = SubResource( 752 )
 
-[node name="CeilClosed" type="StaticBody" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.666667, 4.25, -29.4167 )
-collision_layer = 2
-collision_mask = 2
-
-[node name="entity_6_mesh_instance" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilClosed"]
+[node name="entity_6_mesh_instance" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
 mesh = SubResource( 754 )
 
-[node name="entity_6_brush_0_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilClosed"]
+[node name="entity_6_brush_0_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
 shape = SubResource( 755 )
 
-[node name="entity_6_brush_1_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilClosed"]
+[node name="entity_6_brush_1_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
 shape = SubResource( 756 )
 
-[node name="entity_6_brush_2_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilClosed"]
+[node name="entity_6_brush_2_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
 shape = SubResource( 757 )
 
-[node name="entity_6_brush_3_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilClosed"]
+[node name="entity_6_brush_3_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
 shape = SubResource( 758 )
 
-[node name="entity_6_brush_4_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilClosed"]
+[node name="entity_6_brush_4_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
 shape = SubResource( 759 )
 
-[node name="entity_6_brush_5_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/CeilClosed"]
+[node name="entity_6_brush_5_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE/Ceil"]
 shape = SubResource( 760 )
 
 [node name="Walls" type="StaticBody" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE"]
@@ -2758,10 +2752,19 @@ shape = SubResource( 383 )
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.709408, 0.176502 )
 text = "You did it! 8] <3"
 
+[node name="SKY" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/DUNGIE"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.75, -28 )
+visible = false
+mesh = SubResource( 747 )
+skeleton = NodePath("")
+software_skinning_transform_normals = false
+material/0 = SubResource( 308 )
+
 [node name="INTERACTION" type="Spatial" parent="ViewportContainer/Viewport/MAIN/World"]
 
 [node name="Trigger" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 1, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -6 )
+visible = false
 collision_layer = 268435458
 collision_mask = 268435458
 script = ExtResource( 27 )

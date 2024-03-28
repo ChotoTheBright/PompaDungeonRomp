@@ -1,6 +1,8 @@
 extends CanvasLayer
-
-
+#if you search anywhere in the script for #SWAP#, you can 
+#find the changes I made to start the game outside of combat.
+#simple switch-a-roos, some things get commented out, 
+#other stuff gets uncommented. 
 
 onready var diorama_container = $diorama_container
 onready var hud = $HUD
@@ -9,7 +11,8 @@ onready var item_hud = $HUD/item_hud
 onready var combat_log = $HUD/log/log_text
 onready var battle_effects = $diorama_container/battle_effects
 onready var back_button = $HUD/back
-#onready var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
+#Comment OUT the line below# #SWAP#
+onready var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
 
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
 onready var player = get_tree().get_nodes_in_group("player")[0]
@@ -123,18 +126,31 @@ var stored_action : String
 
 func _ready():
 
+<<<<<<< HEAD
 	
 	
+=======
+	#Uncomment the line below# #SWAP#
+#	player.inbattle = true
+>>>>>>> 9b2482e729b9ff32e4aa8566b69e526d2572404a
 	
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
 
+<<<<<<< HEAD
 	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance()
 
 	diorama_container.add_child(encounter)
 	player.inbattle = true
 	start_combat()
+=======
+	#Uncomment the 3 lines below# #SWAP#
+#	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance()
+#	diorama_container.add_child(encounter) #SWAP#
+#	start_combat() #SWAP#
+
+>>>>>>> 9b2482e729b9ff32e4aa8566b69e526d2572404a
 	pass
 
 
@@ -186,11 +202,17 @@ func _on_back_pressed():
 
 
 
+
 ##turn functions
 
 func start_combat():
+<<<<<<< HEAD
 
+=======
+	#Comment OUT the 2 lines below# #SWAP#
+>>>>>>> 9b2482e729b9ff32e4aa8566b69e526d2572404a
 	player.inbattle = true
+	diorama_container.add_child(encounter)#SWAP#
 	
 	enemies = get_tree().get_nodes_in_group("encounter").front()
 
