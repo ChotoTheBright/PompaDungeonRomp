@@ -1591,23 +1591,24 @@ texture = ExtResource( 25 )
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 36.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
 playing = true
 
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 38.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
+frame = 2
 playing = true
 
 [node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 40.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
+frame = 2
 playing = true
 
 [node name="AnimatedSprite3D4" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 42.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="SKY" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World"]
@@ -2760,7 +2761,7 @@ text = "You did it! 8] <3"
 [node name="INTERACTION" type="Spatial" parent="ViewportContainer/Viewport/MAIN/World"]
 
 [node name="Trigger" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -4, -6 )
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 1, -6 )
 collision_layer = 268435458
 collision_mask = 268435458
 script = ExtResource( 27 )
@@ -2867,5 +2868,6 @@ axis = 1
 texture = ExtResource( 19 )
 
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/Trigger" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/Trigger" method="on_body_entered" flags=3]
+[connection signal="eventbattle" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/Trigger" to="BattleScreen" method="start_combat" flags=3]
 
 [editable path="ViewportContainer/Viewport/MAIN/player"]

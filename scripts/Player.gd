@@ -44,7 +44,7 @@ func _input(_event):
 
 func _physics_process(delta):
 #	print(inbattle)
-	battle_signal()
+#	battle_signal()
 	translation = translation.move_toward(destination,speed * delta)
 	self.rotation.y = lerp_angle(self.rotation.y, atan2(-next_pos.x, -next_pos.z), delta * angle_speed)
 	
@@ -114,7 +114,7 @@ func battle_signal():
 	if ray_b.is_colliding(): #Battle
 		emit_signal("battle_signal")
 		can_move = false
-		inbattle = true
+#		inbattle = true #disabled for testing
 		return
 
 #INFO: Vector3(x,y,z)--FORWARD:0,0,-1,//BACK:0,0,1//RIGHT:1,0,0//LEFT:-1,0,0
