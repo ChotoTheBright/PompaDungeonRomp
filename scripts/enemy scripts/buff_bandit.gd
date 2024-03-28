@@ -54,6 +54,7 @@ var target
 ##statuses
 
 
+var disoriented : int = 0
 
 var spotted : int = 0
 
@@ -89,11 +90,10 @@ func _ready():
 
 func attack():
 
-	if charging == 1:
+	var final_dict : Dictionary 
+	var status : String
 
-		var final_dict : Dictionary 
-		var status : String
-
+	if charging == 1 and sleep <= 0 and dizzy <= 0 and disoriented <= 0:
 
 ##chooses action
 		action_rando = rand_range(0, 2)
@@ -118,9 +118,12 @@ func attack():
 
 		charging = 0
 
-	else:
+	elif charging == 0 and sleep <= 0 and dizzy <= 0 and disoriented <= 0:
 		charging = 1
-		battle_scene.update_log("\n Buff Bandit charges up")
+		emit_signal("update_log", "\n Buff Bandit charges up")
+
+	else:
+		emit_signal("update_log", "\n They are in no condition to fight")
 
 	update_status_bar()
 

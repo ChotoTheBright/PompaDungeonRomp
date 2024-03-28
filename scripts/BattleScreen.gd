@@ -340,8 +340,8 @@ func player_attack(attack_dictionary: Dictionary):
 	if attack_dictionary.get("status") != null:
 		get_node(attack_dictionary.get("target")).set_status(statuses.get(attack_dictionary["status"]))
 
-	battle_effects.play(attack_dictionary.get("animation"))
 
+	print("i did a thing")
 
 
 

@@ -297,6 +297,7 @@ margin_bottom = 14.0
 custom_fonts/font = SubResource( 388 )
 script = ExtResource( 3 )
 
+[connection signal="animation_finished" from="diorama_container/battle_effects" to="." method="_on_battle_effects_animation_finished"]
 [connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "melee_attack" ]]
 [connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]
 [connection signal="pressed" from="HUD/main_hud/Button3" to="." method="_on_action_button_pressed" binds= [ "defend" ]]
