@@ -1,57 +1,59 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/EncounterScript.gd" type="Script" id=1]
 [ext_resource path="res://scenes/combat/bandit_one_knife.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/combat/shield_guy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/combat/buff_bandit.tscn" type="PackedScene" id=4]
-
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 0, 0, 0, 1 )
-
-[sub_resource type="GradientTexture2D" id=2]
-gradient = SubResource( 1 )
-width = 320
-height = 240
+[ext_resource path="res://assets/fonts-images/bg temp.png" type="Texture" id=5]
 
 [node name="encounter_5" type="TextureRect" groups=["encounter"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1280.0
-margin_bottom = -660.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -120.0
+margin_right = 160.0
+margin_bottom = 120.0
 rect_scale = Vector2( 2, 2 )
-texture = SubResource( 2 )
+texture = ExtResource( 5 )
+stretch_mode = 5
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [ -1.0 ]
 }
-
-[node name="bandit_one_knife" parent="." instance=ExtResource( 2 )]
-margin_left = 208.0
-margin_top = 10.0
-margin_right = 308.0
-margin_bottom = 110.0
-
-[node name="bandit_one_knife2" parent="." instance=ExtResource( 2 )]
-margin_left = 214.0
-margin_top = 75.0
-margin_right = 314.0
-margin_bottom = 175.0
-
-[node name="bandit_one_knife3" parent="." instance=ExtResource( 2 )]
-margin_left = 145.0
-margin_top = 49.0
-margin_right = 245.0
-margin_bottom = 149.0
-
-[node name="shield_guy" parent="." instance=ExtResource( 3 )]
-margin_left = 96.0
-margin_top = 94.0
-margin_right = 196.0
-margin_bottom = 194.0
 
 [node name="buff_bandit" parent="." instance=ExtResource( 4 )]
 margin_left = 31.0
 margin_top = 60.0
 margin_right = 131.0
 margin_bottom = 160.0
+stretch_mode = 4
+
+[node name="bandit_one_knife" parent="." instance=ExtResource( 2 )]
+margin_left = 208.0
+margin_top = 10.0
+margin_right = 308.0
+margin_bottom = 110.0
+stretch_mode = 4
+
+[node name="bandit_one_knife2" parent="." instance=ExtResource( 2 )]
+margin_left = 214.0
+margin_top = 75.0
+margin_right = 314.0
+margin_bottom = 175.0
+stretch_mode = 4
+
+[node name="bandit_one_knife3" parent="." instance=ExtResource( 2 )]
+margin_left = 145.0
+margin_top = 49.0
+margin_right = 245.0
+margin_bottom = 149.0
+stretch_mode = 4
+
+[node name="shield_guy" parent="." instance=ExtResource( 3 )]
+margin_left = 96.0
+margin_top = 94.0
+margin_right = 196.0
+margin_bottom = 194.0
+stretch_mode = 4

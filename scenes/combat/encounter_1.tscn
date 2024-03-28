@@ -1,40 +1,37 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/combat/bandit_one_knife.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/EncounterScript.gd" type="Script" id=2]
-
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 0, 0, 0, 1 )
-
-[sub_resource type="GradientTexture2D" id=2]
-gradient = SubResource( 1 )
-width = 320
-height = 240
+[ext_resource path="res://assets/fonts-images/bg temp.png" type="Texture" id=3]
 
 [node name="encounter_1" type="TextureRect" groups=["encounter"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1280.0
-margin_bottom = -660.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -120.0
+margin_right = 160.0
+margin_bottom = 120.0
 rect_scale = Vector2( 2, 2 )
-texture = SubResource( 2 )
+texture = ExtResource( 3 )
+stretch_mode = 5
 script = ExtResource( 2 )
 
 [node name="bandit_one_knife" parent="." instance=ExtResource( 1 )]
-margin_left = 168.0
-margin_top = 69.0
-margin_right = 268.0
-margin_bottom = 169.0
+margin_left = 132.5
+margin_top = 72.0
+margin_right = 232.5
+margin_bottom = 172.0
 
 [node name="bandit_one_knife2" parent="." instance=ExtResource( 1 )]
-margin_left = 45.0
-margin_top = 69.0
-margin_right = 145.0
-margin_bottom = 169.0
+margin_left = 9.5
+margin_top = 72.0
+margin_right = 109.5
+margin_bottom = 172.0
 
 [node name="bandit_one_knife3" parent="." instance=ExtResource( 1 )]
-margin_left = 98.0
-margin_top = 119.0
-margin_right = 198.0
-margin_bottom = 219.0
+margin_left = 62.5
+margin_top = 122.0
+margin_right = 162.5
+margin_bottom = 222.0

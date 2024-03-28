@@ -29,10 +29,25 @@ animations = [ {
 "name": "default",
 "speed": 10.0
 }, {
+"frames": [ null ],
+"loop": false,
+"name": "hype",
+"speed": 1.0
+}, {
+"frames": [ null ],
+"loop": false,
+"name": "miss",
+"speed": 1.0
+}, {
 "frames": [ SubResource( 401 ), SubResource( 402 ), SubResource( 403 ), SubResource( 404 ), null ],
 "loop": false,
 "name": "player_slash",
 "speed": 5.0
+}, {
+"frames": [ null ],
+"loop": false,
+"name": "spot",
+"speed": 1.0
 }, {
 "frames": [ null, null, null ],
 "loop": false,
@@ -43,4 +58,4 @@ animations = [ {
 [node name="battle_effects" type="AnimatedSprite"]
 position = Vector2( 91, 123 )
 frames = SubResource( 405 )
-animation = "wind"
+animation = "hype"

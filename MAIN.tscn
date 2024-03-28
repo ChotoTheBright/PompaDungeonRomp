@@ -1591,24 +1591,24 @@ texture = ExtResource( 25 )
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 36.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 2
 playing = true
 
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 38.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 40.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="AnimatedSprite3D4" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 42.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
+frame = 1
 playing = true
 
 [node name="DUNGIE" type="Spatial" parent="ViewportContainer/Viewport/MAIN/World"]

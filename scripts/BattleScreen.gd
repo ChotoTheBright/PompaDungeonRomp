@@ -12,7 +12,7 @@ onready var combat_log = $HUD/log/log_text
 onready var battle_effects = $diorama_container/battle_effects
 onready var back_button = $HUD/back
 #Comment OUT the line below# #SWAP#
-onready var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
+#onready var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
 
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
 onready var player = get_tree().get_nodes_in_group("player")[0]
@@ -126,31 +126,24 @@ var stored_action : String
 
 func _ready():
 
-<<<<<<< HEAD
+
 	
 	
-=======
+
 	#Uncomment the line below# #SWAP#
 #	player.inbattle = true
->>>>>>> 9b2482e729b9ff32e4aa8566b69e526d2572404a
+
 	
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
 
-<<<<<<< HEAD
-	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance()
 
-	diorama_container.add_child(encounter)
-	player.inbattle = true
-	start_combat()
-=======
 	#Uncomment the 3 lines below# #SWAP#
-#	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance()
-#	diorama_container.add_child(encounter) #SWAP#
-#	start_combat() #SWAP#
+	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance() #SWAP#
+	start_combat(encounter) #SWAP#
 
->>>>>>> 9b2482e729b9ff32e4aa8566b69e526d2572404a
+
 	pass
 
 
@@ -182,7 +175,6 @@ func _on_action_button_pressed(action):
 
 
 
-
 func _on_item_pressed():
 	action_hud.hide()
 	item_hud.show()
@@ -205,15 +197,13 @@ func _on_back_pressed():
 
 ##turn functions
 
-func start_combat():
-<<<<<<< HEAD
+func start_combat(encounter):
 
-=======
 	#Comment OUT the 2 lines below# #SWAP#
->>>>>>> 9b2482e729b9ff32e4aa8566b69e526d2572404a
+
 	player.inbattle = true
 	diorama_container.add_child(encounter)#SWAP#
-	
+
 	enemies = get_tree().get_nodes_in_group("encounter").front()
 
 	start_player_turn()
@@ -261,7 +251,7 @@ func queue_enemy_action(action: Dictionary):
 func activate_enemy_actions():
 
 	if queued_enemy_actions.size() > 0:
-		call("enemy_attack", queued_enemy_actions.pop_front())
+		call_deferred("enemy_attack", queued_enemy_actions.pop_front())
 
 	else:
 		start_player_turn()
@@ -274,7 +264,11 @@ func enemy_attack(attack_dict: Dictionary):
 	stored_dict = attack_dict
 
 	update_log(stored_dict.get("description1"))
-	
+
+	battle_effects.play(stored_dict.get("animation"))
+
+	yield(battle_effects, "animation_finished")
+
 	if stored_dict.get("target") is String:
 		pain(stored_dict.get("damage"))
 
@@ -284,8 +278,7 @@ func enemy_attack(attack_dict: Dictionary):
 	else:
 		get_node(stored_dict.get("target")).set_status(statuses[stored_dict.get("status")])
 
-
-	battle_effects.play(stored_dict.get("animation"))
+	update_log(stored_dict.get("description2"))
 
 
 
@@ -313,8 +306,6 @@ func queue_player_action(target):
 	else:
 		action_hud.visible = true
 		item_hud.visible = false
-
-
 
 
 
@@ -353,7 +344,7 @@ func player_attack(attack_dictionary: Dictionary):
 		battle_effects.play(attack_dictionary.get("animation"))
 		yield(battle_effects, "animation_finished")
 
-	if attack_dictionary.get("damage") > 0:
+	if attack_dictionary.get("damage") >= 0:
 		update_log(attack_dictionary.get("description"))
 		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
 
@@ -368,8 +359,6 @@ func player_attack(attack_dictionary: Dictionary):
 		yield(battle_effects, "animation_finished")
 		pain(attack_dictionary.get("damage"))
 
-
-
 	print("i did a thing")
 
 
@@ -382,28 +371,31 @@ func _on_battle_effects_animation_finished():
 
 	if player_turn == true:
 		if enemies.get_children().size() == enemies.dead_dudes:
-			end_combat()
-
-		elif queued_player_actions.size() > 0:
-			activate_player_actions()
+			call_deferred("end_combat")
 
 		elif queued_player_actions.size() == 0:
-			start_enemy_turn()
+			call_deferred("start_enemy_turn")
+
+		elif queued_player_actions.size() > 0:
+			call_deferred("activate_player_actions")
 
 	elif player_turn == false:
-		update_log(stored_dict.get("description2"))
+
 		if queued_enemy_actions.size() != 0:
-			activate_enemy_actions()
+			call_deferred("activate_enemy_actions")
 
 		else:
-			start_player_turn()
+			for i in enemies.get_children():
+				i.turn_end_status_maintenance()
+			
+			call_deferred("start_player_turn")
 
 
 
 
 func end_combat():
 	
-	clear_log()
+	call_deferred("clear_log")
 	enemies.queue_free()
 
 	action_hud.visible = false
@@ -435,9 +427,11 @@ func pain(_dam):
 
 
 
+
 func update_log(combat_text):
 
 	combat_log.text = combat_log.text + combat_text
+
 
 
 

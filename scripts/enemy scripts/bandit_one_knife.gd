@@ -35,7 +35,7 @@ var charging : int = 0
 
 var evasive : int = 0
 
-var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyblocked, charging, evasive]
+var statuses : Array = ["spotted", "hype", "dizzy", "sleep", "destabilized", "webbed", "bodyblocked", "evasive", "disoriented"]
 
 export var dmg : float = 10
 
@@ -85,27 +85,45 @@ func damage(damage):
 		dead = true
 		emit_signal("death")
 
-	if sleep > 0:
-		sleep = 0
-		if dizzy > 0:
-			disoriented = 1
-			dizzy = 0
+	if sleep > 0 and damage > 0 :
+		wake_up()
 
 	call_deferred("update_status_bar")
+
+
+func wake_up():
+
+	sleep = 0
+
+	if dizzy > 0:
+		dizzy = 0
+		disoriented = 1
+
+
 
 func attack():
 
 	var final_dict = action.duplicate()
 
-
-	if spotted:
-		final_dict["damage"] = dmg * 2
-
-	if dizzy > 0 or sleep > 0 or disoriented > 0:
+	if sleep > 0 or disoriented > 0:
 		final_dict["damage"] = 0
 		final_dict["animation"] = "wind"
 		final_dict["description1"] = "\n They are in no condition to fight"
 		final_dict["description2"] = "\n..."
+	
+	elif dizzy > 0:
+		var coinflip = rand_range(0, 2)
+		if coinflip > 1:
+			final_dict["damage"] = 0
+			final_dict["animation"] = "miss"
+			final_dict["description1"] = "\n Their unbalanced strike is easy to dodge"
+			final_dict["description2"] = "\n..."
+
+		else:
+			pass
+
+	elif spotted:
+		final_dict["damage"] = dmg * 2
 
 	emit_signal("action", final_dict)
 
@@ -129,11 +147,15 @@ func set_status(status : Dictionary):
 
 func turn_end_status_maintenance():
 
-	for i in statuses:
-		i = max(i - 1, 0)
+	if sleep == 1:
+		wake_up()
 
-		if i > 0:
-			update_status_bar()
+	for i in statuses:
+
+		set(i, max(get(i) - 1, 0))
+
+
+	call_deferred("update_status_bar")
 
 
 

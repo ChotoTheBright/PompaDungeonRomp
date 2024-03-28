@@ -26,11 +26,11 @@ var action : Dictionary = {
 var interactions : Dictionary = {
 	"destabilized" : {
 		"cancels" : null,
-		"description" : "\n The bandit leaps over the forced"},
+		"description" : "\n The bandit leaps over the force"},
 
 	"webbed" : {
 		"cancels" : ["evasive"],
-		"description" : "\n Dodge this."},
+		"description" : "\n The blanket of webs pins the bandit to the ground."},
 	}
 
 ##statuses
@@ -58,7 +58,7 @@ var charging : int = 0
 
 var evasive : int = 99
 
-var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyblocked, charging, evasive]
+var statuses : Array = ["spotted", "hype", "dizzy", "sleep", "destabilized", "webbed", "bodyblocked", "evasive", "disoriented"]
 
 
 
@@ -75,14 +75,25 @@ func attack():
 
 	var final_dict = action.duplicate()
 
-	if spotted:
-		final_dict["damage"] = dmg * 2
-
-	if dizzy > 0 or sleep > 0 or disoriented > 0:
+	if sleep > 0 or disoriented > 0:
 		final_dict["damage"] = 0
 		final_dict["animation"] = "wind"
 		final_dict["description1"] = "\n They are in no condition to fight"
 		final_dict["description2"] = "\n..."
+	
+	elif dizzy > 0:
+		var coinflip = rand_range(0, 2)
+		if coinflip > 1:
+			final_dict["damage"] = 0
+			final_dict["animation"] = "miss"
+			final_dict["description1"] = "\n Their unbalanced strike is easy to dodge"
+			final_dict["description2"] = "\n..."
+
+		else:
+			pass
+
+	elif spotted:
+		final_dict["damage"] = dmg * 2
 
 	emit_signal("action", final_dict)
 
@@ -91,32 +102,42 @@ func attack():
 
 func damage(damage):
 
-	if evasive <= 0 or sleep > 0:
+	if damage < 0:
+		hp -= damage
+
+	elif evasive <= 0 or sleep > 0:
 		if bodyblocked and damage > 0:
 			damage = damage * .5
 
+		if sleep > 0 and damage > 0 :
+			wake_up()
+
 		hp -= damage
 		sprite.play("damage_flash")
+		yield(sprite, "animation_finished")
 		if hp <= 0:
 
 			hide()
 			dead = true
 			emit_signal("death")
 
+		elif sleep > 0 and damage > 0 :
+			wake_up()
+
 	elif evasive > 0:
 		evasive = 0
 		emit_signal("update_log", "\n The bandit dances around your blade.")
 
-	if sleep > 0:
-		sleep = 0
-		if dizzy > 0:
-			disoriented = 1
-			dizzy = 0
-
 	call_deferred("update_status_bar")
 
 
+func wake_up():
 
+	sleep = 0
+
+	if dizzy > 0:
+		dizzy = 0
+		disoriented = 1
 
 
 func set_status(status : Dictionary):
@@ -142,13 +163,16 @@ func set_status(status : Dictionary):
 
 func turn_end_status_maintenance():
 
+	if sleep == 1:
+		wake_up()
+
 	evasive = 99
 	emit_signal("update_log", "\n The bandit bounces on his feet")
 	for i in statuses:
-		i = max(i - 1, 0)
 
-		if i > 0:
-			update_status_bar()
+		set(i, max(get(i) - 1, 0))
+
+	call_deferred("update_status_bar")
 
 
 

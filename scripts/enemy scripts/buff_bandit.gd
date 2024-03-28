@@ -76,7 +76,7 @@ var charging : int = 0
 
 var evasive : int = 0
 
-var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyblocked, charging, evasive]
+var statuses : Array = ["spotted", "hype", "dizzy", "sleep", "destabilized", "webbed", "bodyblocked", "evasive", "disoriented"]
 
 
 
@@ -93,7 +93,7 @@ func attack():
 	var final_dict : Dictionary 
 	var status : String
 
-	if charging == 1 and sleep <= 0 and dizzy <= 0 and disoriented <= 0:
+	if charging == 1 and sleep <= 0 and disoriented <= 0:
 
 ##chooses action
 		action_rando = rand_range(0, 2)
@@ -140,19 +140,25 @@ func damage(damage):
 		damage = damage * .5
 	
 	hp -= damage
-
+	yield(sprite, "animation_finished")
 	if hp <= 0:
 		hide()
 		dead = true
 		emit_signal("death")
 
-	if sleep> 0:
-		sleep = 0
-		if dizzy > 0:
-			disoriented = 1
-			dizzy = 0
+	elif sleep > 0 and damage >0 :
+		wake_up()
 
-		call_deferred("update_status_bar")
+	call_deferred("update_status_bar")
+
+
+func wake_up():
+
+	sleep = 0
+
+	if dizzy > 0:
+		dizzy = 0
+		disoriented = 1
 
 
 
@@ -180,11 +186,15 @@ func set_status(status : Dictionary):
 
 func turn_end_status_maintenance():
 
-	for i in statuses:
-		i = max(i - 1, 0)
+	if sleep == 1:
+		wake_up()
 
-		if i > 0:
-			update_status_bar()
+	for i in statuses:
+
+		set(i, max(get(i) - 1, 0))
+
+
+	call_deferred("update_status_bar")
 
 
 

@@ -1,24 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/combat/buff_bandit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/EncounterScript.gd" type="Script" id=2]
-
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 0, 0, 0, 1 )
-
-[sub_resource type="GradientTexture2D" id=2]
-gradient = SubResource( 1 )
-width = 320
-height = 240
+[ext_resource path="res://assets/fonts-images/bg temp.png" type="Texture" id=3]
 
 [node name="encounter_6" type="TextureRect" groups=["encounter"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1280.0
-margin_bottom = -660.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -120.0
+margin_right = 160.0
+margin_bottom = 120.0
 rect_scale = Vector2( 2, 2 )
-texture = SubResource( 2 )
+texture = ExtResource( 3 )
+stretch_mode = 5
 script = ExtResource( 2 )
 
 [node name="buff_bandit" parent="." instance=ExtResource( 1 )]
@@ -26,15 +23,18 @@ margin_left = 42.0
 margin_top = 31.0
 margin_right = 142.0
 margin_bottom = 131.0
+stretch_mode = 4
 
 [node name="buff_bandit3" parent="." instance=ExtResource( 1 )]
 margin_left = 115.0
 margin_top = 87.0
 margin_right = 215.0
 margin_bottom = 187.0
+stretch_mode = 4
 
 [node name="buff_bandit2" parent="." instance=ExtResource( 1 )]
 margin_left = 196.0
 margin_top = 30.0
 margin_right = 296.0
 margin_bottom = 130.0
+stretch_mode = 4

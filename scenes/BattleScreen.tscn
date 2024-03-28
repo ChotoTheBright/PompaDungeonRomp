@@ -14,8 +14,8 @@ size = 32
 font_data = ExtResource( 1 )
 
 [sub_resource type="Gradient" id=389]
-offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 0, 0, 0.0980392, 0.686275 )
+offsets = PoolRealArray( 1 )
+colors = PoolColorArray( 0, 0, 0.0980392, 1 )
 
 [sub_resource type="GradientTexture2D" id=390]
 gradient = SubResource( 389 )
@@ -92,10 +92,10 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-margin_left = -198.0
+self_modulate = Color( 1, 1, 1, 0.87451 )
+margin_left = -193.0
 margin_top = -52.0
-margin_right = 1682.0
+margin_right = 1687.0
 margin_bottom = 660.0
 texture = SubResource( 390 )
 expand = true
@@ -106,13 +106,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -196.0
-margin_top = -280.0
-margin_right = 124.0
-margin_bottom = -40.0
+margin_left = -269.0
+margin_top = -375.0
+margin_right = 51.0
+margin_bottom = -135.0
+rect_scale = Vector2( 2, 2 )
 
 [node name="battle_effects" parent="diorama_container" instance=ExtResource( 6 )]
 z_index = 1
+animation = "miss"
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -298,7 +300,7 @@ margin_bottom = 14.0
 custom_fonts/font = SubResource( 388 )
 script = ExtResource( 3 )
 
-[connection signal="animation_finished" from="diorama_container/battle_effects" to="." method="_on_battle_effects_animation_finished"]
+[connection signal="animation_finished" from="diorama_container/battle_effects" to="." method="_on_battle_effects_animation_finished" flags=3]
 [connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "melee_attack" ]]
 [connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]
 [connection signal="pressed" from="HUD/main_hud/Button3" to="." method="_on_action_button_pressed" binds= [ "defend" ]]

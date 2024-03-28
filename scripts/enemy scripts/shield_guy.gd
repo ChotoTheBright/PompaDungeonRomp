@@ -62,7 +62,7 @@ var charging : int = 0
 
 var evasive : int = 0
 
-var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyblocked, charging, evasive]
+var statuses : Array = ["spotted", "hype", "dizzy", "sleep", "destabilized", "webbed", "bodyblocked", "evasive", "disoriented"]
 
 
 
@@ -102,22 +102,34 @@ func attack():
 	if charging == 1:
 		var final_dict = action.duplicate()
 
-		if spotted:
-			final_dict["damage"] = dmg * 2
-
-		if dizzy > 0 or sleep > 0 or disoriented > 0:
+		if sleep > 0 or disoriented > 0:
 			final_dict["damage"] = 0
 			final_dict["animation"] = "wind"
 			final_dict["description1"] = "\n They are in no condition to fight"
 			final_dict["description2"] = "\n..."
+		
+		elif dizzy > 0:
+			var coinflip = rand_range(0, 2)
+			if coinflip > 1:
+				final_dict["damage"] = 0
+				final_dict["animation"] = "miss"
+				final_dict["description1"] = "\n Their unbalanced strike is easy to dodge"
+				final_dict["description2"] = "\n..."
+
+		elif spotted:
+			final_dict["damage"] = dmg * 2
 			
+		
+		else:
+			charging = 0
+
+			if bodyblocked <= 0 and sleep <= 0:
+				guard()
+				
 		emit_signal("action", final_dict)
-		charging = 0
 
-		if bodyblocked <= 0 and sleep <= 0:
-			guard()
 
-	elif charging == 0 and sleep <= 0 and disoriented <= 0:
+	elif charging <= 0 and sleep <= 0 and disoriented <= 0:
 		charging = 1
 		emit_signal("update_log", "\n The knight gathers his strength.")
 
@@ -135,21 +147,29 @@ func damage(damage):
 		damage = damage * .25
 
 	hp -= damage
-	print(hp)
 
+	yield(sprite, "animation_finished")
+	
 	if hp <= 0:
-		print("dead")
+
 		hide()
 		dead = true
 		emit_signal("death")
 
-	if sleep > 0:
-		sleep = 0
-		if dizzy > 0:
-			disoriented = 1
-			dizzy = 0
+	elif sleep > 0 and damage >0 :
+		wake_up()
 
-		call_deferred("update_status_bar")
+	call_deferred("update_status_bar")
+
+
+func wake_up():
+
+	sleep = 0
+
+	if dizzy > 0:
+		dizzy = 0
+		disoriented = 1
+
 
 
 func set_status(status : Dictionary):
@@ -175,12 +195,15 @@ func set_status(status : Dictionary):
 
 func turn_end_status_maintenance():
 
+	if sleep == 1:
+		wake_up()
+
 	for i in statuses:
-		i = max(i - 1, 0)
+
+		set(i, max(get(i) - 1, 0))
 
 
 	call_deferred("update_status_bar")
-
 
 
 
@@ -188,7 +211,6 @@ func update_status_bar():
 
 	for i in status_bar.get_children():
 		var status = get(i.get_name())
-
 
 		if status > 0:
 			i.show()
