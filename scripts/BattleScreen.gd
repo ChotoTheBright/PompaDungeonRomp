@@ -66,13 +66,15 @@ var player_actions : Dictionary = {
 		"animation" : "player_slash",
 		"description" : "\n Touch fuzzy, get dizzy."},
 	
-	"bandage" : {
-		"heal" : 20,
+	"bandage_heal" : {
+		"damage" : -20,
+		"target" : "player",
 		"animation" : "player_slash",
 		"description" : "\n It would stop the bleeding, had you time to."},
 	
-	"potion" : {
-		"heal" : 80,
+	"potion_heal" : {
+		"damage" : -80,
+		"target" : "player",
 		"animation" : "player_slash",
 		"description" : "\n Strangely savory."},
 	
@@ -122,17 +124,17 @@ var stored_action : String
 func _ready():
 
 	
-	player.inbattle = true
+	
 	
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
 
 	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance()
+
 	diorama_container.add_child(encounter)
-
+	player.inbattle = true
 	start_combat()
-
 	pass
 
 
@@ -144,14 +146,22 @@ func _ready():
 func _on_action_button_pressed(action):
 
 	stored_action = action
-	action_hud.hide()
-	item_hud.hide()
-	back_button.show()
 
-	for i in enemies.get_children():
-		if i.dead == false:
-			i.mouse_filter = 0
+	if action.get_slice("_", 1) == "heal":
+		print("heal")
+		action_hud.show()
+		item_hud.hide()
+		back_button.hide()
+		queue_player_action("player")
 
+	else:
+		for i in enemies.get_children():
+			if i.dead == false:
+				i.mouse_filter = 0
+
+			action_hud.hide()
+			item_hud.hide()
+			back_button.show()
 
 
 
@@ -161,8 +171,6 @@ func _on_item_pressed():
 	action_hud.hide()
 	item_hud.show()
 	back_button.show()
-
-
 
 
 
@@ -181,6 +189,7 @@ func _on_back_pressed():
 ##turn functions
 
 func start_combat():
+
 	player.inbattle = true
 	
 	enemies = get_tree().get_nodes_in_group("encounter").front()
@@ -219,11 +228,6 @@ func start_enemy_turn():
 
 
 
-
-
-
-
-
 func queue_enemy_action(action: Dictionary):
 
 	queued_enemy_actions.append(action)
@@ -233,7 +237,6 @@ func queue_enemy_action(action: Dictionary):
 
 
 func activate_enemy_actions():
-
 
 	if queued_enemy_actions.size() > 0:
 		call("enemy_attack", queued_enemy_actions.pop_front())
@@ -267,7 +270,7 @@ func enemy_attack(attack_dict: Dictionary):
 
 
 
-func queue_player_action(target : NodePath):
+func queue_player_action(target):
 	
 	back_button.hide()
 	
@@ -312,33 +315,38 @@ func activate_player_actions():
 
 
 func player_attack(attack_dictionary: Dictionary):
+	print(attack_dictionary)
+	if attack_dictionary.get("target") != "player":
+		if get_node(attack_dictionary.get("target")).dead == true:
 
-
-	if get_node(attack_dictionary.get("target")).dead == true:
-
-		var new_target
-		for i in enemies.get_children():
-			
-			if i.dead == false:
+			var new_target
+			for i in enemies.get_children():
 				
-				new_target = self.get_path_to(i)
-				break
+				if i.dead == false:
+					
+					new_target = self.get_path_to(i)
+					attack_dictionary["target"] = new_target
 
-		attack_dictionary["target"] = new_target
-
-
-	battle_effects.position = get_node(attack_dictionary["target"]).rect_position
-	battle_effects.play(attack_dictionary.get("animation"))
-
-	yield(battle_effects, "animation_finished")
+		battle_effects.position = get_node(attack_dictionary["target"]).rect_position
+		battle_effects.play(attack_dictionary.get("animation"))
+		yield(battle_effects, "animation_finished")
 
 	if attack_dictionary.get("damage") > 0:
 		update_log(attack_dictionary.get("description"))
 		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
-	
-	if attack_dictionary.get("status") != null:
-		get_node(attack_dictionary.get("target")).set_status(statuses.get(attack_dictionary["status"]))
-		print(statuses.get(attack_dictionary["status"]))
+
+		if attack_dictionary.get("status") != null:
+			get_node(attack_dictionary.get("target")).set_status(statuses.get(attack_dictionary["status"]))
+			print(statuses.get(attack_dictionary["status"]))
+
+	elif attack_dictionary.get("damage") < 0:
+
+		battle_effects.position = Vector2(160, 120)
+		battle_effects.play(attack_dictionary.get("animation"))
+		yield(battle_effects, "animation_finished")
+		pain(attack_dictionary.get("damage"))
+
+
 
 	print("i did a thing")
 
@@ -392,8 +400,16 @@ func death():
 
 
 func pain(_dam):
+
 	PlayerStats.hurt(_dam)
 	_STAT.update_health(_dam)#update_display()
+
+	if _dam == -20:
+		update_log(player_actions.get("bandage_heal")["description"])
+
+
+	if _dam == -80:
+		update_log(player_actions.get("potion_heal")["description"])
 
 
 

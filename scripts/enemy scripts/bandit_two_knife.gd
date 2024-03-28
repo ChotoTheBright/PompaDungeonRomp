@@ -92,7 +92,7 @@ func attack():
 func damage(damage):
 
 	if evasive <= 0 or sleep > 0:
-		if bodyblocked:
+		if bodyblocked and damage > 0:
 			damage = damage * .5
 
 		hp -= damage

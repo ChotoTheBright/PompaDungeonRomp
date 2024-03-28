@@ -307,6 +307,6 @@ script = ExtResource( 3 )
 [connection signal="pressed" from="HUD/item_hud/items/fuzzy_dust" to="." method="_on_action_button_pressed" binds= [ "fuzzy_dust" ]]
 [connection signal="pressed" from="HUD/item_hud/items/web_ball" to="." method="_on_action_button_pressed" binds= [ "web_ball" ]]
 [connection signal="pressed" from="HUD/item_hud/items/sphere" to="." method="_on_action_button_pressed" binds= [ "sphere" ]]
-[connection signal="pressed" from="HUD/item_hud/items/bandage" to="." method="_on_action_button_pressed" binds= [ "bandage" ]]
-[connection signal="pressed" from="HUD/item_hud/items/potion" to="." method="_on_action_button_pressed" binds= [ "potion" ]]
+[connection signal="pressed" from="HUD/item_hud/items/bandage" to="." method="_on_action_button_pressed" binds= [ "bandage_heal" ]]
+[connection signal="pressed" from="HUD/item_hud/items/potion" to="." method="_on_action_button_pressed" binds= [ "potion_heal" ]]
 [connection signal="pressed" from="HUD/back" to="." method="_on_back_pressed"]

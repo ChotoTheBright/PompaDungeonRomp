@@ -94,7 +94,7 @@ func damage(damage):
 	sprite.play("damage_flash")
 	hp -= damage
 	
-	if bodyblocked:
+	if bodyblocked and damage > 0:
 		damage = damage * .5
 
 	if hp <= 0:

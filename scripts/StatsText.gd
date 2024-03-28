@@ -7,7 +7,7 @@ func _ready():
 	update_display()
 
 func update_health(amnt):
-	health -= amnt
+	health = clamp(health - amnt, 0, 100)
 	update_display()
 
 func update_display():

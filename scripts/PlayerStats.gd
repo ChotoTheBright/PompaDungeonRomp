@@ -24,9 +24,9 @@ func hurt(damage: float): #, _dir: Vector3
 
 	if cur_health <= 0:
 		return
-	if defending:
+	if defending and damage > 0:
 		damage = damage * .5
-	cur_health -= damage
+	cur_health = clamp(cur_health - damage, 0, 100)
 	if cur_health <= gib_at:
 		emit_signal("gibbed")
 		pass
