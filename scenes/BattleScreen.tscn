@@ -1,14 +1,13 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/fonts-images/Gamaliel.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/BattleScreen.gd" type="Script" id=2]
 [ext_resource path="res://scripts/StatsText.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts-images/text_bubble.png" type="Texture" id=4]
 [ext_resource path="res://UI Theme.tres" type="Theme" id=5]
-[ext_resource path="res://scenes/combat/encounter_1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/battle_effects.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fonts-images/items.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts-images/hud.png" type="Texture" id=8]
-[ext_resource path="res://assets/fonts-images/slash.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=386]
 size = 32
@@ -20,39 +19,6 @@ colors = PoolColorArray( 0, 0, 0.0980392, 0.686275 )
 
 [sub_resource type="GradientTexture2D" id=390]
 gradient = SubResource( 389 )
-
-[sub_resource type="AtlasTexture" id=401]
-flags = 18
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=402]
-flags = 18
-atlas = ExtResource( 10 )
-region = Rect2( 64, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=403]
-flags = 18
-atlas = ExtResource( 10 )
-region = Rect2( 128, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=404]
-flags = 18
-atlas = ExtResource( 10 )
-region = Rect2( 192, 0, 64, 64 )
-
-[sub_resource type="SpriteFrames" id=405]
-animations = [ {
-"frames": [ null, null, null, null, null, null, null, null, null, null, null ],
-"loop": false,
-"name": "default",
-"speed": 1.0
-}, {
-"frames": [ SubResource( 401 ), SubResource( 402 ), SubResource( 403 ), SubResource( 404 ), null ],
-"loop": false,
-"name": "player_slash",
-"speed": 5.0
-} ]
 
 [sub_resource type="DynamicFont" id=388]
 size = 28
@@ -144,15 +110,8 @@ margin_top = -280.0
 margin_right = 124.0
 margin_bottom = -40.0
 
-[node name="encounter_1" parent="diorama_container" instance=ExtResource( 6 )]
-margin_right = 0.0
-margin_bottom = 0.0
-
-[node name="battle_effects" type="AnimatedSprite" parent="diorama_container"]
-position = Vector2( 91, 123 )
-frames = SubResource( 405 )
-animation = "player_slash"
-frame = 4
+[node name="battle_effects" parent="diorama_container" instance=ExtResource( 6 )]
+z_index = 1
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -338,7 +297,6 @@ margin_bottom = 14.0
 custom_fonts/font = SubResource( 388 )
 script = ExtResource( 3 )
 
-[connection signal="animation_finished" from="diorama_container/battle_effects" to="." method="_on_battle_effects_animation_finished" flags=3]
 [connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "melee_attack" ]]
 [connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]
 [connection signal="pressed" from="HUD/main_hud/Button3" to="." method="_on_action_button_pressed" binds= [ "defend" ]]

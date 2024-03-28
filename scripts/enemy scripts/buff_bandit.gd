@@ -30,6 +30,16 @@ var action : Dictionary = {
 	"description1" : "\n Buff Bandit hypes up his ally",
 	"description2" : " \n They're real ready to scrap now."}
 	}
+	
+var interactions : Dictionary = {
+	"disoriented" : {
+		"cancels" : charging,
+		"description" : "\n The well built gentleman loses his balance"},
+
+	"webbed" : {
+		"cancels" : charging,
+		"description" : "\n His muscles strain under the webs grip."},
+	}
 
 
 var action_rando : float
@@ -42,6 +52,8 @@ var target_list
 var target
 
 ##statuses
+
+
 
 var spotted : int = 0
 
@@ -57,11 +69,13 @@ var webbed : int = 0
 
 var bodyblocked : int = 0
 
+var dead : bool = false
+
 var charging : int = 0
 
 var evasive : int = 0
 
-var dead : bool = false
+var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyblocked, charging, evasive]
 
 
 
@@ -83,8 +97,10 @@ func attack():
 
 ##chooses action
 		action_rando = rand_range(0, 2)
+
 		if action_rando >= 1:
 			status = "spot"
+
 		else:
 			status = "hype"
 
@@ -92,24 +108,21 @@ func attack():
 
 
 #sets target
-
-
 		target_list.shuffle()
-	
+
 		for i in target_list:
 			if i != self and i.dead == false:
-				
 				final_dict["target"] = battle_scene.get_path_to(i)
-				
 				emit_signal("action", final_dict)
 				break
+
 		charging = 0
 
 	else:
 		charging = 1
 		battle_scene.update_log("\n Buff Bandit charges up")
 
-
+	update_status_bar()
 
 
 
@@ -130,13 +143,47 @@ func damage(damage):
 
 
 
+func set_status(status : Dictionary):
+
+
+	if status.has("destabilized") or status.has("webbed"):
+		print("cancel")
+		
+		if interactions[status["status"]]["cancels"] != null:
+			set(interactions[status]["cancels"], 0)
+
+	set(status["status"], status["duration"])
+	if interactions.has(status["status"]):
+		emit_signal("update_log", interactions.get(status["status"])["description"])
+
+	call_deferred("update_status_bar")
+
+
+func turn_end_status_maintenance():
+
+	for i in statuses:
+		i = max(i - 1, 0)
+
+		if i > 0:
+			update_status_bar()
 
 
 
-func set_status(status : String):
+func update_status_bar():
 
-	var changed_status = get(status)
-	changed_status = true
+	for i in status_bar.get_children():
+		var status = get(i.get_name())
+
+
+		if status > 0:
+			i.show()
+
+		elif status <= 0:
+			i.hide()
+
+
+
+
 
 
 

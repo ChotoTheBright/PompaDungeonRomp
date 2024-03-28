@@ -92,7 +92,17 @@ var statuses : Dictionary = {
 	
 	"destabilized" : {
 		"status" : "destabilized",
-		"duration" : 0,}
+		"duration" : 0,},
+	
+	"spotted" : {
+		"status" : "spotted",
+		"duration" : 1
+	},
+	
+	"hype" : {
+		"status" : "hype",
+		"duration" : 1
+	}
 }
 
 
@@ -118,7 +128,9 @@ func _ready():
 # warning-ignore:return_value_discarded
 #	PlayerStats.connect("hurt", self, "pain")
 #	PlayerStats.connect("dead", self, "death")
-	
+	var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
+	diorama_container.add_child(encounter)
+
 	start_combat()
 	pass
 
@@ -182,7 +194,7 @@ func start_combat():
 #-------------
 
 func start_player_turn():
-
+	print("player_turn")
 	if PlayerStats.defending == true:
 		PlayerStats.defending = false
 
@@ -193,6 +205,7 @@ func start_player_turn():
 
 
 func start_enemy_turn():
+	print("enemy_turn")
 	player_turn = false
 	for i in enemies.get_children():
 		if i.dead == false:
@@ -243,7 +256,7 @@ func enemy_attack(attack_dict: Dictionary):
 			PlayerStats.set_status(stored_dict.get("status"))
 
 	else:
-		get_node(stored_dict.get("target")).set_status(stored_dict.get("status"))
+		get_node(stored_dict.get("target")).set_status(statuses[stored_dict.get("status")])
 
 
 	battle_effects.play(stored_dict.get("animation"))
@@ -317,11 +330,11 @@ func player_attack(attack_dictionary: Dictionary):
 
 	battle_effects.position = get_node(attack_dictionary["target"]).rect_position
 	battle_effects.play(attack_dictionary.get("animation"))
-	
+
 	yield(battle_effects, "animation_finished")
 
-
 	if attack_dictionary.get("damage") > 0:
+		update_log(attack_dictionary.get("description"))
 		get_node(attack_dictionary.get("target")).damage(attack_dictionary.get("damage"))
 	
 	if attack_dictionary.get("status") != null:
@@ -329,7 +342,7 @@ func player_attack(attack_dictionary: Dictionary):
 
 	battle_effects.play(attack_dictionary.get("animation"))
 
-	update_log(attack_dictionary.get("description"))
+
 
 
 
@@ -358,8 +371,9 @@ func _on_battle_effects_animation_finished():
 
 
 
-func end_combat():
 
+func end_combat():
+	
 	clear_log()
 	enemies.queue_free()
 
@@ -383,9 +397,12 @@ func pain(_dam):
 	_STAT.update_health(_dam)#update_display()
 
 
+
 func update_log(combat_text):
 
 	combat_log.text = combat_log.text + combat_text
+
+
 
 func clear_log():
 	

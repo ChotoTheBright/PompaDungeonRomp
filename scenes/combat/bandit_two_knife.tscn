@@ -38,9 +38,9 @@ frames = SubResource( 2 )
 animation = "idle"
 
 [node name="status_bar" parent="." instance=ExtResource( 3 )]
-margin_left = 5.0
-margin_top = -24.0
-margin_right = 45.0
-margin_bottom = 16.0
+margin_left = 4.0
+margin_top = 5.0
+margin_right = 44.0
+margin_bottom = 45.0
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_animation_finished"]

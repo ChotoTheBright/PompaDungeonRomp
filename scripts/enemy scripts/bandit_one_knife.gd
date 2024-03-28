@@ -34,7 +34,9 @@ var charging : int = 0
 
 var evasive : int = 0
 
-export var dmg : float = 5 
+var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyblocked, charging, evasive]
+
+export var dmg : float = 10
 
 
 
@@ -48,25 +50,13 @@ var action: Dictionary = {"damage": dmg,
 
 
 var interactions : Dictionary = {
-	"disoriented" : {
+	"destabilized" : {
 		"cancels" : null,
 		"description" : "\n It does nothing."},
 
 	"webbed" : {
 		"cancels" : null,
-		"description" : "\n The webs are not match for a knife."},
-	
-	"sleep" : {
-		"status" : sleep,},
-
-	"spotted": {
-		"status" : spotted},
-	
-	"hype" : {
-		"status" : hype},
-	
-	"dizzy" : {
-		"status" : dizzy}
+		"description" : "\n The webs are no match for a knife."},
 	}
 
 
@@ -110,15 +100,26 @@ func attack():
 func set_status(status : Dictionary):
 
 
-	if status.has("disoriented") or status.has("webbed"):
-		cancel_actions(status["status"])
-
-	if status["duration"] > 0:
+	if status.has("destabilized") or status.has("webbed"):
+		print("cancel")
 		
-		set(status["status"], status["duration"])
+		if interactions[status["status"]]["cancels"] != null:
+			set(interactions[status]["cancels"], 0)
 
-#		print(get(status["status"]))
+	set(status["status"], status["duration"])
+	if interactions.has(status["status"]):
+		emit_signal("update_log", interactions.get(status["status"])["description"])
+
 	call_deferred("update_status_bar")
+
+
+func turn_end_status_maintenance():
+
+	for i in statuses:
+		i = max(i - 1, 0)
+
+		if i > 0:
+			update_status_bar()
 
 
 
@@ -126,8 +127,7 @@ func update_status_bar():
 
 	for i in status_bar.get_children():
 		var status = get(i.get_name())
-		print(i.get_name())
-		print(status)
+
 
 		if status > 0:
 			i.show()
@@ -136,16 +136,6 @@ func update_status_bar():
 			i.hide()
 
 
-
-func cancel_actions(status):
-
-	if interactions[status]["cancels"] != null:
-		print(interactions[status]["cancels"])
-		var canceled_action = interactions[status]["cancels"]
-		canceled_action = false
-
-	emit_signal("update_log", interactions[status]["description"])
-	
 
 
 

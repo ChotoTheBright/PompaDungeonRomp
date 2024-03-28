@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/fonts-images/statuses.png" type="Texture" id=1]
 
@@ -37,9 +37,17 @@ flags = 18
 atlas = ExtResource( 1 )
 region = Rect2( 128, 64, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=15]
+flags = 18
+atlas = ExtResource( 1 )
+region = Rect2( 64, 128, 64, 64 )
+
 [node name="status_bar" type="GridContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
+rect_scale = Vector2( 0.25, 0.25 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
 columns = 4
 
 [node name="bodyblocked" type="TextureRect" parent="."]
@@ -50,44 +58,44 @@ texture = SubResource( 8 )
 
 [node name="dizzy" type="TextureRect" parent="."]
 visible = false
-margin_left = 68.0
-margin_right = 132.0
+margin_right = 64.0
 margin_bottom = 64.0
 texture = SubResource( 9 )
 
 [node name="sleep" type="TextureRect" parent="."]
 visible = false
-margin_left = 136.0
-margin_right = 200.0
+margin_right = 64.0
 margin_bottom = 64.0
 texture = SubResource( 10 )
 
 [node name="spotted" type="TextureRect" parent="."]
 visible = false
-margin_left = 204.0
-margin_right = 268.0
+margin_right = 64.0
 margin_bottom = 64.0
 texture = SubResource( 11 )
 
 [node name="hype" type="TextureRect" parent="."]
 visible = false
-margin_left = 204.0
-margin_right = 268.0
+margin_left = 64.0
+margin_right = 128.0
 margin_bottom = 64.0
 texture = SubResource( 12 )
 
 [node name="charging" type="TextureRect" parent="."]
 visible = false
-margin_left = 68.0
-margin_top = 68.0
-margin_right = 132.0
-margin_bottom = 132.0
+margin_left = 64.0
+margin_right = 128.0
+margin_bottom = 64.0
 texture = SubResource( 13 )
 
 [node name="evasive" type="TextureRect" parent="."]
 visible = false
-margin_left = 68.0
-margin_top = 68.0
-margin_right = 132.0
-margin_bottom = 132.0
+margin_right = 64.0
+margin_bottom = 64.0
 texture = SubResource( 14 )
+
+[node name="disoriented" type="TextureRect" parent="."]
+visible = false
+margin_right = 64.0
+margin_bottom = 64.0
+texture = SubResource( 15 )

@@ -23,6 +23,15 @@ var action : Dictionary = {
 	"description2" : "\n The knights passion rallies her allies."
 }
 
+var interactions : Dictionary = {
+	"disoriented" : {
+		"cancels" : null,
+		"description" : "\n It would take an earthquake to throw off her footing."},
+
+	"webbed" : {
+		"cancels" : charging,
+		"description" : "\n 'You fight like a rat.'"},
+	}
 
 ##statuses
 
@@ -43,6 +52,10 @@ var bodyblocked : int = 0
 var dead : bool = false
 
 var charging : int = 0
+
+var evasive : int = 0
+
+var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyblocked, charging, evasive]
 
 
 
@@ -86,11 +99,45 @@ func on_animation_finished():
 	sprite.play("idle")
 
 
-func set_status(status : String):
+func set_status(status : Dictionary):
 
-	var changed_status = get(status)
 
-	changed_status = true
+	if status.has("destabilized") or status.has("webbed"):
+		print("cancel")
+		
+		if interactions[status["status"]]["cancels"] != null:
+			set(interactions[status]["cancels"], 0)
+
+	set(status["status"], status["duration"])
+	if interactions.has(status["status"]):
+		emit_signal("update_log", interactions.get(status["status"])["description"])
+
+	call_deferred("update_status_bar")
+
+
+func turn_end_status_maintenance():
+
+	for i in statuses:
+		i = max(i - 1, 0)
+
+		if i > 0:
+			update_status_bar()
+
+
+
+func update_status_bar():
+
+	for i in status_bar.get_children():
+		var status = get(i.get_name())
+
+		if status > 0:
+			i.show()
+
+		elif status <= 0:
+			i.hide()
+
+
+
 
 func _on_animation_finished():
 
