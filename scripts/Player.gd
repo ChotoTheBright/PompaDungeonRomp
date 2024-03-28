@@ -20,6 +20,8 @@ var destination = Vector3()
 var can_move = false
 var btn_time : Timer
 var inbattle : bool = false
+var DEBUG_blockray : bool = true
+
 
 func _ready():
 	btn_time = Timer.new()
@@ -36,6 +38,9 @@ func _input(_event):
 	if !inbattle:
 		if Input.is_action_just_pressed("map"):
 			control.check_map()
+		if Input.is_action_just_pressed("DEBUGblockray"):
+			plapping()
+
 
 func _physics_process(delta):
 #	print(inbattle)
@@ -113,8 +118,17 @@ func battle_signal():
 		return
 
 #INFO: Vector3(x,y,z)--FORWARD:0,0,-1,//BACK:0,0,1//RIGHT:1,0,0//LEFT:-1,0,0
-func plapping():
-	pass
+func plapping(): #debug func
+	if DEBUG_blockray == true:
+		ray_w.enabled = false
+		DEBUG_blockray = false
+		pass
+	elif DEBUG_blockray == false:
+		ray_w.enabled = true
+		DEBUG_blockray = true
+		pass
+
+
 
 func blasting():
 	pass

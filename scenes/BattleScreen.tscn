@@ -92,6 +92,7 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.392157 )
 margin_left = -198.0
 margin_top = -52.0
 margin_right = 1682.0

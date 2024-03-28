@@ -120,18 +120,16 @@ var stored_action : String
 
 func _ready():
 	
-	player.inbattle = true
+	player.inbattle = false#true
 	
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
-# warning-ignore:return_value_discarded
-#	PlayerStats.connect("hurt", self, "pain")
-#	PlayerStats.connect("dead", self, "death")
-	var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
-	diorama_container.add_child(encounter)
 
-	start_combat()
+#	var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
+#	diorama_container.add_child(encounter)
+
+#	start_combat()
 	pass
 
 
