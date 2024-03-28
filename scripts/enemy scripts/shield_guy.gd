@@ -27,12 +27,12 @@ var action : Dictionary = {
 }
 
 var interactions : Dictionary = {
-	"disoriented" : {
-		"cancels" : [charging, bodyblocked],
+	"destabilized" : {
+		"cancels" : ["charging", "bodyblocked"],
 		"description" : "\n His footing falters."},
 
 	"webbed" : {
-		"cancels" : [charging, bodyblocked],
+		"cancels" : ["charging", "bodyblocked"],
 		"description" : "\n The webs get between every plate of armor."},
 	}
 
@@ -70,8 +70,6 @@ var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyb
 
 func _ready():
 
-
-
 	party = get_parent().get_children()
 	
 	connect("update_log", battle_scene, "update_log")
@@ -81,6 +79,9 @@ func _ready():
 
 	guard()
 
+
+
+
 func guard():
 
 	for i in party:
@@ -88,6 +89,12 @@ func guard():
 			i.set_status({"status" : "bodyblocked", "duration": 99})
 			emit_signal("update_log", "\n The gargantuan knight readies his shield.")
 
+func unguard():
+
+	for i in party:
+		if i.dead == false and i.name != "shield_guy":
+			i.set_status({"status" : "bodyblocked", "duration": 0})
+			emit_signal("update_log", "\n The enemy party is exposed.")
 
 
 func attack():
@@ -106,14 +113,15 @@ func attack():
 		emit_signal("action", final_dict)
 		charging = 0
 
+		if bodyblocked <= 0 and sleep <= 0:
+			guard()
 
 	elif charging == 0 and sleep <= 0 and disoriented <= 0:
 		charging = 1
 		emit_signal("update_log", "\n The knight gathers his strength.")
 
 
-	if bodyblocked <= 0:
-		guard()
+
 
 	update_status_bar()
 
@@ -123,7 +131,7 @@ func damage(damage):
 
 	sprite.play("damage_flash")
 
-	if bodyblocked:
+	if bodyblocked > 0:
 		damage = damage * .25
 
 	hp -= damage
@@ -140,16 +148,17 @@ func damage(damage):
 
 func set_status(status : Dictionary):
 
-
-	if status.has("destabilized") or status.has("webbed"):
+	if status["status"] == "destabilized" or status["status"] == "webbed":
 		print("cancel")
-		
-		if interactions[status["status"]]["cancels"] != null:
-			
-			for i in interactions[status]["cancels"]:
+
+		if interactions.get(status["status"])["cancels"] != null:
+			print(interactions.get(status["status"])["cancels"])
+			for i in interactions.get(status["status"])["cancels"]:
+				print(i)
 				set(i, 0)
 
 	set(status["status"], status["duration"])
+
 	if interactions.has(status["status"]):
 		emit_signal("update_log", interactions.get(status["status"])["description"])
 
@@ -181,6 +190,8 @@ func update_status_bar():
 		elif status <= 0:
 			i.hide()
 
+	if bodyblocked == 0:
+		unguard()
 
 
 

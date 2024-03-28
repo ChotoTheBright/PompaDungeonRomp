@@ -2,7 +2,7 @@ extends TextureButton
 
 signal action
 signal death
-
+signal update_log
 
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
@@ -32,12 +32,12 @@ var action : Dictionary = {
 	}
 	
 var interactions : Dictionary = {
-	"disoriented" : {
-		"cancels" : charging,
+	"destabilized" : {
+		"cancels" : ["charging"],
 		"description" : "\n The well built gentleman loses his balance"},
 
 	"webbed" : {
-		"cancels" : charging,
+		"cancels" : ["charging"],
 		"description" : "\n His muscles strain under the webs grip."},
 	}
 
@@ -86,7 +86,7 @@ func _ready():
 	connect("death", get_parent(), "on_enemy_death")
 	connect("action", battle_scene, "queue_enemy_action")
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
-
+	connect("update_log", battle_scene, "update_log")
 
 func attack():
 
@@ -146,20 +146,27 @@ func damage(damage):
 
 
 
+
 func set_status(status : Dictionary):
 
-
-	if status.has("destabilized") or status.has("webbed"):
+	if status["status"] == "destabilized" or status["status"] == "webbed":
 		print("cancel")
-		
-		if interactions[status["status"]]["cancels"] != null:
-			set(interactions[status]["cancels"], 0)
+
+		if interactions.get(status["status"])["cancels"] != null:
+			print(interactions.get(status["status"])["cancels"])
+			for i in interactions.get(status["status"])["cancels"]:
+				print(i)
+				set(i, 0)
 
 	set(status["status"], status["duration"])
+
 	if interactions.has(status["status"]):
 		emit_signal("update_log", interactions.get(status["status"])["description"])
 
 	call_deferred("update_status_bar")
+
+
+
 
 
 func turn_end_status_maintenance():

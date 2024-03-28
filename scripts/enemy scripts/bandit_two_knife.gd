@@ -29,7 +29,7 @@ var interactions : Dictionary = {
 		"description" : "\n The bandit leaps over the forced"},
 
 	"webbed" : {
-		"cancels" : evasive,
+		"cancels" : ["evasive"],
 		"description" : "\n Dodge this."},
 	}
 
@@ -110,15 +110,20 @@ func damage(damage):
 
 
 
+
 func set_status(status : Dictionary):
 
-	if status.has("destabilized") or status.has("webbed"):
+	if status["status"] == "destabilized" or status["status"] == "webbed":
 		print("cancel")
-		
-		if interactions[status["status"]]["cancels"] != null:
-			set(interactions[status]["cancels"], 0)
+
+		if interactions.get(status["status"])["cancels"] != null:
+			print(interactions.get(status["status"])["cancels"])
+			for i in interactions.get(status["status"])["cancels"]:
+				print(i)
+				set(i, 0)
 
 	set(status["status"], status["duration"])
+
 	if interactions.has(status["status"]):
 		emit_signal("update_log", interactions.get(status["status"])["description"])
 

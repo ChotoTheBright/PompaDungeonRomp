@@ -24,12 +24,12 @@ var action : Dictionary = {
 }
 
 var interactions : Dictionary = {
-	"disoriented" : {
+	"destabilized" : {
 		"cancels" : null,
 		"description" : "\n It would take an earthquake to throw off her footing."},
 
 	"webbed" : {
-		"cancels" : charging,
+		"cancels" : ["charging"],
 		"description" : "\n 'You fight like a rat.'"},
 	}
 
@@ -60,6 +60,8 @@ var statuses : Array = [spotted, hype, dizzy, sleep, destabilized, webbed, bodyb
 
 
 func _ready():
+	var party = get_parent().get_children()
+
 
 	connect("death", get_parent(), "on_enemy_death")
 	connect("action", battle_scene, "queue_enemy_action")
@@ -74,7 +76,6 @@ func attack():
 
 
 
-
 func damage(damage):
 
 	sprite.play("damage_flash")
@@ -82,9 +83,6 @@ func damage(damage):
 	
 	if bodyblocked:
 		damage = damage * .5
-
-
-	
 
 	if hp <= 0:
 
@@ -101,18 +99,22 @@ func on_animation_finished():
 
 func set_status(status : Dictionary):
 
-
-	if status.has("destabilized") or status.has("webbed"):
+	if status["status"] == "destabilized" or status["status"] == "webbed":
 		print("cancel")
-		
-		if interactions[status["status"]]["cancels"] != null:
-			set(interactions[status]["cancels"], 0)
+
+		if interactions.get(status["status"])["cancels"] != null:
+			print(interactions.get(status["status"])["cancels"])
+			for i in interactions.get(status["status"])["cancels"]:
+				print(i)
+				set(i, 0)
 
 	set(status["status"], status["duration"])
+
 	if interactions.has(status["status"]):
 		emit_signal("update_log", interactions.get(status["status"])["description"])
 
 	call_deferred("update_status_bar")
+
 
 
 func turn_end_status_maintenance():

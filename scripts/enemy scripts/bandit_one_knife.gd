@@ -13,6 +13,7 @@ onready var status_bar = $status_bar
 
 ##statuses
 
+var disoriented : int = 0
 
 var spotted : int = 0
 
@@ -93,7 +94,7 @@ func attack():
 	if spotted:
 		final_dict["damage"] = dmg * 2
 
-	if dizzy > 0 or sleep > 0 or disoriented > 0:
+	if dizzy > 0 or sleep > 0 or destabilized > 0:
 		final_dict["damage"] = 0
 		final_dict["animation"] = "wind"
 		final_dict["description"] = "They are in no condition to fight"

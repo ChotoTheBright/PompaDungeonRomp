@@ -120,16 +120,16 @@ var stored_action : String
 
 func _ready():
 	
-	player.inbattle = false#true
+	player.inbattle = true
 	
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
 
-#	var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
-#	diorama_container.add_child(encounter)
+	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance()
+	diorama_container.add_child(encounter)
 
-#	start_combat()
+	start_combat()
 	pass
 
 
@@ -308,8 +308,6 @@ func activate_player_actions():
 
 
 
-
-
 func player_attack(attack_dictionary: Dictionary):
 
 
@@ -337,7 +335,7 @@ func player_attack(attack_dictionary: Dictionary):
 	
 	if attack_dictionary.get("status") != null:
 		get_node(attack_dictionary.get("target")).set_status(statuses.get(attack_dictionary["status"]))
-
+		print(statuses.get(attack_dictionary["status"]))
 
 	print("i did a thing")
 
