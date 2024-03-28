@@ -5,23 +5,29 @@ export(EVENTS) var event_type
 
 onready var col = $Col #Triggers must have a collis.shape with this name
 
-signal event1
-signal event2
-signal event3
-signal event4
+signal eventbattle
+signal eventcutscene
+signal eventdoor
+signal eventitem
+signal eventswitch
 
 func _ready():
 	pass
 
 func on_body_entered(body):
-	if body.is_in_group("player"):# is StaticBody:
-#		return
-		emit_signal("event1")
-		emit_signal("event2")
-		emit_signal("event3")
-		emit_signal("event4")
+	if body.is_in_group("player"):
+		match event_type:
+			EVENTS.BATTLE:
+				emit_signal("eventbattle")
+			EVENTS.CUTSCENE:
+				emit_signal("eventcutscene")
+			EVENTS.DOOR:
+				emit_signal("eventdoor")
+			EVENTS.ITEM:
+				emit_signal("eventitem")
+			EVENTS.SWITCH:
+				emit_signal("eventswitch")
 		col.disabled = true
-		print("check me out, boyo")
 		return
 
 
