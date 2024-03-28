@@ -9,7 +9,7 @@ onready var item_hud = $HUD/item_hud
 onready var combat_log = $HUD/log/log_text
 onready var battle_effects = $diorama_container/battle_effects
 onready var back_button = $HUD/back
-onready var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
+#onready var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
 
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
 onready var player = get_tree().get_nodes_in_group("player")[0]
@@ -120,7 +120,7 @@ var stored_action : String
 
 
 func _ready():
-<<<<<<< HEAD
+
 	
 	player.inbattle = true
 	
@@ -132,11 +132,7 @@ func _ready():
 	diorama_container.add_child(encounter)
 
 	start_combat()
-=======
-	PlayerStats.init()
-# warning-ignore:return_value_discarded
-	PlayerStats.connect("dead", self, "death")
->>>>>>> 7a878f80746d74b160164fba0d612889bcc01540
+
 	pass
 
 
@@ -146,6 +142,7 @@ func _ready():
 
 
 func _on_action_button_pressed(action):
+
 	stored_action = action
 	action_hud.hide()
 	item_hud.hide()
@@ -185,15 +182,19 @@ func _on_back_pressed():
 
 func start_combat():
 	player.inbattle = true
-	diorama_container.add_child(encounter)
 	
 	enemies = get_tree().get_nodes_in_group("encounter").front()
 
 	start_player_turn()
 
+
+
+
 #-------------
 ##turn order
 #-------------
+
+
 
 func start_player_turn():
 	print("player_turn")
@@ -213,8 +214,6 @@ func start_enemy_turn():
 		if i.dead == false:
 			i.attack()
 
-		
-	
 	activate_enemy_actions()
 
 

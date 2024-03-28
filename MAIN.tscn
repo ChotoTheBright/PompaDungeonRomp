@@ -2868,6 +2868,5 @@ axis = 1
 texture = ExtResource( 19 )
 
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/Trigger" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/Trigger" method="on_body_entered" flags=3]
-[connection signal="eventbattle" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/Trigger" to="BattleScreen" method="start_combat" flags=3]
 
 [editable path="ViewportContainer/Viewport/MAIN/player"]

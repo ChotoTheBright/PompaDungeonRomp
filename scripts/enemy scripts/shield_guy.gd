@@ -108,8 +108,9 @@ func attack():
 		if dizzy > 0 or sleep > 0 or disoriented > 0:
 			final_dict["damage"] = 0
 			final_dict["animation"] = "wind"
-			final_dict["description"] = "They are in no condition to fight"
-
+			final_dict["description1"] = "\n They are in no condition to fight"
+			final_dict["description2"] = "\n..."
+			
 		emit_signal("action", final_dict)
 		charging = 0
 
@@ -119,7 +120,6 @@ func attack():
 	elif charging == 0 and sleep <= 0 and disoriented <= 0:
 		charging = 1
 		emit_signal("update_log", "\n The knight gathers his strength.")
-
 
 
 
@@ -143,7 +143,13 @@ func damage(damage):
 		dead = true
 		emit_signal("death")
 
+	if sleep > 0:
+		sleep = 0
+		if dizzy > 0:
+			disoriented = 1
+			dizzy = 0
 
+		call_deferred("update_status_bar")
 
 
 func set_status(status : Dictionary):
