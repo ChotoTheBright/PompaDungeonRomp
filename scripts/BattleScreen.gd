@@ -129,14 +129,9 @@ var stored_action : String
 
 func _ready():
 
-
-	
-	
-
 	#Uncomment the line below# #SWAP#
 #	player.inbattle = true
 
-	
 	PlayerStats.init()
 # warning-ignore:return_value_discarded
 	PlayerStats.connect("dead", self, "death")
