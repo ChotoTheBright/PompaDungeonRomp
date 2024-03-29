@@ -11,13 +11,15 @@ onready var item_hud = $HUD/item_hud
 onready var combat_log = $HUD/log/log_text
 onready var battle_effects = $diorama_container/battle_effects
 onready var back_button = $HUD/back
+onready var action_point = $HUD/TextureRect/action_points
+
 #Comment OUT the line below# #SWAP#
 #onready var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
 
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
 onready var player = get_tree().get_nodes_in_group("player")[0]
 
-var defending : bool = true
+var defending : bool = false
 
 var player_turn : bool = true
 
@@ -141,8 +143,8 @@ func _ready():
 
 
 	#Uncomment the 3 lines below# #SWAP#
-	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance() #SWAP#
-	start_combat(encounter) #SWAP#
+	#var encounter = preload("res://scenes/combat/encounter_3.tscn").instance() #SWAP#
+	#start_combat(encounter) #SWAP#
 
 
 	pass
@@ -232,6 +234,7 @@ func start_player_turn():
 		PlayerStats.defending = false
 		$HUD/main_hud/Button3.disabled = false
 	action_points = 2
+	update_action_points()
 	action_hud.visible = true
 	player_turn = true
 
@@ -303,7 +306,7 @@ func queue_player_action(target):
 
 	if stored_action != "throwing_knife":
 		action_points -= 1
-
+		update_action_points()
 
 	var queued_action = player_actions[stored_action].duplicate()
 	queued_action["target"] = target
@@ -438,6 +441,9 @@ func pain(_dam):
 		update_log(player_actions.get("potion_heal")["description"])
 
 
+func update_action_points():
+
+	action_point.play(str(action_points))
 
 
 func update_log(combat_text):
@@ -445,10 +451,8 @@ func update_log(combat_text):
 	combat_log.text = combat_log.text + combat_text
 
 
-
-
 func clear_log():
-	
+
 	combat_log.text = ""
 
 

@@ -76,7 +76,7 @@ var charging : int = 0
 
 var evasive : int = 0
 
-var statuses : Array = ["spotted", "hype", "dizzy", "sleep", "destabilized", "webbed", "bodyblocked", "evasive", "disoriented"]
+var statuses : Array = ["dizzy", "sleep", "destabilized", "webbed", "bodyblocked", "evasive", "disoriented"]
 
 
 
