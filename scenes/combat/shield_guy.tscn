@@ -26,13 +26,15 @@ animations = [ {
 } ]
 
 [node name="shield_guy" type="TextureButton"]
-margin_right = 100.0
-rect_min_size = Vector2( 100, 100 )
+margin_left = -1.0
+margin_right = 79.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 80, 80 )
 mouse_filter = 2
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 65, 52 )
+position = Vector2( 55, 54 )
 frames = SubResource( 3 )
 animation = "idle"
 

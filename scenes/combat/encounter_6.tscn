@@ -19,22 +19,22 @@ stretch_mode = 5
 script = ExtResource( 2 )
 
 [node name="buff_bandit" parent="." instance=ExtResource( 1 )]
-margin_left = 42.0
-margin_top = 31.0
-margin_right = 142.0
-margin_bottom = 131.0
+margin_left = 3.0
+margin_top = 74.0
+margin_right = 103.0
+margin_bottom = 174.0
 stretch_mode = 4
 
 [node name="buff_bandit3" parent="." instance=ExtResource( 1 )]
-margin_left = 115.0
-margin_top = 87.0
-margin_right = 215.0
-margin_bottom = 187.0
+margin_left = 76.0
+margin_top = 130.0
+margin_right = 176.0
+margin_bottom = 230.0
 stretch_mode = 4
 
 [node name="buff_bandit2" parent="." instance=ExtResource( 1 )]
-margin_left = 196.0
-margin_top = 30.0
-margin_right = 296.0
-margin_bottom = 130.0
+margin_left = 157.0
+margin_top = 73.0
+margin_right = 257.0
+margin_bottom = 173.0
 stretch_mode = 4

@@ -26,12 +26,14 @@ animations = [ {
 } ]
 
 [node name="buff_bandit" type="TextureButton"]
-rect_min_size = Vector2( 100, 100 )
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
 mouse_filter = 2
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 48, 40 )
+position = Vector2( 37, 37 )
 frames = SubResource( 3 )
 animation = "idle"
 

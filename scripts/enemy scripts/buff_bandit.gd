@@ -24,7 +24,7 @@ var action : Dictionary = {
 	"description2" : "\n Their muscles get huge. "},
 	"hype" : {
 	"damage" : dmg,
-	"status" : "hyped",
+	"status" : "hype",
 	"target" : null,
 	"animation" : "hype",
 	"description1" : "\n Buff Bandit hypes up his ally",

@@ -24,36 +24,36 @@ __meta__ = {
 }
 
 [node name="buff_bandit" parent="." instance=ExtResource( 4 )]
-margin_left = 31.0
-margin_top = 60.0
-margin_right = 131.0
-margin_bottom = 160.0
+margin_left = 6.5
+margin_top = 98.0
+margin_right = 106.5
+margin_bottom = 198.0
 stretch_mode = 4
 
 [node name="bandit_one_knife" parent="." instance=ExtResource( 2 )]
-margin_left = 208.0
-margin_top = 10.0
-margin_right = 308.0
-margin_bottom = 110.0
+margin_left = 183.5
+margin_top = 48.0
+margin_right = 283.5
+margin_bottom = 148.0
 stretch_mode = 4
 
 [node name="bandit_one_knife2" parent="." instance=ExtResource( 2 )]
-margin_left = 214.0
-margin_top = 75.0
-margin_right = 314.0
-margin_bottom = 175.0
+margin_left = 189.5
+margin_top = 113.0
+margin_right = 289.5
+margin_bottom = 213.0
 stretch_mode = 4
 
 [node name="bandit_one_knife3" parent="." instance=ExtResource( 2 )]
-margin_left = 145.0
-margin_top = 49.0
-margin_right = 245.0
-margin_bottom = 149.0
+margin_left = 120.5
+margin_top = 87.0
+margin_right = 220.5
+margin_bottom = 187.0
 stretch_mode = 4
 
 [node name="shield_guy" parent="." instance=ExtResource( 3 )]
-margin_left = 96.0
-margin_top = 94.0
-margin_right = 196.0
-margin_bottom = 194.0
+margin_left = 71.5
+margin_top = 132.0
+margin_right = 171.5
+margin_bottom = 232.0
 stretch_mode = 4

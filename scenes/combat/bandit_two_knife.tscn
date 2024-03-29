@@ -26,14 +26,14 @@ animations = [ {
 } ]
 
 [node name="bandit_two_knife" type="TextureButton"]
-margin_right = 100.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 100, 100 )
+margin_right = 80.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 80, 60 )
 mouse_filter = 2
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 50, 44 )
+position = Vector2( 42, 25 )
 frames = SubResource( 2 )
 animation = "idle"
 

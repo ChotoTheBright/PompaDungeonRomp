@@ -17,6 +17,7 @@ onready var back_button = $HUD/back
 onready var _STAT = get_tree().get_nodes_in_group("STATLABEL")[0]
 onready var player = get_tree().get_nodes_in_group("player")[0]
 
+var defending : bool = true
 
 var player_turn : bool = true
 
@@ -210,6 +211,14 @@ func start_combat(encounter):
 
 
 
+func _on_defend_pressed():
+	action_points -= 1
+	
+	defending = true
+	
+	$HUD/main_hud/Button3.disabled = true
+
+
 
 #-------------
 ##turn order
@@ -221,7 +230,7 @@ func start_player_turn():
 	print("player_turn")
 	if PlayerStats.defending == true:
 		PlayerStats.defending = false
-
+		$HUD/main_hud/Button3.disabled = false
 	action_points = 2
 	action_hud.visible = true
 	player_turn = true
@@ -326,7 +335,6 @@ func activate_player_actions():
 
 
 
-
 func player_attack(attack_dictionary: Dictionary):
 	print(attack_dictionary)
 	if attack_dictionary.get("target") != "player":
@@ -340,7 +348,7 @@ func player_attack(attack_dictionary: Dictionary):
 					new_target = self.get_path_to(i)
 					attack_dictionary["target"] = new_target
 
-		battle_effects.position = get_node(attack_dictionary["target"]).rect_position
+		battle_effects.position = get_node(attack_dictionary["target"]).rect_position + Vector2(40,40)
 		battle_effects.play(attack_dictionary.get("animation"))
 		yield(battle_effects, "animation_finished")
 
@@ -354,7 +362,7 @@ func player_attack(attack_dictionary: Dictionary):
 
 	elif attack_dictionary.get("damage") < 0:
 
-		battle_effects.position = Vector2(160, 120)
+		battle_effects.position = Vector2(320, 240)
 		battle_effects.play(attack_dictionary.get("animation"))
 		yield(battle_effects, "animation_finished")
 		pain(attack_dictionary.get("damage"))
@@ -370,6 +378,7 @@ func _on_battle_effects_animation_finished():
 	battle_effects.playing = false
 
 	if player_turn == true:
+		print(enemies.dead_dudes)
 		if enemies.get_children().size() == enemies.dead_dudes:
 			call_deferred("end_combat")
 
@@ -380,6 +389,8 @@ func _on_battle_effects_animation_finished():
 			call_deferred("activate_player_actions")
 
 	elif player_turn == false:
+		if enemies.get_children().size() == enemies.dead_dudes:
+			call_deferred("end_combat")
 
 		if queued_enemy_actions.size() != 0:
 			call_deferred("activate_enemy_actions")
@@ -414,7 +425,8 @@ func death():
 
 
 func pain(_dam):
-
+	if defending == true and _dam > 0:
+		_dam = int(_dam * .25)
 	PlayerStats.hurt(_dam)
 	_STAT.update_health(_dam)#update_display()
 
@@ -438,6 +450,7 @@ func update_log(combat_text):
 func clear_log():
 	
 	combat_log.text = ""
+
 
 
 

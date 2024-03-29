@@ -1,26 +1,41 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/fonts-images/slash.png" type="Texture" id=1]
+[ext_resource path="res://assets/fonts-images/player_slash.png" type="Texture" id=1]
 
-[sub_resource type="AtlasTexture" id=401]
+[sub_resource type="AtlasTexture" id=406]
 flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 64, 64 )
+region = Rect2( 0, 0, 32, 17 )
 
-[sub_resource type="AtlasTexture" id=402]
+[sub_resource type="AtlasTexture" id=407]
 flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 64, 64 )
+region = Rect2( 32, 0, 32, 17 )
 
-[sub_resource type="AtlasTexture" id=403]
+[sub_resource type="AtlasTexture" id=408]
 flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 128, 0, 64, 64 )
+region = Rect2( 64, 0, 32, 17 )
 
-[sub_resource type="AtlasTexture" id=404]
+[sub_resource type="AtlasTexture" id=409]
 flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 192, 0, 64, 64 )
+region = Rect2( 96, 0, 32, 17 )
+
+[sub_resource type="AtlasTexture" id=410]
+flags = 18
+atlas = ExtResource( 1 )
+region = Rect2( 128, 0, 32, 17 )
+
+[sub_resource type="AtlasTexture" id=411]
+flags = 18
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 32, 17 )
+
+[sub_resource type="AtlasTexture" id=412]
+flags = 18
+atlas = ExtResource( 1 )
+region = Rect2( 192, 0, 32, 17 )
 
 [sub_resource type="SpriteFrames" id=405]
 animations = [ {
@@ -39,10 +54,10 @@ animations = [ {
 "name": "miss",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 401 ), SubResource( 402 ), SubResource( 403 ), SubResource( 404 ), null ],
+"frames": [ SubResource( 406 ), SubResource( 407 ), SubResource( 408 ), SubResource( 409 ), SubResource( 410 ), SubResource( 411 ), SubResource( 412 ) ],
 "loop": false,
 "name": "player_slash",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ null ],
 "loop": false,
@@ -57,5 +72,7 @@ animations = [ {
 
 [node name="battle_effects" type="AnimatedSprite"]
 position = Vector2( 91, 123 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 405 )
-animation = "hype"
+animation = "player_slash"
+frame = 6

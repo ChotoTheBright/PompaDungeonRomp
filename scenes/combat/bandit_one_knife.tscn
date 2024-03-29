@@ -43,16 +43,16 @@ animations = [ {
 } ]
 
 [node name="bandit_one_knife" type="TextureButton"]
-margin_right = 100.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 100, 100 )
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 60, 60 )
 mouse_filter = 2
 texture_pressed = SubResource( 5 )
 texture_hover = SubResource( 7 )
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 44, 41 )
+position = Vector2( 35, 24 )
 frames = SubResource( 3 )
 animation = "idle"
 

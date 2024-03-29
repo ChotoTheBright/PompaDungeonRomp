@@ -14,7 +14,6 @@ margin_left = -160.0
 margin_top = -120.0
 margin_right = 160.0
 margin_bottom = 120.0
-rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 stretch_mode = 5
 script = ExtResource( 2 )

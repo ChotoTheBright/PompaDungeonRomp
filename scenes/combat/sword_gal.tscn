@@ -26,14 +26,14 @@ animations = [ {
 } ]
 
 [node name="sword_gal" type="TextureButton"]
-margin_right = 100.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 100, 100 )
+margin_right = 60.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 60, 80 )
 mouse_filter = 2
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 38, 49 )
+position = Vector2( 29, 44 )
 frames = SubResource( 3 )
 animation = "idle"
 
