@@ -9,6 +9,7 @@ onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
 onready var status_bar = $status_bar
+onready var damage_text = $damage_text
 
 var party 
 var hp = 35
@@ -106,15 +107,18 @@ func attack():
 
 func damage(damage):
 
-	sprite.play("damage_flash")
 
 	
 	if bodyblocked and damage > 0:
 		damage = damage * .5
 
-	yield(sprite, "animation_finished")
 
 	hp -= damage
+	if damage != 0:
+		damage_text.damage_pop_up(damage, Vector2(25,0))
+
+	sprite.play("damage_flash")
+	yield(sprite, "animation_finished")
 
 	if hp <= 0:
 		hide()

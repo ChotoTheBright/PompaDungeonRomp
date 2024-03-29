@@ -10,7 +10,7 @@ onready var player = get_tree().get_nodes_in_group("player").front()
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
 onready var status_bar = $status_bar
-
+onready var damage_text = $damage_text
 ##statuses
 
 var disoriented : int = 0
@@ -77,6 +77,9 @@ func damage(damage):
 	if bodyblocked and damage > 0:
 		damage = damage * .5
 
+	if damage != 0:
+		damage_text.damage_pop_up(damage, Vector2(0,0))
+
 	hp -= damage
 
 	if hp <= 0:
@@ -89,6 +92,8 @@ func damage(damage):
 		wake_up()
 
 	call_deferred("update_status_bar")
+
+
 
 
 func wake_up():
@@ -143,6 +148,8 @@ func set_status(status : Dictionary):
 		emit_signal("update_log", interactions.get(status["status"])["description"])
 
 	call_deferred("update_status_bar")
+
+
 
 
 func turn_end_status_maintenance():

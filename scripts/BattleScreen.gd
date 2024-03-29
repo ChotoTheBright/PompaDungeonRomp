@@ -138,8 +138,8 @@ func _ready():
 
 
 	#Uncomment the 3 lines below# #SWAP#
-	#var encounter = preload("res://scenes/combat/encounter_3.tscn").instance() #SWAP#
-	#start_combat(encounter) #SWAP#
+	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance() #SWAP#
+	start_combat(encounter) #SWAP#
 
 
 	pass
@@ -198,7 +198,7 @@ func _on_back_pressed():
 func start_combat(encounter):
 
 	#Comment OUT the 2 lines below# #SWAP#
-
+	self.show()
 	player.inbattle = true
 	diorama_container.add_child(encounter)#SWAP#
 

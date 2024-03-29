@@ -7,7 +7,7 @@ signal update_log
 onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front()
 onready var sprite = $AnimatedSprite
 onready var status_bar = $status_bar
-
+onready var damage_text = $damage_text
 
 export var dmg = 0
 
@@ -133,14 +133,17 @@ func attack():
 func damage(damage):
 
 
-
-	sprite.play("damage_flash")
-	
 	if bodyblocked:
 		damage = damage * .5
 	
 	hp -= damage
+	
+	if damage != 0:
+		damage_text.damage_pop_up(damage, Vector2(0,0))
+	
+	sprite.play("damage_flash")
 	yield(sprite, "animation_finished")
+
 	if hp <= 0:
 		hide()
 		dead = true
