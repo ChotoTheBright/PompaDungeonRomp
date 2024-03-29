@@ -196,7 +196,7 @@ func _on_back_pressed():
 ##turn functions
 
 func start_combat(encounter):
-
+	hud.show()
 	#Comment OUT the 2 lines below# #SWAP#
 	self.show()
 	player.inbattle = true
@@ -210,12 +210,14 @@ func start_combat(encounter):
 
 func _on_defend_pressed():
 	action_points -= 1
-	
+	update_action_points()
 	defending = true
 	
 	$HUD/main_hud/Button3.disabled = true
 
-
+	print("defend")
+	if action_points <= 0:
+		call_deferred("activate_player_actions")
 
 #-------------
 ##turn order
@@ -224,10 +226,11 @@ func _on_defend_pressed():
 
 
 func start_player_turn():
-	print("player_turn")
-	if PlayerStats.defending == true:
-		PlayerStats.defending = false
+	
+	if defending == true:
 		$HUD/main_hud/Button3.disabled = false
+		defending = false
+
 	action_points = 2
 	update_action_points()
 	action_hud.visible = true
@@ -406,7 +409,7 @@ func end_combat():
 	
 	call_deferred("clear_log")
 	enemies.queue_free()
-
+	hud.hide()
 	action_hud.visible = false
 	item_hud.visible = false
 	visible = false
