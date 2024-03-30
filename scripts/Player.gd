@@ -22,7 +22,6 @@ var btn_time : Timer
 var inbattle : bool = false
 var DEBUG_blockray : bool = true
 
-
 func _ready():
 	btn_time = Timer.new()
 	btn_time.wait_time = 0.5
@@ -38,8 +37,7 @@ func _input(_event):
 	if !inbattle:
 		if Input.is_action_just_pressed("map"):
 			control.check_map()
-		if Input.is_action_just_pressed("DEBUGblockray"):
-			plapping()
+
 
 
 func _physics_process(delta):

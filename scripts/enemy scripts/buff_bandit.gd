@@ -125,6 +125,8 @@ func attack():
 	elif charging == 0 and sleep <= 0 and dizzy <= 0 and disoriented <= 0:
 		charging = 1
 		emit_signal("update_log", "\n Buff Bandit charges up")
+		sprite.play("charge")
+		yield(sprite, "animation_finished")
 
 	else:
 		final_dict["description1"] = "\n They are in no condition to fight"

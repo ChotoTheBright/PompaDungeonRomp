@@ -1,4 +1,4 @@
-[gd_scene load_steps=267 format=2]
+[gd_scene load_steps=269 format=2]
 
 [ext_resource path="res://assets/fonts-images/Dither2nd.png" type="Texture" id=1]
 [ext_resource path="res://scenes/BattleScreen.tscn" type="PackedScene" id=2]
@@ -31,9 +31,11 @@
 [ext_resource path="res://textures/JamTextures/tile_brick_3.png" type="Texture" id=29]
 [ext_resource path="res://textures/JamTextures/tile110_pal.png" type="Texture" id=30]
 [ext_resource path="res://textures/JamTextures/tile_brick_2.png" type="Texture" id=31]
+[ext_resource path="res://scenes/title.tscn" type="PackedScene" id=32]
 [ext_resource path="res://textures/JamTextures/D_FLR_4.png" type="Texture" id=33]
 [ext_resource path="res://textures/JamTextures/tile_brick_1.png" type="Texture" id=34]
 [ext_resource path="res://textures/JamTextures/D_FLR_1.png" type="Texture" id=35]
+[ext_resource path="res://scenes/pause_screen.tscn" type="PackedScene" id=36]
 
 [sub_resource type="Shader" id=28]
 code = "shader_type canvas_item;
@@ -1183,6 +1185,12 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 406, 145 )
 script = ExtResource( 10 )
 
+[node name="title" parent="." instance=ExtResource( 32 )]
+visible = false
+
+[node name="pause_screen" parent="." instance=ExtResource( 36 )]
+visible = false
+
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 material = SubResource( 29 )
 anchor_right = 1.0
@@ -1286,6 +1294,7 @@ playing = true
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 43, 2.5, 2.995 )
 frames = SubResource( 1020 )
 frame = 2
+frame = 1
 playing = true
 
 [node name="TorchSprite3" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]

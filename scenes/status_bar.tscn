@@ -65,8 +65,7 @@ texture = SubResource( 9 )
 
 [node name="sleep" type="TextureRect" parent="."]
 visible = false
-margin_left = 64.0
-margin_right = 96.0
+margin_right = 32.0
 margin_bottom = 32.0
 hint_tooltip = "Sleep
 

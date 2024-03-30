@@ -52,7 +52,7 @@ var player_actions : Dictionary = {
 		"type" : "item",
 		"target" : null,
 		"status" : null,
-		"animation" : "player_slash",
+		"animation" : "throwing_knife",
 		"description" : "\n A blur seeks bone."},
 
 	"web_ball" : {
@@ -76,7 +76,7 @@ var player_actions : Dictionary = {
 		"damage" : 0,
 		"target" : null,
 		"status" : "destabilized",
-		"animation" : "player_slash",
+		"animation" : "sphere",
 		"description" : "\n The floor cracks on impact."},
 	
 	"fuzzy_dust" : {
@@ -84,7 +84,7 @@ var player_actions : Dictionary = {
 		"damage" : 0,
 		"target" : null,
 		"status" : "dizzy",
-		"animation" : "player_slash",
+		"animation" : "fuzzy_dust",
 		"description" : "\n Touch fuzzy, get dizzy."},
 	
 	"bandage_heal" : {
@@ -419,7 +419,7 @@ func player_attack(attack_dictionary: Dictionary):
 					new_target = self.get_path_to(i)
 					attack_dictionary["target"] = new_target
 
-		battle_effects.position = get_node(attack_dictionary["target"]).rect_position + Vector2(40,40)
+		battle_effects.position = get_node(attack_dictionary["target"]).rect_position + Vector2(-20,20)
 		battle_effects.play(attack_dictionary.get("animation"))
 		yield(battle_effects, "animation_finished")
 
@@ -528,5 +528,6 @@ func clear_log():
 func update_inventory():
 
 	for i in inventory:
-		i.get_child(0).text = str(PlayerStats.get(i.name))
-
+		if PlayerStats.get(i.name) >0 :
+			i.get_child(0).text = str(PlayerStats.get(i.name))
+			i.show()

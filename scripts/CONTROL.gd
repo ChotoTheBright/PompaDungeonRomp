@@ -17,6 +17,8 @@ var scale_factor = 0.25
 var bhud_time = Timer.new()
 var hud_up = false
 var hasmap = false
+var title : bool = true
+
 
 func _ready():
 	MapHud.visible = false
@@ -77,3 +79,13 @@ func endgamesetup():
 
 func print_test():
 	print("congrats you beat ze game!")
+
+
+func _unhandled_key_input(event):
+
+	if title == true:
+		$title.hide()
+
+	if event.is_action_pressed("menu"):
+		
+		$pause_screen.on_pause()
