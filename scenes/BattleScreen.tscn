@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://assets/fonts-images/Gamaliel.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/BattleScreen.gd" type="Script" id=2]
@@ -53,7 +53,18 @@ animations = [ {
 } ]
 
 [sub_resource type="DynamicFont" id=388]
+size = 45
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=416]
 size = 28
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=419]
+size = 50
+use_mipmaps = true
+use_filter = true
 font_data = ExtResource( 1 )
 
 [sub_resource type="StreamTexture" id=391]
@@ -93,7 +104,7 @@ outline_size = 1
 outline_color = Color( 0, 0, 0, 0.698039 )
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=412]
+[sub_resource type="DynamicFont" id=414]
 size = 10
 outline_size = 1
 outline_color = Color( 0, 0, 0, 0.498039 )
@@ -101,15 +112,19 @@ use_mipmaps = true
 font_data = ExtResource( 10 )
 
 [sub_resource type="Theme" id=413]
-default_font = SubResource( 412 )
-Label/fonts/font = SubResource( 412 )
+default_font = SubResource( 414 )
+Label/fonts/font = SubResource( 414 )
 
-[sub_resource type="StreamTexture" id=404]
+[sub_resource type="StreamTexture" id=415]
 load_path = "res://.import/items.png-3f9a95b2ddab03b7d2a4b26146345c7c.stex"
 
 [sub_resource type="AtlasTexture" id=405]
-atlas = SubResource( 404 )
+atlas = SubResource( 415 )
 region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="DynamicFont" id=417]
+size = 50
+font_data = ExtResource( 10 )
 
 [sub_resource type="AtlasTexture" id=406]
 atlas = ExtResource( 7 )
@@ -124,16 +139,20 @@ atlas = ExtResource( 7 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=409]
-atlas = SubResource( 404 )
+atlas = SubResource( 415 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=410]
-atlas = SubResource( 404 )
+atlas = SubResource( 415 )
 region = Rect2( 0, 16, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=411]
-atlas = SubResource( 404 )
+atlas = SubResource( 415 )
 region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="DynamicFont" id=418]
+size = 30
+font_data = ExtResource( 1 )
 
 [node name="BattleScreen" type="CanvasLayer" groups=["battle_screen"]]
 visible = false
@@ -168,6 +187,7 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 self_modulate = Color( 1, 1, 1, 0.87451 )
 margin_left = -193.0
 margin_top = -52.0
@@ -190,6 +210,7 @@ rect_scale = Vector2( 2, 2 )
 
 [node name="battle_effects" parent="diorama_container" instance=ExtResource( 6 )]
 z_index = 1
+animation = "throwing_knife"
 
 [node name="HUD" type="CanvasLayer" parent="."]
 visible = false
@@ -257,7 +278,7 @@ margin_left = -51.0
 margin_top = -11.9999
 margin_right = -51.0
 margin_bottom = -11.9999
-custom_fonts/font = SubResource( 388 )
+custom_fonts/font = SubResource( 416 )
 text = "Log
 "
 align = 1
@@ -268,8 +289,12 @@ __meta__ = {
 [node name="log_text" type="RichTextLabel" parent="HUD/log"]
 margin_left = -96.0
 margin_top = 40.0
-margin_right = 145.0
-margin_bottom = 199.0
+margin_right = 386.0
+margin_bottom = 368.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = SubResource( 419 )
+bbcode_text = "gyhjghj"
+text = "gyhjghj"
 scroll_active = false
 scroll_following = true
 
@@ -321,14 +346,14 @@ margin_right = 96.0
 margin_bottom = 16.0
 texture_normal = SubResource( 392 )
 
-[node name="bandage" type="TextureButton" parent="HUD/item_hud/items"]
+[node name="bandage_heal" type="TextureButton" parent="HUD/item_hud/items"]
 visible = false
 margin_top = 20.0
 margin_right = 16.0
 margin_bottom = 36.0
 texture_normal = SubResource( 397 )
 
-[node name="potion" type="TextureButton" parent="HUD/item_hud/items"]
+[node name="potion_heal" type="TextureButton" parent="HUD/item_hud/items"]
 visible = false
 margin_left = 20.0
 margin_top = 20.0
@@ -373,10 +398,12 @@ margin_bottom = 74.0
 texture = SubResource( 405 )
 
 [node name="throwing_knife" type="Label" parent="HUD/inventory/throwing_knife"]
-margin_left = 13.3333
-margin_top = 2.00005
-margin_right = 28.3333
-margin_bottom = 15.0
+margin_left = 18.3333
+margin_top = 0.333374
+margin_right = 45.3333
+margin_bottom = 62.3334
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/font = SubResource( 417 )
 text = "0"
 align = 1
 
@@ -388,10 +415,12 @@ margin_bottom = 93.0
 texture = SubResource( 406 )
 
 [node name="sleep_gas" type="Label" parent="HUD/inventory/sleep_gas"]
-margin_left = 13.6667
-margin_top = 1.66672
-margin_right = 28.6667
-margin_bottom = 14.6667
+margin_left = 18.6667
+margin_top = 6.10352e-05
+margin_right = 45.6667
+margin_bottom = 62.0001
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/font = SubResource( 417 )
 text = "0"
 align = 1
 
@@ -408,6 +437,8 @@ margin_left = 14.3333
 margin_top = 1.66669
 margin_right = 29.3333
 margin_bottom = 14.6667
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/font = SubResource( 417 )
 text = "0"
 align = 1
 
@@ -424,6 +455,8 @@ margin_left = 15.0
 margin_top = 1.66672
 margin_right = 30.0
 margin_bottom = 14.6667
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/font = SubResource( 417 )
 text = "0"
 align = 1
 
@@ -440,25 +473,29 @@ margin_left = 15.0
 margin_top = 1.66669
 margin_right = 30.0
 margin_bottom = 14.6667
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/font = SubResource( 417 )
 text = "0"
 align = 1
 
-[node name="bandage" type="TextureRect" parent="HUD/inventory"]
+[node name="bandage_heal" type="TextureRect" parent="HUD/inventory"]
 margin_left = 62.0
 margin_top = 35.667
 margin_right = 131.0
 margin_bottom = 104.667
 texture = SubResource( 410 )
 
-[node name="bandage" type="Label" parent="HUD/inventory/bandage"]
-margin_left = 14.6667
-margin_top = 1.66638
-margin_right = 29.6667
-margin_bottom = 14.6664
+[node name="bandage" type="Label" parent="HUD/inventory/bandage_heal"]
+margin_left = 19.6667
+margin_top = -0.000244141
+margin_right = 46.6667
+margin_bottom = 61.9998
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/font = SubResource( 417 )
 text = "0"
 align = 1
 
-[node name="potion" type="TextureRect" parent="HUD/inventory"]
+[node name="potion_heal" type="TextureRect" parent="HUD/inventory"]
 visible = false
 margin_left = 63.0
 margin_top = 15.6667
@@ -466,11 +503,13 @@ margin_right = 132.0
 margin_bottom = 84.6667
 texture = SubResource( 411 )
 
-[node name="potion" type="Label" parent="HUD/inventory/potion"]
+[node name="potion" type="Label" parent="HUD/inventory/potion_heal"]
 margin_left = 14.0
 margin_top = 1.66666
 margin_right = 29.0
 margin_bottom = 14.6667
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/font = SubResource( 417 )
 text = "0"
 align = 1
 
@@ -494,8 +533,10 @@ anchor_right = 0.45
 anchor_bottom = 0.745
 margin_right = 40.0
 margin_bottom = 14.0
-custom_fonts/font = SubResource( 388 )
+custom_fonts/font = SubResource( 418 )
 script = ExtResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="animation_finished" from="diorama_container/battle_effects" to="." method="_on_battle_effects_animation_finished" flags=3]
 [connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "melee_attack" ]]
@@ -506,6 +547,6 @@ script = ExtResource( 3 )
 [connection signal="pressed" from="HUD/item_hud/items/fuzzy_dust" to="." method="_on_action_button_pressed" binds= [ "fuzzy_dust" ]]
 [connection signal="pressed" from="HUD/item_hud/items/web_ball" to="." method="_on_action_button_pressed" binds= [ "web_ball" ]]
 [connection signal="pressed" from="HUD/item_hud/items/sphere" to="." method="_on_action_button_pressed" binds= [ "sphere" ]]
-[connection signal="pressed" from="HUD/item_hud/items/bandage" to="." method="_on_action_button_pressed" binds= [ "bandage_heal" ]]
-[connection signal="pressed" from="HUD/item_hud/items/potion" to="." method="_on_action_button_pressed" binds= [ "potion_heal" ]]
+[connection signal="pressed" from="HUD/item_hud/items/bandage_heal" to="." method="_on_action_button_pressed" binds= [ "bandage_heal" ]]
+[connection signal="pressed" from="HUD/item_hud/items/potion_heal" to="." method="_on_action_button_pressed" binds= [ "potion_heal" ]]
 [connection signal="pressed" from="HUD/back" to="." method="_on_back_pressed"]

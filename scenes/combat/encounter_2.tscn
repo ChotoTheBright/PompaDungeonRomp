@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/BG_EarthboundDisco.tres" type="Material" id=4]
 
 [node name="encounter_2" type="TextureRect" groups=["encounter"]]
+show_behind_parent = true
 material = ExtResource( 4 )
 anchor_left = 0.5
 anchor_top = 0.5

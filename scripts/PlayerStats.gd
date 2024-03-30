@@ -16,8 +16,8 @@ var sleep_gas : int = 2
 var fuzzy_dust : int = 0
 var web_ball : int = 0
 var sphere : int = 0
-var bandage : int = 4
-var potion : int = 0
+var bandage_heal : int = 4
+var potion_heal : int = 0
 
 var defending : bool = false
 
@@ -64,5 +64,6 @@ func set_status(status: String):
 
 
 func use_item(item : String, amount : int):
+	
 
 	set(item, get(item) + amount)

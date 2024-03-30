@@ -137,7 +137,8 @@ func attack():
 	elif charging <= 0 and sleep <= 0 and disoriented <= 0:
 		charging = 1
 		emit_signal("update_log", "\n The knight gathers his strength.")
-
+		sprite.play("charge")
+		yield(sprite, "animation_finished")
 
 
 	update_status_bar()

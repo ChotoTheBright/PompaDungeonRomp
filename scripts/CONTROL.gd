@@ -6,10 +6,10 @@ onready var viewport = $ViewportContainer/Viewport
 onready var BAHUD = $BattleScreen
 onready var MapHud = $Map
 onready var MapSprite = $MapSprite
-#onready var maptop1 = $MapSprite2
-#onready var maptop2 = $MapSprite3
+onready var maptop1 = $MapSprite2
+onready var maptop2 = $MapSprite3
 onready var penis = "this does nothing, but at least it's there 8]"
-#onready var cutscene = get_tree().get_nodes_in_group("cutscene")[0]
+onready var cutscene = get_tree().get_nodes_in_group("cutscene")[0]
 onready var exit_sign = $ViewportContainer/Viewport/MAIN/World/STUFF/EXITSIGN
 onready var end_trigger = $ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5
 
@@ -17,6 +17,8 @@ var scale_factor = 0.25
 var bhud_time = Timer.new()
 var hud_up = false
 var hasmap = false
+var title : bool = true
+
 
 func _ready():
 	MapHud.visible = false
@@ -77,3 +79,13 @@ func endgamesetup():
 
 func print_test():
 	print("congrats you beat ze game!")
+
+
+func _unhandled_key_input(event):
+
+	if title == true:
+		$title.hide()
+
+	if event.is_action_pressed("menu"):
+		
+		$pause_screen.on_pause()
