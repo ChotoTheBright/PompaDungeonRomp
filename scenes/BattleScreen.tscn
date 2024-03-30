@@ -1,14 +1,15 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://assets/fonts-images/Gamaliel.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/BattleScreen.gd" type="Script" id=2]
 [ext_resource path="res://scripts/StatsText.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts-images/text_bubble.png" type="Texture" id=4]
-[ext_resource path="res://UI Theme.tres" type="Theme" id=5]
+[ext_resource path="res://assets/UI Theme.tres" type="Theme" id=5]
 [ext_resource path="res://scenes/battle_effects.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fonts-images/items.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts-images/hud.png" type="Texture" id=8]
 [ext_resource path="res://assets/fonts-images/action_gems.png" type="Texture" id=9]
+[ext_resource path="res://assets/fonts-images/CATChilds.ttf" type="DynamicFontData" id=10]
 
 [sub_resource type="DynamicFont" id=386]
 size = 32
@@ -92,7 +93,50 @@ outline_size = 1
 outline_color = Color( 0, 0, 0, 0.698039 )
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=412]
+size = 10
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.498039 )
+use_mipmaps = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="Theme" id=413]
+default_font = SubResource( 412 )
+Label/fonts/font = SubResource( 412 )
+
+[sub_resource type="StreamTexture" id=404]
+load_path = "res://.import/items.png-3f9a95b2ddab03b7d2a4b26146345c7c.stex"
+
+[sub_resource type="AtlasTexture" id=405]
+atlas = SubResource( 404 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=406]
+atlas = ExtResource( 7 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=407]
+atlas = ExtResource( 7 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=408]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=409]
+atlas = SubResource( 404 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=410]
+atlas = SubResource( 404 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=411]
+atlas = SubResource( 404 )
+region = Rect2( 16, 16, 16, 16 )
+
 [node name="BattleScreen" type="CanvasLayer" groups=["battle_screen"]]
+visible = false
 script = ExtResource( 2 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -150,6 +194,7 @@ z_index = 1
 frame = 10
 
 [node name="HUD" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="TextureRect" type="TextureRect" parent="HUD"]
 anchor_top = 0.75
@@ -205,18 +250,6 @@ rect_min_size = Vector2( 352, 152 )
 custom_fonts/font = SubResource( 388 )
 text = "Defend"
 
-[node name="inventory" type="Label" parent="HUD"]
-margin_left = 79.0
-margin_top = 682.0
-margin_right = 191.0
-margin_bottom = 716.0
-custom_fonts/font = SubResource( 388 )
-text = "Inventory"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="log" type="Label" parent="HUD"]
 anchor_left = 0.92375
 anchor_top = 0.762222
@@ -257,41 +290,48 @@ rect_scale = Vector2( 3, 3 )
 columns = 5
 
 [node name="throwing_knife" type="TextureButton" parent="HUD/item_hud/items"]
+visible = false
 margin_right = 16.0
 margin_bottom = 16.0
 texture_normal = SubResource( 396 )
 
 [node name="sleep_gas" type="TextureButton" parent="HUD/item_hud/items"]
+visible = false
 margin_left = 20.0
 margin_right = 36.0
 margin_bottom = 16.0
 texture_normal = SubResource( 395 )
 
 [node name="fuzzy_dust" type="TextureButton" parent="HUD/item_hud/items"]
+visible = false
 margin_left = 40.0
 margin_right = 56.0
 margin_bottom = 16.0
 texture_normal = SubResource( 393 )
 
 [node name="web_ball" type="TextureButton" parent="HUD/item_hud/items"]
+visible = false
 margin_left = 60.0
 margin_right = 76.0
 margin_bottom = 16.0
 texture_normal = SubResource( 394 )
 
 [node name="sphere" type="TextureButton" parent="HUD/item_hud/items"]
+visible = false
 margin_left = 80.0
 margin_right = 96.0
 margin_bottom = 16.0
 texture_normal = SubResource( 392 )
 
 [node name="bandage" type="TextureButton" parent="HUD/item_hud/items"]
+visible = false
 margin_top = 20.0
 margin_right = 16.0
 margin_bottom = 36.0
 texture_normal = SubResource( 397 )
 
 [node name="potion" type="TextureButton" parent="HUD/item_hud/items"]
+visible = false
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 36.0
@@ -314,6 +354,127 @@ align = 1
 valign = 1
 autowrap = true
 clip_text = true
+
+[node name="inventory" type="Control" parent="HUD"]
+anchor_left = 0.024375
+anchor_top = 0.781111
+anchor_right = 0.19125
+anchor_bottom = 1.01111
+margin_left = -29.0
+margin_top = -29.0
+margin_right = -207.0
+margin_bottom = -167.0
+rect_scale = Vector2( 3, 3 )
+theme = SubResource( 413 )
+
+[node name="throwing_knife" type="TextureRect" parent="HUD/inventory"]
+margin_left = 8.0
+margin_top = 5.0
+margin_right = 77.0
+margin_bottom = 74.0
+texture = SubResource( 405 )
+
+[node name="throwing_knife" type="Label" parent="HUD/inventory/throwing_knife"]
+margin_left = 13.3333
+margin_top = 2.00005
+margin_right = 28.3333
+margin_bottom = 15.0
+text = "0"
+align = 1
+
+[node name="sleep_gas" type="TextureRect" parent="HUD/inventory"]
+margin_left = 7.0
+margin_top = 24.0
+margin_right = 76.0
+margin_bottom = 93.0
+texture = SubResource( 406 )
+
+[node name="sleep_gas" type="Label" parent="HUD/inventory/sleep_gas"]
+margin_left = 13.6667
+margin_top = 1.66672
+margin_right = 28.6667
+margin_bottom = 14.6667
+text = "0"
+align = 1
+
+[node name="fuzzy_dust" type="TextureRect" parent="HUD/inventory"]
+visible = false
+margin_left = 7.0
+margin_top = 44.0
+margin_right = 76.0
+margin_bottom = 113.0
+texture = SubResource( 407 )
+
+[node name="fuzzy_dust" type="Label" parent="HUD/inventory/fuzzy_dust"]
+margin_left = 14.3333
+margin_top = 1.66669
+margin_right = 29.3333
+margin_bottom = 14.6667
+text = "0"
+align = 1
+
+[node name="web_ball" type="TextureRect" parent="HUD/inventory"]
+visible = false
+margin_left = 35.0
+margin_top = 16.0
+margin_right = 104.0
+margin_bottom = 85.0
+texture = SubResource( 408 )
+
+[node name="web_ball" type="Label" parent="HUD/inventory/web_ball"]
+margin_left = 15.0
+margin_top = 1.66672
+margin_right = 30.0
+margin_bottom = 14.6667
+text = "0"
+align = 1
+
+[node name="sphere" type="TextureRect" parent="HUD/inventory"]
+visible = false
+margin_left = 35.0
+margin_top = 36.0
+margin_right = 104.0
+margin_bottom = 105.0
+texture = SubResource( 409 )
+
+[node name="sphere" type="Label" parent="HUD/inventory/sphere"]
+margin_left = 15.0
+margin_top = 1.66669
+margin_right = 30.0
+margin_bottom = 14.6667
+text = "0"
+align = 1
+
+[node name="bandage" type="TextureRect" parent="HUD/inventory"]
+margin_left = 62.0
+margin_top = 35.667
+margin_right = 131.0
+margin_bottom = 104.667
+texture = SubResource( 410 )
+
+[node name="bandage" type="Label" parent="HUD/inventory/bandage"]
+margin_left = 14.6667
+margin_top = 1.66638
+margin_right = 29.6667
+margin_bottom = 14.6664
+text = "0"
+align = 1
+
+[node name="potion" type="TextureRect" parent="HUD/inventory"]
+visible = false
+margin_left = 63.0
+margin_top = 15.6667
+margin_right = 132.0
+margin_bottom = 84.6667
+texture = SubResource( 411 )
+
+[node name="potion" type="Label" parent="HUD/inventory/potion"]
+margin_left = 14.0
+margin_top = 1.66666
+margin_right = 29.0
+margin_bottom = 14.6667
+text = "0"
+align = 1
 
 [node name="back" type="Button" parent="HUD"]
 visible = false

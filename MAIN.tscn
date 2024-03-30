@@ -1281,7 +1281,7 @@ uppercase = true
 [node name="TorchSprite" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 36, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="TorchSprite2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
