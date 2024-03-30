@@ -12,6 +12,13 @@ onready var combat_log = $HUD/log/log_text
 onready var battle_effects = $diorama_container/battle_effects
 onready var back_button = $HUD/back
 onready var action_point = $HUD/TextureRect/action_points
+onready var encounter1 = preload("res://scenes/combat/encounter_1.tscn").instance()
+onready var encounter2 = preload("res://scenes/combat/encounter_2.tscn").instance()
+onready var encounter3 = preload("res://scenes/combat/encounter_3.tscn").instance()
+onready var encounter4 = preload("res://scenes/combat/encounter_4.tscn").instance()
+onready var encounter5 = preload("res://scenes/combat/encounter_5.tscn").instance()
+onready var encounter6 = preload("res://scenes/combat/encounter_6.tscn").instance()
+onready var encounter7 = preload("res://scenes/combat/encounter_7.tscn").instance()
 
 #Comment OUT the line below# #SWAP#
 #onready var encounter = preload("res://scenes/combat/encounter_4.tscn").instance()
@@ -22,7 +29,7 @@ onready var player = get_tree().get_nodes_in_group("player")[0]
 var defending : bool = false
 
 var player_turn : bool = true
-
+var end_combat_timer : Timer
 var queued_player_actions : Array = []
 var action_points : int = 2
 
@@ -128,6 +135,15 @@ var stored_action : String
 
 
 func _ready():
+	end_combat_timer = Timer.new()
+	end_combat_timer.wait_time = 0.5
+# warning-ignore:return_value_discarded
+	end_combat_timer.connect("timeout", self, "end_combat_trans")
+	end_combat_timer.one_shot = true
+	add_child(end_combat_timer)
+
+
+
 
 	#Uncomment the line below# #SWAP#
 #	player.inbattle = true
@@ -138,8 +154,8 @@ func _ready():
 
 
 	#Uncomment the 3 lines below# #SWAP#
-	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance() #SWAP#
-	start_combat(encounter) #SWAP#
+#	var encounter = preload("res://scenes/combat/encounter_3.tscn").instance() #SWAP#
+#	start_combat(encounter) #SWAP#
 
 
 	pass
@@ -197,10 +213,35 @@ func _on_back_pressed():
 
 func start_combat(encounter):
 	hud.show()
-	#Comment OUT the 2 lines below# #SWAP#
 	self.show()
+	#---#
 	player.inbattle = true
-	diorama_container.add_child(encounter)#SWAP#
+	match encounter:
+		1:
+			diorama_container.add_child(encounter1)
+			pass
+		2:
+			diorama_container.add_child(encounter2)
+			pass
+		3:
+			diorama_container.add_child(encounter3)
+			pass
+		4:
+			diorama_container.add_child(encounter4)
+			pass
+		5:
+			diorama_container.add_child(encounter5)
+			pass
+		6:
+			diorama_container.add_child(encounter6)
+			pass
+		7:
+			diorama_container.add_child(encounter7)#SWAP#
+			pass
+		8:
+			pass
+#encounter1
+#	diorama_container.add_child(encounter)#SWAP#
 
 	enemies = get_tree().get_nodes_in_group("encounter").front()
 
@@ -381,7 +422,7 @@ func _on_battle_effects_animation_finished():
 	if player_turn == true:
 		print(enemies.dead_dudes)
 		if enemies.get_children().size() == enemies.dead_dudes:
-			call_deferred("end_combat")
+			call_deferred("end_combat_trans")#end_combat
 
 		elif queued_player_actions.size() == 0:
 			call_deferred("start_enemy_turn")
@@ -391,7 +432,7 @@ func _on_battle_effects_animation_finished():
 
 	elif player_turn == false:
 		if enemies.get_children().size() == enemies.dead_dudes:
-			call_deferred("end_combat")
+			call_deferred("end_combat_trans")#end_combat
 
 		if queued_enemy_actions.size() != 0:
 			call_deferred("activate_enemy_actions")
@@ -403,10 +444,12 @@ func _on_battle_effects_animation_finished():
 			call_deferred("start_player_turn")
 
 
-
+func end_combat_trans():
+	Transitions.dual_circles(0,1,Color.black)
+#	end_combat_timer.start()
+	pass
 
 func end_combat():
-	
 	call_deferred("clear_log")
 	enemies.queue_free()
 	hud.hide()
@@ -414,6 +457,7 @@ func end_combat():
 	item_hud.visible = false
 	visible = false
 	player.inbattle = false
+
 
 
 

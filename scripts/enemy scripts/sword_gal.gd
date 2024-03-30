@@ -66,9 +66,13 @@ var statuses : Array = ["dizzy", "sleep", "destabilized", "webbed", "bodyblocked
 func _ready():
 	party = get_parent().get_children()
 
+# warning-ignore:return_value_discarded
 	connect("update_log", battle_scene, "update_log")
+# warning-ignore:return_value_discarded
 	connect("death", get_parent(), "on_enemy_death")
+# warning-ignore:return_value_discarded
 	connect("action", battle_scene, "queue_enemy_action")
+# warning-ignore:return_value_discarded
 	connect("pressed", battle_scene, "queue_player_action", [battle_scene.get_path_to(self)])
 
 

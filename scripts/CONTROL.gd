@@ -44,7 +44,6 @@ func scale_change(_factor):
 	viewport.size = get_viewport().size * scale_factor
 
 func on_battlestart() -> void: #_on_DualCircles_pressed
-	Transitions.dual_circles(2, Color.black) #self, self, 2, Color.black
 	bhud_time.wait_time = 0.5
 # warning-ignore:return_value_discarded
 	bhud_time.connect("timeout", self, "show_bahud")

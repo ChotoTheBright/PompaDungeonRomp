@@ -5,6 +5,7 @@ const ZigZagOverlay = preload("res://addons/godot_transitions/scenes/ZigZagOverl
 const StripesHorizontal = preload("res://addons/godot_transitions/scenes/StripesHorizontal.tscn")
 const Sector = preload("res://addons/godot_transitions/scenes/Sector.tscn")
 const Donut = preload("res://addons/godot_transitions/scenes/Donut.tscn")
+onready var bat_scr = get_tree().get_nodes_in_group("battle_screen")[0]
 
 var SCREEN: Dictionary = {
 	"width" :ProjectSettings.get("display/window/size/width"),
@@ -15,199 +16,7 @@ var SCREEN: Dictionary = {
 func _ready() -> void:
 	SCREEN.center = Vector2(SCREEN.width/2, SCREEN.height/2)
 
-func fade_out(from, to, duration: float, color: Color) -> void:
-	var rootControl = CanvasLayer.new()
-	var colorRect = ColorRect.new()
-	var tween = Tween.new()
-	rootControl.set_pause_mode(PAUSE_MODE_PROCESS)
-	
-	colorRect.set_frame_color(Color(0, 0, 0, 0))
-	
-	get_tree().set_pause(true)
-	get_tree().get_root().add_child(rootControl)
-	rootControl.add_child(colorRect)
-	rootControl.add_child(tween)
-	colorRect._set_size(Vector2(SCREEN.width, SCREEN.height))
-	
-	tween.interpolate_property(colorRect, "color", Color(0, 0, 0, 0), color, duration/2.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.start()
-	
-	yield(tween, "tween_all_completed")
-	var new_scene = load(to).instance()
-	get_tree().get_root().add_child(new_scene)
-	from.queue_free()
-	
-	tween.interpolate_property(colorRect, "color", colorRect.get_frame_color(), Color(0, 0, 0, 0), duration/2, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.start()
-	
-	yield(tween, "tween_all_completed")
-	
-	get_tree().set_current_scene(new_scene)
-	rootControl.queue_free()
-	get_tree().set_pause(false)
-
-func move_to(from, to, duration: float, dir: Vector2):
-	var viewportScene = ViewPortTemplate.instance()
-	get_tree().get_root().add_child(viewportScene)
-	viewportScene.set_pause_mode(PAUSE_MODE_PROCESS)
-	
-	var old_viewport_holder = viewportScene.get_node("OldScene")
-	var new_viewport_holder = viewportScene.get_node("NewScene")
-	var old_viewport = old_viewport_holder.get_node("Viewport1")
-	var new_viewport = new_viewport_holder.get_node("Viewport2")
-	var tween = viewportScene.get_node("Tween")
-	
-	dir.x *= SCREEN.width
-	dir.y *= SCREEN.height
-	
-	get_tree().set_pause(true)
-	
-	from.get_parent().remove_child(from)
-	old_viewport.add_child(from)
-	
-	var new_scene = load(to).instance()
-	new_viewport.add_child(new_scene)
-	
-	new_viewport_holder._set_global_position(dir)
-	
-	tween.interpolate_property(old_viewport_holder, "rect_global_position", old_viewport_holder.get_global_position(), old_viewport_holder.get_global_position() - dir, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.interpolate_property(new_viewport_holder, "rect_global_position", new_viewport_holder.get_global_position(), new_viewport_holder.get_global_position() - dir, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.start()
-	
-	yield(tween, "tween_all_completed")
-	
-	from.queue_free()
-	new_scene.get_parent().remove_child(new_scene)
-	get_tree().get_root().add_child(new_scene)
-	viewportScene.queue_free()
-	new_scene.set_process(true)
-	get_tree().set_current_scene(new_scene)
-	get_tree().set_pause(false)
-
-func shrink(from, to, duration: float):
-	# Create Nodes
-	var controlRoot = CanvasLayer.new()
-	var viewport_holder = ViewportContainer.new()
-	var viewport = Viewport.new()
-	var colorRect = ColorRect.new()
-	var tween = Tween.new()
-	controlRoot.set_pause_mode(PAUSE_MODE_PROCESS)
-	
-	# Set Properties of the created Nodes
-	get_tree().get_root().add_child(controlRoot)
-	controlRoot.add_child(viewport_holder)
-	viewport_holder._set_size(Vector2(SCREEN.width, SCREEN.height))
-	viewport_holder.add_child(viewport)
-	viewport.set_size(Vector2(SCREEN.width, SCREEN.height))
-	from.get_parent().remove_child(from)
-	viewport.add_child(from)
-	controlRoot.add_child(colorRect)
-	colorRect.set_frame_color(Color(0, 0, 0, 0))
-	colorRect._set_size(Vector2(SCREEN.width, SCREEN.height))
-	controlRoot.add_child(tween)
-	get_tree().set_pause(true)
-	
-	# Tween Time!
-	tween.interpolate_property(viewport_holder, "rect_size", Vector2(SCREEN.width, SCREEN.height), Vector2.ZERO, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.interpolate_property(viewport, "size", Vector2(SCREEN.width, SCREEN.height), Vector2.ZERO, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.interpolate_property(colorRect, "color", Color(0, 0, 0, 0), Color.black, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.start()
-
-	yield(tween, "tween_all_completed")
-	
-	var new_scene = load(to).instance()
-	get_tree().get_root().add_child(new_scene)
-	
-	viewport_holder.queue_free()
-	from.queue_free()
-	
-	tween.interpolate_property(colorRect, "color", Color.black, Color(0, 0, 0, 0), duration/2, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.start()
-	
-	yield(tween, "tween_all_completed")
-	
-	get_tree().set_current_scene(new_scene)
-	controlRoot.queue_free()
-	get_tree().set_pause(false)
-
-func slide_rect(from, to, duration: float, color: Color, dir: Vector2) -> void:
-	var controlRoot = CanvasLayer.new()
-	var overlay = ZigZagOverlay.instance()
-	var tween = Tween.new()
-	controlRoot.set_pause_mode(PAUSE_MODE_PROCESS)
-	
-	get_tree().get_root().add_child(controlRoot)
-	controlRoot.add_child(overlay)
-	overlay.color = color
-	overlay.global_position = Vector2(0, 0)
-	controlRoot.add_child(tween)
-	get_tree().set_pause(true)
-	
-	tween.interpolate_property(overlay, "global_position", Vector2(-(dir.x * SCREEN.width), 0), Vector2(0, 0), duration/2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.start()
-	
-	
-	yield(tween, "tween_all_completed")
-	
-	var new_scene = load(to).instance()
-	get_tree().get_root().add_child(new_scene)
-	from.queue_free()
-	
-	tween.interpolate_property(overlay, "global_position", Vector2(0, 0), Vector2(dir.x * (SCREEN.width + 64), 0), duration/2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.start()
-	
-	yield(tween, "tween_all_completed")
-	
-	get_tree().set_current_scene(new_scene)
-	controlRoot.queue_free()
-	get_tree().set_pause(false)
-
-func horizontal_stripes(from, to, duration: float, color: Color, delay = 0.5):
-	var controlRoot = CanvasLayer.new()
-	var overlay_left = StripesHorizontal.instance()
-	var overlay_right = StripesHorizontal.instance()
-	var tween = Tween.new()
-	controlRoot.set_pause_mode(PAUSE_MODE_PROCESS)
-	
-	var y_offset = 0
-	
-	get_tree().get_root().add_child(controlRoot)
-	controlRoot.add_child(overlay_left)
-	overlay_left.color = color
-	overlay_left.global_position = Vector2(-SCREEN.width, 0)
-	controlRoot.add_child(overlay_right)
-	overlay_right.color = color
-	overlay_right.global_position = Vector2(SCREEN.width, y_offset)
-	controlRoot.add_child(tween)
-	get_tree().set_pause(true)
-	
-	y_offset = overlay_right.get_offset_y()
-	
-	tween.interpolate_property(overlay_left, "global_position", Vector2(-SCREEN.width, 0), Vector2(0, 0), duration/2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.interpolate_property(overlay_right, "global_position", Vector2(SCREEN.width, y_offset), Vector2(0, y_offset), duration/2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.start()
-	
-	
-	yield(tween, "tween_all_completed")
-	
-	var new_scene = load(to).instance()
-	get_tree().get_root().add_child(new_scene)
-	from.queue_free()
-	get_tree().set_pause(true)
-	
-	yield(get_tree().create_timer(delay), "timeout")
-	
-	tween.interpolate_property(overlay_left, "global_position", Vector2(0, 0), Vector2(SCREEN.width, 0), duration/2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.interpolate_property(overlay_right, "global_position", Vector2(0, y_offset), Vector2(-SCREEN.width, y_offset), duration/2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.start()
-	
-	yield(tween, "tween_all_completed")
-	
-	get_tree().set_current_scene(new_scene)
-	controlRoot.queue_free()
-	get_tree().set_pause(false)
-
-func dual_circles(duration: float, color: Color): #from, to, 
+func dual_circles(encounter: int, duration: float, color: Color): #from, to, 
 	var controlRoot = CanvasLayer.new()
 	var overlay_top = Sector.instance()
 	var overlay_bottom = Sector.instance()
@@ -240,7 +49,12 @@ func dual_circles(duration: float, color: Color): #from, to,
 	
 	
 	yield(tween, "tween_all_completed")
-	
+	if encounter == 0:
+		bat_scr.end_combat()
+	elif encounter != 0:
+		bat_scr.start_combat(encounter)
+
+
 #	var new_scene = load(to).instance()
 #	get_tree().get_root().add_child(new_scene)
 #	from.queue_free()
@@ -282,6 +96,7 @@ func donut_eye(from, to, duration: float, color: Color):
 	
 	yield(tween, "tween_all_completed")
 
+	#start_combat()
 	var new_scene = load(to).instance()
 	get_tree().get_root().add_child(new_scene)
 	from.queue_free()
