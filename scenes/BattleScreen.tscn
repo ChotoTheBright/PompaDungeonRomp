@@ -124,6 +124,7 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 self_modulate = Color( 1, 1, 1, 0.87451 )
 margin_left = -193.0
 margin_top = -52.0
@@ -146,7 +147,7 @@ rect_scale = Vector2( 2, 2 )
 
 [node name="battle_effects" parent="diorama_container" instance=ExtResource( 6 )]
 z_index = 1
-playing = true
+frame = 10
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

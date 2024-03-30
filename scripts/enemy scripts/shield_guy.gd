@@ -1,6 +1,7 @@
 extends TextureButton
 
 signal action
+# warning-ignore:unused_signal
 signal bodyblock
 signal death
 signal update_log

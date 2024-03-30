@@ -6,13 +6,19 @@ onready var viewport = $ViewportContainer/Viewport
 onready var BAHUD = $BattleScreen
 onready var MapHud = $Map
 onready var MapSprite = $MapSprite
+onready var maptop1 = $MapSprite2
+onready var maptop2 = $MapSprite3
 onready var penis = "this does nothing, but at least it's there 8]"
+onready var cutscene = get_tree().get_nodes_in_group("cutscene")[0]
+onready var exit_sign = $ViewportContainer/Viewport/MAIN/World/STUFF/EXITSIGN
+onready var end_trigger = $ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5
+
 var scale_factor = 0.25
 var bhud_time = Timer.new()
 var hud_up = false
+var hasmap = false
 
 func _ready():
-	#BAHUD.visible = false
 	MapHud.visible = false
 	MapSprite.visible = false
 	env.set_fog_enabled(true)
@@ -31,7 +37,6 @@ func _process(_delta):
 
 func show_bahud():
 	BAHUD.visible = true
-#	HUD.visible = false
 	pass
 
 
@@ -53,13 +58,22 @@ func on_battlestart() -> void: #_on_DualCircles_pressed
 
 
 func check_map():
-	if hud_up == true:
-		MapHud.visible = false
-		MapSprite.visible = false
-		hud_up = false
-		return
-	if hud_up == false:
-		MapHud.visible = true
-		MapSprite.visible = true
-		hud_up = true
-		return
+	if hasmap:
+		if hud_up == true:
+			MapHud.visible = false
+			MapSprite.visible = false
+			hud_up = false
+			return
+		if hud_up == false:
+			MapHud.visible = true
+			MapSprite.visible = true
+			hud_up = true
+			return
+
+func endgamesetup():
+	exit_sign.visible = true
+	end_trigger.col.disabled = false
+	pass
+
+func print_test():
+	print("congrats you beat ze game!")
