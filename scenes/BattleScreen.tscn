@@ -146,7 +146,7 @@ rect_scale = Vector2( 2, 2 )
 
 [node name="battle_effects" parent="diorama_container" instance=ExtResource( 6 )]
 z_index = 1
-playing = true
+animation = "sleep_bomb"
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

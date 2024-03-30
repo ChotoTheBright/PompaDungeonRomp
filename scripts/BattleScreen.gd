@@ -62,7 +62,7 @@ var player_actions : Dictionary = {
 		"damage" : 0,
 		"target" : null,
 		"status" : "sleep",
-		"animation" : "player_slash",
+		"animation" : "sleep_bomb",
 		"description" : "\n The bomb explodes into a relaxing mist."},
 	
 	"sphere" : {
@@ -82,13 +82,13 @@ var player_actions : Dictionary = {
 	"bandage_heal" : {
 		"damage" : -20,
 		"target" : "player",
-		"animation" : "player_slash",
+		"animation" : "heal",
 		"description" : "\n It would stop the bleeding, had you time to."},
 	
 	"potion_heal" : {
 		"damage" : -80,
 		"target" : "player",
-		"animation" : "player_slash",
+		"animation" : "heal",
 		"description" : "\n Strangely savory."},
 	
 }
@@ -135,6 +135,8 @@ var stored_action : String
 
 
 func _ready():
+
+
 	end_combat_timer = Timer.new()
 	end_combat_timer.wait_time = 0.5
 # warning-ignore:return_value_discarded
@@ -176,6 +178,7 @@ func _on_action_button_pressed(action):
 		item_hud.hide()
 		back_button.hide()
 		queue_player_action("player")
+
 
 	else:
 		for i in enemies.get_children():
@@ -315,8 +318,8 @@ func enemy_attack(attack_dict: Dictionary):
 	stored_dict = attack_dict
 
 	update_log(stored_dict.get("description1"))
-
-	battle_effects.play(stored_dict.get("animation"))
+	battle_effects.global_position = Vector2(800, 500)
+	battle_effects.call_deferred("play", stored_dict.get("animation"))
 
 	yield(battle_effects, "animation_finished")
 
@@ -404,7 +407,7 @@ func player_attack(attack_dictionary: Dictionary):
 
 	elif attack_dictionary.get("damage") < 0:
 
-		battle_effects.position = Vector2(320, 240)
+		battle_effects.global_position = Vector2(800, 650)
 		battle_effects.play(attack_dictionary.get("animation"))
 		yield(battle_effects, "animation_finished")
 		pain(attack_dictionary.get("damage"))
