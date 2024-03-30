@@ -12,6 +12,8 @@ onready var combat_log = $HUD/log/log_text
 onready var battle_effects = $diorama_container/battle_effects
 onready var back_button = $HUD/back
 onready var action_point = $HUD/TextureRect/action_points
+onready var inventory = $HUD/inventory.get_children()
+
 onready var encounter1 = preload("res://scenes/combat/encounter_1.tscn").instance()
 onready var encounter2 = preload("res://scenes/combat/encounter_2.tscn").instance()
 onready var encounter3 = preload("res://scenes/combat/encounter_3.tscn").instance()
@@ -39,6 +41,7 @@ var player_actions : Dictionary = {
 	"melee_attack": 
 		{
 		"damage": 10,
+		"type" : "attack",
 		"target" : null,
 		"status" : null,
 		"animation" : "player_slash",
@@ -46,12 +49,14 @@ var player_actions : Dictionary = {
 	
 	"throwing_knife" : {
 		"damage" : 5,
+		"type" : "item",
 		"target" : null,
 		"status" : null,
 		"animation" : "player_slash",
 		"description" : "\n A blur seeks bone."},
 
 	"web_ball" : {
+		"type" : "item",
 		"damage" : 0,
 		"target" : null,
 		"status" : "webbed",
@@ -59,6 +64,7 @@ var player_actions : Dictionary = {
 		"description" : "\n A sticky web covers every."},
 	
 	"sleep_gas" : {
+		"type" : "item",
 		"damage" : 0,
 		"target" : null,
 		"status" : "sleep",
@@ -66,6 +72,7 @@ var player_actions : Dictionary = {
 		"description" : "\n The bomb explodes into a relaxing mist."},
 	
 	"sphere" : {
+		"type" : "item",
 		"damage" : 0,
 		"target" : null,
 		"status" : "destabilized",
@@ -73,6 +80,7 @@ var player_actions : Dictionary = {
 		"description" : "\n The floor cracks on impact."},
 	
 	"fuzzy_dust" : {
+		"type" : "item",
 		"damage" : 0,
 		"target" : null,
 		"status" : "dizzy",
@@ -80,12 +88,14 @@ var player_actions : Dictionary = {
 		"description" : "\n Touch fuzzy, get dizzy."},
 	
 	"bandage_heal" : {
+		"type" : "item",
 		"damage" : -20,
 		"target" : "player",
 		"animation" : "heal",
 		"description" : "\n It would stop the bleeding, had you time to."},
 	
 	"potion_heal" : {
+		"type" : "item",
 		"damage" : -80,
 		"target" : "player",
 		"animation" : "heal",
@@ -180,24 +190,31 @@ func _on_action_button_pressed(action):
 		queue_player_action("player")
 
 
-	else:
-		for i in enemies.get_children():
-			if i.dead == false:
-				i.mouse_filter = 0
 
-			action_hud.hide()
-			item_hud.hide()
-			back_button.show()
+	for i in enemies.get_children():
+		if i.dead == false:
+			i.mouse_filter = 0
 
+	var items = item_hud.get_child(0).get_children()
 
-
-
-func _on_item_pressed():
+	for i in items:
+		i.hide()
+	item_hud.hide()
 	action_hud.hide()
-	item_hud.show()
 	back_button.show()
 
 
+func _on_item_pressed():
+ 
+
+	action_hud.hide()
+	back_button.show()
+	var items = item_hud.get_child(0).get_children()
+
+	for i in items:
+		if PlayerStats.get(i.name) > 0:
+			i.show()
+	item_hud.show()
 
 
 func _on_back_pressed():
@@ -247,6 +264,9 @@ func start_combat(encounter):
 #	diorama_container.add_child(encounter)#SWAP#
 
 	enemies = get_tree().get_nodes_in_group("encounter").front()
+
+
+	update_inventory()
 
 	start_player_turn()
 
@@ -340,7 +360,13 @@ func enemy_attack(attack_dict: Dictionary):
 
 
 func queue_player_action(target):
-	
+
+
+
+	if player_actions[stored_action]["type"] == "item":
+			PlayerStats.use_item(stored_action, -1)
+			call_deferred("update_inventory")
+
 	back_button.hide()
 	
 	for i in enemies.get_children():
@@ -368,7 +394,7 @@ func queue_player_action(target):
 
 
 func activate_player_actions():
-	
+
 
 	action_hud.hide()
 	item_hud.hide()
@@ -381,7 +407,7 @@ func activate_player_actions():
 
 
 func player_attack(attack_dictionary: Dictionary):
-	print(attack_dictionary)
+
 	if attack_dictionary.get("target") != "player":
 		if get_node(attack_dictionary.get("target")).dead == true:
 
@@ -411,8 +437,6 @@ func player_attack(attack_dictionary: Dictionary):
 		battle_effects.play(attack_dictionary.get("animation"))
 		yield(battle_effects, "animation_finished")
 		pain(attack_dictionary.get("damage"))
-
-	print("i did a thing")
 
 
 
@@ -501,5 +525,8 @@ func clear_log():
 	combat_log.text = ""
 
 
+func update_inventory():
 
+	for i in inventory:
+		i.get_child(0).text = str(PlayerStats.get(i.name))
 
