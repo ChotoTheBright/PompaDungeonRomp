@@ -1,101 +1,117 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/fonts-images/statuses.png" type="Texture" id=1]
+[ext_resource path="res://UI Theme.tres" type="Theme" id=2]
 
 [sub_resource type="AtlasTexture" id=8]
-flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 64, 64 )
+region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 128, 0, 64, 64 )
+region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 64, 64 )
+region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=11]
-flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 64, 64, 64, 64 )
+region = Rect2( 32, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=12]
-flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 0, 64, 64, 64 )
+region = Rect2( 1.83421, 32.6439, 32.1292, 31.249 )
 
 [sub_resource type="AtlasTexture" id=13]
-flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 0, 128, 64, 64 )
+region = Rect2( 0, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=14]
-flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 128, 64, 64, 64 )
+region = Rect2( 64, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=15]
-flags = 18
 atlas = ExtResource( 1 )
-region = Rect2( 64, 128, 64, 64 )
+region = Rect2( 32, 64, 32, 32 )
 
 [node name="status_bar" type="GridContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.25, 0.25 )
+margin_right = 79.0
+margin_bottom = 10.0
+grow_vertical = 0
+theme = ExtResource( 2 )
 custom_constants/vseparation = 0
 custom_constants/hseparation = 0
 columns = 4
 
 [node name="bodyblocked" type="TextureRect" parent="."]
-visible = false
-margin_right = 64.0
-margin_bottom = 64.0
+margin_right = 32.0
+margin_bottom = 32.0
+hint_tooltip = "Bodyblocker
+
+	The large fellow is actively obstructing your blows, reducing damage dealt."
 texture = SubResource( 8 )
 
 [node name="dizzy" type="TextureRect" parent="."]
-visible = false
+margin_left = 32.0
 margin_right = 64.0
-margin_bottom = 64.0
+margin_bottom = 32.0
+hint_tooltip = "Fuzzy Dust
+
+	Dizzy individuals have a 50% chance to miss attacks."
 texture = SubResource( 9 )
 
 [node name="sleep" type="TextureRect" parent="."]
-visible = false
-margin_right = 64.0
-margin_bottom = 64.0
+margin_left = 64.0
+margin_right = 96.0
+margin_bottom = 32.0
+hint_tooltip = "Sleep
+
+	They're resting peacefully. Damage will wake them up."
 texture = SubResource( 10 )
 
 [node name="spotted" type="TextureRect" parent="."]
-visible = false
-margin_right = 64.0
-margin_bottom = 64.0
+margin_left = 96.0
+margin_right = 128.0
+margin_bottom = 32.0
+hint_tooltip = "Gains
+
+	A recent gym session lets them swing harder, doing 2x damage."
 texture = SubResource( 11 )
 
 [node name="hype" type="TextureRect" parent="."]
 visible = false
-margin_left = 64.0
-margin_right = 128.0
-margin_bottom = 64.0
+margin_right = 32.0
+margin_bottom = 32.0
+hint_tooltip = "You should be seeing this. Plz report"
 texture = SubResource( 12 )
 
 [node name="charging" type="TextureRect" parent="."]
 visible = false
-margin_left = 64.0
-margin_right = 128.0
-margin_bottom = 64.0
+margin_right = 32.0
+margin_bottom = 32.0
+hint_tooltip = "Charging up
+
+	They will perform a special action on their next turn."
 texture = SubResource( 13 )
 
 [node name="evasive" type="TextureRect" parent="."]
 visible = false
-margin_right = 64.0
-margin_bottom = 64.0
+margin_right = 32.0
+margin_bottom = 32.0
+hint_tooltip = "Evasive
+
+	Dodge one attack."
 texture = SubResource( 14 )
 
 [node name="disoriented" type="TextureRect" parent="."]
 visible = false
-margin_right = 64.0
-margin_bottom = 64.0
+margin_right = 32.0
+margin_bottom = 32.0
+hint_tooltip = "Disoriented
+
+	They need some time to get their bearings, skipping their next turn."
 texture = SubResource( 15 )
+__meta__ = {
+"_editor_description_": ""
+}

@@ -59,17 +59,14 @@ size = 28
 font_data = ExtResource( 23 )
 
 [sub_resource type="AtlasTexture" id=1017]
-flags = 18
 atlas = ExtResource( 26 )
 region = Rect2( 0, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=1018]
-flags = 18
 atlas = ExtResource( 26 )
 region = Rect2( 16, 0, 16, 32 )
 
 [sub_resource type="AtlasTexture" id=1019]
-flags = 18
 atlas = ExtResource( 26 )
 region = Rect2( 32, 0, 16, 32 )
 
@@ -1591,24 +1588,24 @@ texture = ExtResource( 25 )
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 36.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 2
 playing = true
 
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 38.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 40.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="AnimatedSprite3D4" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 42.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
+frame = 1
 playing = true
 
 [node name="DUNGIE" type="Spatial" parent="ViewportContainer/Viewport/MAIN/World"]
@@ -2859,7 +2856,6 @@ tree_attach_batch_size = 16
 set_owner_batch_size = 16
 
 [node name="BattleScreen" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="Map" parent="." instance=ExtResource( 20 )]
 size_flags_horizontal = 0

@@ -44,7 +44,7 @@ export var dmg : float = 10
 var action: Dictionary = {"damage": dmg,
 "status" : null ,
 "target" : "player",
-"animation" : "player_slash",
+"animation" : "single_slash",
 "description1" : "\n A knife flashes out of the shadows.",
 "description2" : "\n Your armor absorbs most of the force"}
 

@@ -18,7 +18,7 @@ var action : Dictionary = {
 	"damage" : dmg,
 	"status" : null,
 	"target" : "player",
-	"animation" : "player_slash",
+	"animation" : "double_slash",
 	"description1" : "\n Bandit stabs twice idk",
 	"description2" : "\n Stuff"
 }

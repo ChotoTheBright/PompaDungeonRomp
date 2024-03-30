@@ -20,7 +20,7 @@ var action : Dictionary = {
 	"heal" : 5,
 	"status" : null,
 	"target" : "player",
-	"animation" : "player_slash",
+	"animation" : "single_slash",
 	"description1" : "\n She seems to care a lot.",
 	"description2" : "\n The knights passion rallies her allies."
 }
