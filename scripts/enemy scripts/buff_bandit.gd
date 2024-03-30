@@ -21,7 +21,7 @@ var action : Dictionary = {
 	"target" : null,
 	"animation" : "spot",
 	"description1" : "\n Buff Bandit spots his ally",
-	"description2" : "\n Their muscles get huge. "},
+	"description2" : "\n The flexual tension is real. "}, #Their muscles get huge. 
 	"hype" : {
 	"damage" : dmg,
 	"status" : "hype",

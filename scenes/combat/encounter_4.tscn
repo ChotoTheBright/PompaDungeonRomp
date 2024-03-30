@@ -1,40 +1,42 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/combat/shield_guy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/EncounterScript.gd" type="Script" id=2]
 [ext_resource path="res://scenes/combat/bandit_two_knife.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/fonts-images/bg temp.png" type="Texture" id=4]
+[ext_resource path="res://assets/BG_DarkGreen.tres" type="Material" id=5]
 
 [node name="encounter_4" type="TextureRect" groups=["encounter"]]
+material = ExtResource( 5 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -160.0
-margin_top = -120.0
-margin_right = 160.0
-margin_bottom = 120.0
+margin_left = -460.0
+margin_top = -242.0
+margin_right = -40.0
+margin_bottom = -2.0
 texture = ExtResource( 4 )
-stretch_mode = 5
+stretch_mode = 2
 script = ExtResource( 2 )
 
 [node name="shield_guy" parent="." instance=ExtResource( 1 )]
-margin_left = 72.5
-margin_top = 128.0
-margin_right = 172.5
-margin_bottom = 228.0
+margin_left = 169.0
+margin_top = 104.5
+margin_right = 269.0
+margin_bottom = 204.5
 stretch_mode = 4
 
 [node name="bandit_two_knife" parent="." instance=ExtResource( 3 )]
-margin_left = 137.5
-margin_top = 70.0
-margin_right = 237.5
-margin_bottom = 170.0
+margin_left = 234.0
+margin_top = 46.5
+margin_right = 334.0
+margin_bottom = 146.5
 stretch_mode = 4
 
 [node name="bandit_two_knife2" parent="." instance=ExtResource( 3 )]
-margin_left = 6.5
-margin_top = 69.5
-margin_right = 106.5
-margin_bottom = 169.5
+margin_left = 103.0
+margin_top = 46.0
+margin_right = 203.0
+margin_bottom = 146.0
 stretch_mode = 4

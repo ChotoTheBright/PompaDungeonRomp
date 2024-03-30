@@ -3,9 +3,10 @@
 [ext_resource path="res://scenes/combat/bandit_one_knife.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/EncounterScript.gd" type="Script" id=2]
 [ext_resource path="res://textures/JamTextures/sky.png" type="Texture" id=3]
-[ext_resource path="res://assets/BG_SapphicCodedLadyBattle.tres" type="Material" id=4]
+[ext_resource path="res://assets/BG_NEW.tres" type="Material" id=4]
 
 [node name="encounter_1" type="TextureRect" groups=["encounter"]]
+show_behind_parent = true
 material = ExtResource( 4 )
 anchor_left = 0.5
 anchor_top = 0.5
