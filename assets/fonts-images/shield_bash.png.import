@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/statuses.png-eb6b49c33ebc93038eea908d3aefc1dc.stex"
+path="res://.import/shield_bash.png-b4305cff10da00cb6fe4d210f483d80d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/fonts-images/statuses.png"
-dest_files=[ "res://.import/statuses.png-eb6b49c33ebc93038eea908d3aefc1dc.stex" ]
+source_file="res://assets/fonts-images/shield_bash.png"
+dest_files=[ "res://.import/shield_bash.png-b4305cff10da00cb6fe4d210f483d80d.stex" ]
 
 [params]
 

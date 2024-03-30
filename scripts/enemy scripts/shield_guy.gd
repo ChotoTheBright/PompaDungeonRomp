@@ -21,7 +21,7 @@ var action : Dictionary = {
 	"damage" : dmg,
 	"status" : "dizzy",
 	"target" : "player",
-	"animation" : "player_slash",
+	"animation" : "shield_bash",
 	"description1" : "\n The shield jerks out towards your face.", 
 	"description2" : "\n Stars fill your vision."
 }

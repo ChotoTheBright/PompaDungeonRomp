@@ -311,7 +311,7 @@ func activate_enemy_actions():
 
 
 func enemy_attack(attack_dict: Dictionary):
-
+  
 	stored_dict = attack_dict
 
 	update_log(stored_dict.get("description1"))

@@ -42,9 +42,8 @@ animation = "idle"
 position = Vector2( 12, -2 )
 
 [node name="status_bar" parent="." instance=ExtResource( 3 )]
-margin_left = 4.0
-margin_top = 5.0
-margin_right = 44.0
-margin_bottom = 45.0
+margin_top = -26.0
+margin_right = 129.0
+margin_bottom = -2.0
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_animation_finished"]
