@@ -6,10 +6,10 @@ onready var viewport = $ViewportContainer/Viewport
 onready var BAHUD = $BattleScreen
 onready var MapHud = $Map
 onready var MapSprite = $MapSprite
-onready var maptop1 = $MapSprite2
-onready var maptop2 = $MapSprite3
+#onready var maptop1 = $MapSprite2
+#onready var maptop2 = $MapSprite3
 onready var penis = "this does nothing, but at least it's there 8]"
-onready var cutscene = get_tree().get_nodes_in_group("cutscene")[0]
+#onready var cutscene = get_tree().get_nodes_in_group("cutscene")[0]
 onready var exit_sign = $ViewportContainer/Viewport/MAIN/World/STUFF/EXITSIGN
 onready var end_trigger = $ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5
 
