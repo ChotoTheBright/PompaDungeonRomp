@@ -1967,15 +1967,37 @@ billboard = 2
 double_sided = false
 texture = ExtResource( 25 )
 
+<<<<<<< HEAD
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 36.213, 2.5, 2.995 )
+=======
+[node name="EXITSIGN" type="Label3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
+transform = Transform( -2, 0, 1.50996e-07, 0, 2, 0, -3.01992e-07, 0, -1, -3.97984, 2.5204, 26.9976 )
+visible = false
+double_sided = false
+modulate = Color( 0.509804, 0, 0, 1 )
+text = "EXIT"
+font = SubResource( 3 )
+uppercase = true
+
+[node name="Torches" type="Position3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
+
+[node name="TorchSprite" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 36, 2.5, 2.995 )
 frames = SubResource( 1020 )
 frame = 1
+playing = true
+
+[node name="TorchSprite2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 43, 2.5, 2.995 )
+>>>>>>> 59bf0350baeb34eb6226739de7086fcfa4d6c214
+frames = SubResource( 1020 )
 playing = true
 
 [node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 transform = Transform( 3, -1.52295e-15, -2.25441e-31, 1.52295e-15, 3, 0, 6.76323e-31, 0, 1, 38.213, 2.5, 2.995 )
 frames = SubResource( 1020 )
+frame = 2
 playing = true
 
 [node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
@@ -3403,10 +3425,30 @@ shape = SubResource( 383 )
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.709408, 0.176502 )
 text = "You did it! 8] <3"
 
+<<<<<<< HEAD
 [node name="SKY" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/Dungeon"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.75, -28 )
 visible = false
 mesh = SubResource( 747 )
+=======
+[node name="Ceiling" type="StaticBody" parent="ViewportContainer/Viewport/MAIN/World/Dungeon"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 4.25, -32.5 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="entity_10_mesh_instance" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/Dungeon/Ceiling"]
+mesh = SubResource( 2195 )
+
+[node name="entity_10_brush_0_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/Dungeon/Ceiling"]
+shape = SubResource( 2196 )
+
+[node name="entity_10_brush_1_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/Dungeon/Ceiling"]
+shape = SubResource( 2197 )
+
+[node name="StarrySky" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/Dungeon/Ceiling"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -14.5 )
+mesh = SubResource( 2199 )
+>>>>>>> 59bf0350baeb34eb6226739de7086fcfa4d6c214
 skeleton = NodePath("")
 software_skinning_transform_normals = false
 material/0 = SubResource( 308 )
