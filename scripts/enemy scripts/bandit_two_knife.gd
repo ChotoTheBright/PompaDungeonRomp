@@ -9,9 +9,14 @@ onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front(
 onready var sprite = $AnimatedSprite
 onready var status_bar = $status_bar
 onready var damage_text = $damage_text
+onready var audio = $AudioStreamPlayer
+
+var hit_sound = preload("res://assets/Audio/hit_sound.wav")
+var miss_sound = preload("res://assets/Audio/woosh1.ogg")
+
 
 var hp = 25
-export var dmg = 10 
+export var dmg = 15
 
 
 var action : Dictionary = {
@@ -120,7 +125,10 @@ func damage(damage):
 
 		if damage != 0:
 			damage_text.damage_pop_up(damage, Vector2(0,0))
-		
+
+		audio.stream = hit_sound
+		audio.play(0)
+
 		sprite.play("damage_flash")
 		yield(sprite, "animation_finished")
 
@@ -136,6 +144,8 @@ func damage(damage):
 	elif evasive > 0:
 		evasive = 0
 		emit_signal("update_log", "\n The bandit dances around your blade.")
+		audio.stream = miss_sound
+		audio.play(0)
 
 	call_deferred("update_status_bar")
 

@@ -11,6 +11,11 @@ onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front(
 onready var sprite = $AnimatedSprite
 onready var status_bar = $status_bar
 onready var damage_text = $damage_text
+onready var audio = $AudioStreamPlayer
+
+var hit_sound = preload("res://assets/Audio/hit_sound.wav")
+var charge_sound = preload("res://assets/Audio/rumble3.ogg")
+
 
 var party 
 var hp = 35
@@ -117,6 +122,8 @@ func damage(damage):
 	if bodyblocked and damage > 0:
 		damage = damage * .5
 
+	audio.stream = hit_sound
+	audio.play(0)
 
 	hp -= damage
 	if damage != 0:

@@ -8,7 +8,10 @@ onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front(
 onready var sprite = $AnimatedSprite
 onready var status_bar = $status_bar
 onready var damage_text = $damage_text
+onready var audio = $AudioStreamPlayer
 
+var hit_sound = preload("res://assets/Audio/hit_sound.wav")
+var charge_sound = preload("res://assets/Audio/rumble3.ogg")
 export var dmg = 0
 
 var hp = 25
@@ -126,6 +129,8 @@ func attack():
 		charging = 1
 		emit_signal("update_log", "\n Buff Bandit charges up")
 		sprite.play("charge")
+		audio.stream = charge_sound
+		audio.play(0)
 		yield(sprite, "animation_finished")
 
 	else:
@@ -146,7 +151,8 @@ func damage(damage):
 	
 	if damage != 0:
 		damage_text.damage_pop_up(damage, Vector2(0,0))
-	
+	audio.stream = hit_sound
+	audio.play(0)
 	sprite.play("damage_flash")
 	yield(sprite, "animation_finished")
 

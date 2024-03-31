@@ -1,4 +1,4 @@
-[gd_scene load_steps=276 format=2]
+[gd_scene load_steps=277 format=2]
 
 [ext_resource path="res://assets/fonts-images/Dither2nd.png" type="Texture" id=1]
 [ext_resource path="res://scenes/BattleScreen.tscn" type="PackedScene" id=2]
@@ -37,6 +37,7 @@
 [ext_resource path="res://textures/JamTextures/D_FLR_1.png" type="Texture" id=35]
 [ext_resource path="res://scenes/pause_screen.tscn" type="PackedScene" id=36]
 [ext_resource path="res://assets/fonts-images/chest.png" type="Texture" id=37]
+[ext_resource path="res://scripts/ItemChest.gd" type="Script" id=38]
 
 [sub_resource type="Shader" id=28]
 code = "shader_type canvas_item;
@@ -1205,7 +1206,7 @@ region = Rect2( 0, 0, 32, 32 )
 [sub_resource type="SpriteFrames" id=2401]
 animations = [ {
 "frames": [ SubResource( 2402 ), SubResource( 2403 ), SubResource( 2404 ), SubResource( 2405 ) ],
-"loop": true,
+"loop": false,
 "name": "Open",
 "speed": 5.0
 }, {
@@ -1327,19 +1328,18 @@ uppercase = true
 [node name="TorchSprite" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 36, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
 playing = true
 
 [node name="TorchSprite2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 43, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="TorchSprite3" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 39.5, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Dungeon" type="Spatial" parent="ViewportContainer/Viewport/MAIN/World"]
@@ -1366,6 +1366,7 @@ text = "You did it! 8] <3"
 
 [node name="Ceiling" type="StaticBody" parent="ViewportContainer/Viewport/MAIN/World/Dungeon"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 4.25, -32.5 )
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -2321,13 +2322,12 @@ disabled = true
 
 [node name="TriggerItem" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -6 )
-collision_layer = 268435460
-collision_mask = 268435460
+collision_layer = 268435458
+collision_mask = 268435458
 script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem"]
-visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2335,9 +2335,150 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0 )
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
 frames = SubResource( 2401 )
 animation = "Shut"
+script = ExtResource( 38 )
+
+[node name="TriggerItem2" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -6 )
+collision_layer = 268435458
+collision_mask = 268435458
+script = ExtResource( 27 )
+event_type = 3
+
+[node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2"]
+mesh = SubResource( 384 )
+software_skinning_transform_normals = false
+
+[node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2"]
+shape = SubResource( 385 )
+
+[node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+frames = SubResource( 2401 )
+animation = "Shut"
+script = ExtResource( 38 )
+
+[node name="TriggerItem3" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 1, -2 )
+collision_layer = 268435458
+collision_mask = 268435458
+script = ExtResource( 27 )
+event_type = 3
+
+[node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3"]
+mesh = SubResource( 384 )
+software_skinning_transform_normals = false
+
+[node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3"]
+shape = SubResource( 385 )
+
+[node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+frames = SubResource( 2401 )
+animation = "Shut"
+script = ExtResource( 38 )
+
+[node name="TriggerItem4" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -14 )
+collision_layer = 268435458
+collision_mask = 268435458
+script = ExtResource( 27 )
+event_type = 3
+
+[node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4"]
+mesh = SubResource( 384 )
+software_skinning_transform_normals = false
+
+[node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4"]
+shape = SubResource( 385 )
+
+[node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+frames = SubResource( 2401 )
+animation = "Shut"
+script = ExtResource( 38 )
+
+[node name="TriggerItem5" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 1, -18 )
+collision_layer = 268435458
+collision_mask = 268435458
+script = ExtResource( 27 )
+event_type = 3
+
+[node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5"]
+mesh = SubResource( 384 )
+software_skinning_transform_normals = false
+
+[node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5"]
+shape = SubResource( 385 )
+
+[node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+frames = SubResource( 2401 )
+animation = "Shut"
+script = ExtResource( 38 )
+
+[node name="TriggerItem6" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 1, -38 )
+collision_layer = 268435458
+collision_mask = 268435458
+script = ExtResource( 27 )
+event_type = 3
+
+[node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6"]
+mesh = SubResource( 384 )
+software_skinning_transform_normals = false
+
+[node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6"]
+shape = SubResource( 385 )
+
+[node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+frames = SubResource( 2401 )
+animation = "Shut"
+script = ExtResource( 38 )
+
+[node name="TriggerItem7" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1, -54 )
+collision_layer = 268435458
+collision_mask = 268435458
+script = ExtResource( 27 )
+event_type = 3
+
+[node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7"]
+mesh = SubResource( 384 )
+software_skinning_transform_normals = false
+
+[node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7"]
+shape = SubResource( 385 )
+
+[node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+frames = SubResource( 2401 )
+animation = "Shut"
+script = ExtResource( 38 )
+
+[node name="TriggerItem8" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, -46 )
+collision_layer = 268435458
+collision_mask = 268435458
+script = ExtResource( 27 )
+event_type = 3
+
+[node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8"]
+mesh = SubResource( 384 )
+software_skinning_transform_normals = false
+
+[node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8"]
+shape = SubResource( 385 )
+
+[node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+frames = SubResource( 2401 )
+animation = "Shut"
+script = ExtResource( 38 )
 
 [node name="Audio" type="Node" parent="ViewportContainer/Viewport/MAIN"]
 
@@ -2423,5 +2564,21 @@ texture = ExtResource( 15 )
 [connection signal="eventdoor" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene4" to="ViewportContainer/Viewport/MAIN/World/Dungeon/END_DOOR2" method="queue_free" flags=7]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5" method="body_entered2" flags=3]
 [connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5" to="." method="print_test" flags=3]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem" method="on_body_entered" flags=3 binds= [ 0 ]]
+[connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem/CHEST" method="openup" flags=3]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2" method="on_body_entered" flags=3 binds= [ 1 ]]
+[connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2/CHEST" method="openup" flags=3]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3" method="on_body_entered" flags=3 binds= [ 2 ]]
+[connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3/CHEST" method="openup" flags=3]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4" method="on_body_entered" flags=3 binds= [ 3 ]]
+[connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4/CHEST" method="openup" flags=3]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5" method="on_body_entered" flags=3 binds= [ 5 ]]
+[connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5/CHEST" method="openup" flags=3]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6" method="on_body_entered" flags=3 binds= [ 4 ]]
+[connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6/CHEST" method="openup" flags=3]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7" method="on_body_entered" flags=3 binds= [ 6 ]]
+[connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7/CHEST" method="openup" flags=3]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8" method="on_body_entered" flags=3 binds= [ 7 ]]
+[connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8/CHEST" method="openup" flags=3]
 
 [editable path="ViewportContainer/Viewport/MAIN/player"]

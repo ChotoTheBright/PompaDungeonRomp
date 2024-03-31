@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://assets/fonts-images/Gamaliel.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/BattleScreen.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/fonts-images/hud.png" type="Texture" id=8]
 [ext_resource path="res://assets/fonts-images/action_gems.png" type="Texture" id=9]
 [ext_resource path="res://assets/fonts-images/CATChilds.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://assets/Audio/woosh2.ogg" type="AudioStream" id=11]
 
 [sub_resource type="DynamicFont" id=386]
 size = 32
@@ -210,7 +211,6 @@ rect_scale = Vector2( 2, 2 )
 
 [node name="battle_effects" parent="diorama_container" instance=ExtResource( 6 )]
 z_index = 1
-animation = "throwing_knife"
 
 [node name="HUD" type="CanvasLayer" parent="."]
 visible = false
@@ -287,14 +287,12 @@ __meta__ = {
 }
 
 [node name="log_text" type="RichTextLabel" parent="HUD/log"]
-margin_left = -96.0
+margin_left = -102.0
 margin_top = 40.0
-margin_right = 386.0
-margin_bottom = 368.0
-rect_scale = Vector2( 0.5, 0.5 )
+margin_right = 674.0
+margin_bottom = 543.0
+rect_scale = Vector2( 0.33, 0.33 )
 custom_fonts/normal_font = SubResource( 419 )
-bbcode_text = "gyhjghj"
-text = "gyhjghj"
 scroll_active = false
 scroll_following = true
 
@@ -361,18 +359,13 @@ margin_right = 36.0
 margin_bottom = 36.0
 texture_normal = SubResource( 398 )
 
-[node name="RichTextLabel" type="Label" parent="HUD/item_hud"]
+[node name="item_description" type="Label" parent="HUD/item_hud"]
 margin_left = 862.0
 margin_top = 687.0
 margin_right = 1304.0
 margin_bottom = 876.0
 theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 399 )
-text = "Deals a small amount of damage without consuming an action.
-
-fdsafsadfsdfsadfgsadgasdghsfhfsdhd
-
-fhdfghjdfgjfdgjsgj"
 align = 1
 valign = 1
 autowrap = true
@@ -537,16 +530,28 @@ custom_fonts/font = SubResource( 418 )
 script = ExtResource( 3 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="animation_finished" from="diorama_container/battle_effects" to="." method="_on_battle_effects_animation_finished" flags=3]
 [connection signal="pressed" from="HUD/main_hud/Button" to="." method="_on_action_button_pressed" binds= [ "melee_attack" ]]
 [connection signal="pressed" from="HUD/main_hud/Button2" to="." method="_on_item_pressed"]
 [connection signal="pressed" from="HUD/main_hud/Button3" to="." method="_on_defend_pressed"]
+[connection signal="mouse_entered" from="HUD/item_hud/items/throwing_knife" to="." method="_on_item_mouse_entered" binds= [ "throwing_knife" ]]
 [connection signal="pressed" from="HUD/item_hud/items/throwing_knife" to="." method="_on_action_button_pressed" binds= [ "throwing_knife" ]]
+[connection signal="mouse_entered" from="HUD/item_hud/items/sleep_gas" to="." method="_on_item_mouse_entered" binds= [ "sleep_gas" ]]
 [connection signal="pressed" from="HUD/item_hud/items/sleep_gas" to="." method="_on_action_button_pressed" binds= [ "sleep_gas" ]]
+[connection signal="mouse_entered" from="HUD/item_hud/items/fuzzy_dust" to="." method="_on_item_mouse_entered" binds= [ "fuzzy_duzt" ]]
 [connection signal="pressed" from="HUD/item_hud/items/fuzzy_dust" to="." method="_on_action_button_pressed" binds= [ "fuzzy_dust" ]]
+[connection signal="mouse_entered" from="HUD/item_hud/items/web_ball" to="." method="_on_item_mouse_entered" binds= [ "web_ball" ]]
 [connection signal="pressed" from="HUD/item_hud/items/web_ball" to="." method="_on_action_button_pressed" binds= [ "web_ball" ]]
+[connection signal="mouse_entered" from="HUD/item_hud/items/sphere" to="." method="_on_item_mouse_entered" binds= [ "sphere" ]]
 [connection signal="pressed" from="HUD/item_hud/items/sphere" to="." method="_on_action_button_pressed" binds= [ "sphere" ]]
+[connection signal="mouse_entered" from="HUD/item_hud/items/bandage_heal" to="." method="_on_item_mouse_entered" binds= [ "bandage_heal" ]]
 [connection signal="pressed" from="HUD/item_hud/items/bandage_heal" to="." method="_on_action_button_pressed" binds= [ "bandage_heal" ]]
+[connection signal="mouse_entered" from="HUD/item_hud/items/potion_heal" to="." method="_on_item_mouse_entered" binds= [ "potion_heal" ]]
 [connection signal="pressed" from="HUD/item_hud/items/potion_heal" to="." method="_on_action_button_pressed" binds= [ "potion_heal" ]]
 [connection signal="pressed" from="HUD/back" to="." method="_on_back_pressed"]

@@ -5,12 +5,13 @@
 [ext_resource path="res://scenes/status_bar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/damage_text.tscn" type="PackedScene" id=4]
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=8]
 offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 1, 1, 1, 1 )
+colors = PoolColorArray( 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture2D" id=5]
-gradient = SubResource( 4 )
+[sub_resource type="GradientTexture2D" id=9]
+gradient = SubResource( 8 )
+fill_from = Vector2( 0.00617284, 0 )
 
 [sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.883041 )
@@ -48,7 +49,7 @@ margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 60, 60 )
 mouse_filter = 2
-texture_pressed = SubResource( 5 )
+texture_normal = SubResource( 9 )
 texture_hover = SubResource( 7 )
 script = ExtResource( 2 )
 
@@ -65,5 +66,8 @@ margin_left = 1.0
 margin_top = -25.0
 margin_right = 1.0
 margin_bottom = -25.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -8.667
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_animation_finished"]

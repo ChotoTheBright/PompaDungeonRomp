@@ -305,7 +305,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dictionary_inspector/plugin.cfg", "res://addons/godot_transitions/plugin.cfg", "res://addons/qodot/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/dictionary_inspector/plugin.cfg", "res://addons/fun_coding/plugin.cfg", "res://addons/godot_transitions/plugin.cfg", "res://addons/qodot/plugin.cfg" )
 
 [global]
 

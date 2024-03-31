@@ -12,6 +12,11 @@ onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front(
 onready var sprite = $AnimatedSprite
 onready var status_bar = $status_bar
 onready var damage_text = $damage_text
+onready var audio = $AudioStreamPlayer
+
+var hit_sound = preload("res://assets/Audio/hit_sound.wav")
+var charge_sound = preload("res://assets/Audio/rumble3.ogg")
+
 
 var party
 var hp = 35
@@ -138,9 +143,11 @@ func attack():
 		charging = 1
 		emit_signal("update_log", "\n The knight gathers his strength.")
 		sprite.play("charge")
+		audio.stream = charge_sound
+		audio.play(0)
 		yield(sprite, "animation_finished")
-
-
+		
+	
 	update_status_bar()
 
 
@@ -148,7 +155,9 @@ func attack():
 func damage(damage):
 
 	sprite.play("damage_flash")
-
+	audio.stream = hit_sound
+	audio.play(0)
+	
 	if bodyblocked and damage > 0:
 		damage = damage * .25
 

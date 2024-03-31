@@ -10,7 +10,6 @@ var max_health = 100 #
 var cur_health# = 1
 
 ##items
-
 var throwing_knife : int = 5
 var sleep_gas : int = 2
 var fuzzy_dust : int = 0

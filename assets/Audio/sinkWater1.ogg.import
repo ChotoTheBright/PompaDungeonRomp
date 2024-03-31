@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/sinkWater1.ogg-5dd398ecd1f6950a48276857ebf9b096.oggstr"
+
+[deps]
+
+source_file="res://assets/Audio/sinkWater1.ogg"
+dest_files=[ "res://.import/sinkWater1.ogg-5dd398ecd1f6950a48276857ebf9b096.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

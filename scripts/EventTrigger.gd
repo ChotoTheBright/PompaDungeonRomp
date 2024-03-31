@@ -22,6 +22,25 @@ func on_body_entered(body, encounter):
 				Transitions.dual_circles(encounter,1,Color.black)
 				emit_signal("eventbattle")
 			EVENTS.ITEM:
+				match encounter:
+					0:
+						PlayerStats.use_item("throwing_knife", 6)
+						PlayerStats.use_item("potion_heal", 2)
+					1:
+						PlayerStats.use_item("bandage_heal", 6)
+					2:
+						PlayerStats.use_item("bandage_heal", 6)
+					3:
+						PlayerStats.use_item("web_ball", 4)
+					4:
+						PlayerStats.use_item("web_ball", 4)
+					5:
+						PlayerStats.use_item("fuzzy_dust", 6)
+					6:
+						PlayerStats.use_item("sphere", 6)
+					7:
+						PlayerStats.use_item("bandage_heal", 6)
+						PlayerStats.use_item("throwing_knife", 6)
 				emit_signal("eventitem")
 				emit_signal("eventswitch")
 				emit_signal("eventcutscene")
@@ -49,3 +68,7 @@ func body_entered2(body):
 
 
 
+
+
+func openup():
+	pass # Replace with function body.

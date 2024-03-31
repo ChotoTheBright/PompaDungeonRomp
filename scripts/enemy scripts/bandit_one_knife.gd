@@ -11,6 +11,9 @@ onready var battle_scene = get_tree().get_nodes_in_group("battle_screen").front(
 onready var sprite = $AnimatedSprite
 onready var status_bar = $status_bar
 onready var damage_text = $damage_text
+onready var audio = $AudioStreamPlayer
+
+var hit_sound = preload("res://assets/Audio/hit_sound.wav")
 ##statuses
 
 var disoriented : int = 0
@@ -37,7 +40,7 @@ var evasive : int = 0
 
 var statuses : Array = ["dizzy", "sleep", "destabilized", "webbed", "bodyblocked", "evasive", "disoriented"]
 
-export var dmg : float = 10
+export var dmg : float = 5
 
 
 
@@ -75,7 +78,9 @@ func _ready():
 func damage(damage):
 
 	sprite.play("damage_flash")
-
+	audio.stream = hit_sound
+	audio.play(0)
+	
 	if bodyblocked and damage > 0:
 		damage = damage * .5
 
