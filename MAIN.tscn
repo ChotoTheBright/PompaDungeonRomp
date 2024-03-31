@@ -1,4 +1,4 @@
-[gd_scene load_steps=269 format=2]
+[gd_scene load_steps=276 format=2]
 
 [ext_resource path="res://assets/fonts-images/Dither2nd.png" type="Texture" id=1]
 [ext_resource path="res://scenes/BattleScreen.tscn" type="PackedScene" id=2]
@@ -36,6 +36,7 @@
 [ext_resource path="res://textures/JamTextures/tile_brick_1.png" type="Texture" id=34]
 [ext_resource path="res://textures/JamTextures/D_FLR_1.png" type="Texture" id=35]
 [ext_resource path="res://scenes/pause_screen.tscn" type="PackedScene" id=36]
+[ext_resource path="res://assets/fonts-images/chest.png" type="Texture" id=37]
 
 [sub_resource type="Shader" id=28]
 code = "shader_type canvas_item;
@@ -1176,6 +1177,44 @@ points = PoolVector3Array( -1, 2, -1, -1, -2, -1, 1, -2, -1, 1, 2, -1, -1, 2, 1,
 
 [sub_resource type="BoxShape" id=385]
 
+[sub_resource type="AtlasTexture" id=2402]
+flags = 18
+atlas = ExtResource( 37 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2403]
+flags = 18
+atlas = ExtResource( 37 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2404]
+flags = 18
+atlas = ExtResource( 37 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2405]
+flags = 18
+atlas = ExtResource( 37 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2397]
+flags = 18
+atlas = ExtResource( 37 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=2401]
+animations = [ {
+"frames": [ SubResource( 2402 ), SubResource( 2403 ), SubResource( 2404 ), SubResource( 2405 ) ],
+"loop": true,
+"name": "Open",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2397 ) ],
+"loop": true,
+"name": "Shut",
+"speed": 5.0
+} ]
+
 [sub_resource type="SpatialMaterial" id=386]
 metallic_specular = 0.0
 
@@ -1293,7 +1332,6 @@ playing = true
 [node name="TorchSprite2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 43, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 2
 frame = 1
 playing = true
 
@@ -2274,18 +2312,24 @@ shape = SubResource( 385 )
 disabled = true
 
 [node name="TriggerItem" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -6 )
 collision_layer = 268435458
 collision_mask = 268435458
 script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
 [node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem"]
 shape = SubResource( 385 )
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0 )
+frames = SubResource( 2401 )
+animation = "Shut"
 
 [node name="Audio" type="Node" parent="ViewportContainer/Viewport/MAIN"]
 

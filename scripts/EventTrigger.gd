@@ -23,6 +23,7 @@ func on_body_entered(body, encounter):
 				emit_signal("eventbattle")
 			EVENTS.ITEM:
 				emit_signal("eventitem")
+				
 		col.disabled = true
 		return
 

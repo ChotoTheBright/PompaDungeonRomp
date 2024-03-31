@@ -40,11 +40,11 @@ func _input(_event):
 
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 #	print(inbattle)
 #	battle_signal()
-	translation = translation.move_toward(destination,speed * delta)
-	self.rotation.y = lerp_angle(self.rotation.y, atan2(-next_pos.x, -next_pos.z), delta * angle_speed)
+	translation = translation.move_toward(destination,speed * _delta)
+	self.rotation.y = lerp_angle(self.rotation.y, atan2(-next_pos.x, -next_pos.z), _delta * angle_speed)
 	
 	if !inbattle:
 		if Input.is_action_pressed("walk_front") and btn_time.is_stopped():
