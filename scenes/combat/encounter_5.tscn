@@ -35,23 +35,23 @@ stretch_mode = 4
 
 [node name="bandit_one_knife" parent="." instance=ExtResource( 2 )]
 margin_left = 254.0
-margin_top = 30.5
+margin_top = 41.0
 margin_right = 354.0
-margin_bottom = 130.5
+margin_bottom = 141.0
 stretch_mode = 4
 
 [node name="bandit_one_knife2" parent="." instance=ExtResource( 2 )]
 margin_left = 260.0
-margin_top = 95.5
+margin_top = 106.0
 margin_right = 360.0
-margin_bottom = 195.5
+margin_bottom = 206.0
 stretch_mode = 4
 
 [node name="bandit_one_knife3" parent="." instance=ExtResource( 2 )]
 margin_left = 191.0
-margin_top = 69.5
+margin_top = 80.0
 margin_right = 291.0
-margin_bottom = 169.5
+margin_bottom = 180.0
 stretch_mode = 4
 
 [node name="shield_guy" parent="." instance=ExtResource( 3 )]

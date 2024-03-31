@@ -4,6 +4,7 @@ enum STATES {SPLORE,BATTLE,DEAD,MENU}
 signal battle_signal
 
 onready var control = get_tree().get_nodes_in_group("control")[0]
+onready var sounds = get_tree().get_nodes_in_group("sounds")[0]
 onready var GridUp = Vector3(0,0,-2) #FORWARD #*see bottom for ref.
 onready var GridDown = Vector3(0,0,2) #BACK
 onready var GridLeft = Vector3(-2,0,0) #LEFT
@@ -25,6 +26,7 @@ var destination = Vector3()
 var can_move = false
 var btn_time : Timer
 var inbattle : bool = false
+#var steps = sounds.get_children()
 #var DEBUG_blockray : bool = true
 
 func _ready():
@@ -46,18 +48,16 @@ func _input(_event):
 
 
 func _physics_process(_delta):
-	print(can_move)
+#	print(can_move)
 #	battle_signal()
 	translation = translation.move_toward(destination,speed * _delta)
 	self.rotation.y = lerp_angle(self.rotation.y, atan2(-next_pos.x, -next_pos.z), _delta * angle_speed)
-
-#	blasting(walls_2)
-#	blasting(walls_3)
-#	blasting(walls_4)
-#	blasting(walls_5)
 	
-	if !inbattle:# and can_move:
+	if !inbattle: # and can_move
 		if Input.is_action_pressed("walk_front") and btn_time.is_stopped():
+			if control.get_node("title").visible == true:
+				control.get_node("title").visible = false
+			sounds.footsteps()
 			next_pos = next_pos
 			current_dir = current_dir
 			if ray_w.is_colliding(): #Wall
@@ -139,8 +139,8 @@ func plapping(): #debug func
 
 
 
-func blasting(body):
-	if body.is_in_group("WALL_"):
-		can_move = false
-	else:
-		can_move = true
+#func blasting(body):
+#	if body.is_in_group("WALL_"):
+#		can_move = false
+#	else:
+#		can_move = true

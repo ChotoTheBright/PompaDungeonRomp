@@ -1,4 +1,4 @@
-[gd_scene load_steps=277 format=2]
+[gd_scene load_steps=279 format=2]
 
 [ext_resource path="res://assets/fonts-images/Dither2nd.png" type="Texture" id=1]
 [ext_resource path="res://scenes/BattleScreen.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Cutscene.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/CONTROL.gd" type="Script" id=10]
-[ext_resource path="res://textures/CONCRETE_1A.png" type="Texture" id=11]
 [ext_resource path="res://assets/fonts-images/Torch_strip3.png" type="Texture" id=12]
 [ext_resource path="res://assets/fonts-images/MapUpper1.png" type="Texture" id=13]
 [ext_resource path="res://textures/JamTextures/FLOOR_2G.png" type="Texture" id=14]
@@ -38,6 +37,9 @@
 [ext_resource path="res://scenes/pause_screen.tscn" type="PackedScene" id=36]
 [ext_resource path="res://assets/fonts-images/chest.png" type="Texture" id=37]
 [ext_resource path="res://scripts/ItemChest.gd" type="Script" id=38]
+[ext_resource path="res://assets/GameJam0_Battle.ogg" type="AudioStream" id=39]
+[ext_resource path="res://assets/fonts-images/MagicFlower.png" type="Texture" id=40]
+[ext_resource path="res://assets/fonts-images/mini_pumpkin.png" type="Texture" id=41]
 
 [sub_resource type="Shader" id=28]
 code = "shader_type canvas_item;
@@ -67,11 +69,18 @@ shader_param/dither_tex = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=388]
 size = 28
+use_filter = true
 font_data = ExtResource( 23 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 48
 font_data = ExtResource( 23 )
+
+[sub_resource type="PlaneMesh" id=2407]
+
+[sub_resource type="SpatialMaterial" id=2408]
+albedo_color = Color( 0, 0, 0, 1 )
+metallic_specular = 0.0
 
 [sub_resource type="AtlasTexture" id=1017]
 flags = 16
@@ -95,30 +104,6 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 } ]
-
-[sub_resource type="SpatialMaterial" id=380]
-albedo_texture = ExtResource( 11 )
-metallic_specular = 0.0
-
-[sub_resource type="ArrayMesh" id=381]
-surfaces/0 = {
-"aabb": AABB( -1.5, -1.0625, -0.125, 3, 2.25001, 0.25 ),
-"array_data": PoolByteArray( 0, 0, 192, 191, 0, 0, 152, 63, 0, 0, 0, 190, 127, 127, 127, 193, 32, 73, 0, 188, 0, 0, 192, 191, 0, 0, 128, 189, 0, 0, 0, 190, 127, 127, 127, 193, 32, 73, 0, 182, 0, 0, 192, 63, 0, 0, 128, 189, 0, 0, 0, 190, 127, 127, 127, 193, 224, 73, 0, 182, 0, 0, 192, 63, 0, 0, 152, 63, 0, 0, 0, 190, 127, 127, 127, 193, 224, 73, 0, 188, 0, 0, 192, 191, 0, 0, 152, 63, 0, 0, 0, 190, 129, 0, 0, 63, 72, 205, 0, 188, 0, 0, 192, 191, 0, 0, 152, 63, 0, 0, 0, 62, 129, 0, 0, 63, 64, 205, 0, 188, 0, 0, 192, 191, 0, 0, 128, 189, 0, 0, 0, 62, 129, 0, 0, 63, 64, 205, 0, 182, 0, 0, 192, 191, 0, 0, 128, 189, 0, 0, 0, 190, 129, 0, 0, 63, 72, 205, 0, 182, 0, 0, 192, 63, 0, 0, 128, 189, 0, 0, 0, 190, 0, 129, 0, 193, 72, 205, 224, 201, 0, 0, 192, 191, 0, 0, 128, 189, 0, 0, 0, 190, 0, 129, 0, 193, 72, 205, 32, 201, 0, 0, 192, 191, 0, 0, 128, 189, 0, 0, 0, 62, 0, 129, 0, 193, 64, 205, 32, 201, 0, 0, 192, 63, 0, 0, 128, 189, 0, 0, 0, 62, 0, 129, 0, 193, 64, 205, 224, 201, 0, 0, 192, 63, 0, 0, 152, 63, 0, 0, 0, 190, 0, 127, 0, 63, 72, 205, 224, 201, 0, 0, 192, 63, 0, 0, 152, 63, 0, 0, 0, 62, 0, 127, 0, 63, 64, 205, 224, 201, 0, 0, 192, 191, 0, 0, 152, 63, 0, 0, 0, 62, 0, 127, 0, 63, 64, 205, 32, 201, 0, 0, 192, 191, 0, 0, 152, 63, 0, 0, 0, 190, 0, 127, 0, 63, 72, 205, 32, 201, 0, 0, 192, 63, 0, 0, 152, 63, 0, 0, 0, 190, 127, 0, 0, 193, 72, 205, 0, 188, 0, 0, 192, 63, 0, 0, 128, 189, 0, 0, 0, 190, 127, 0, 0, 193, 72, 205, 0, 182, 0, 0, 192, 63, 0, 0, 128, 189, 0, 0, 0, 62, 127, 0, 0, 193, 64, 205, 0, 182, 0, 0, 192, 63, 0, 0, 152, 63, 0, 0, 0, 62, 127, 0, 0, 193, 64, 205, 0, 188, 0, 0, 192, 191, 0, 0, 152, 63, 0, 0, 0, 62, 0, 0, 127, 63, 32, 73, 0, 188, 0, 0, 192, 63, 0, 0, 152, 63, 0, 0, 0, 62, 0, 0, 127, 63, 224, 73, 0, 188, 0, 0, 192, 63, 0, 0, 128, 189, 0, 0, 0, 62, 0, 0, 127, 63, 224, 73, 0, 182, 0, 0, 192, 191, 0, 0, 128, 189, 0, 0, 0, 62, 0, 0, 127, 63, 32, 73, 0, 182, 0, 0, 128, 190, 0, 0, 128, 189, 0, 0, 0, 190, 127, 127, 127, 193, 112, 73, 0, 182, 0, 0, 128, 190, 0, 0, 136, 191, 0, 0, 0, 190, 127, 127, 127, 193, 112, 73, 0, 48, 0, 0, 128, 62, 0, 0, 136, 191, 0, 0, 0, 190, 127, 127, 127, 193, 144, 73, 0, 48, 0, 0, 128, 62, 0, 0, 128, 189, 0, 0, 0, 190, 127, 127, 127, 193, 144, 73, 0, 182, 0, 0, 128, 190, 0, 0, 128, 189, 0, 0, 0, 190, 129, 0, 0, 63, 72, 205, 0, 182, 0, 0, 128, 190, 0, 0, 128, 189, 0, 0, 0, 62, 129, 0, 0, 63, 64, 205, 0, 182, 0, 0, 128, 190, 0, 0, 136, 191, 0, 0, 0, 62, 129, 0, 0, 63, 64, 205, 0, 48, 0, 0, 128, 190, 0, 0, 136, 191, 0, 0, 0, 190, 129, 0, 0, 63, 72, 205, 0, 48, 0, 0, 128, 62, 0, 0, 136, 191, 0, 0, 0, 190, 0, 129, 0, 193, 72, 205, 144, 201, 0, 0, 128, 190, 0, 0, 136, 191, 0, 0, 0, 190, 0, 129, 0, 193, 72, 205, 112, 201, 0, 0, 128, 190, 0, 0, 136, 191, 0, 0, 0, 62, 0, 129, 0, 193, 64, 205, 112, 201, 0, 0, 128, 62, 0, 0, 136, 191, 0, 0, 0, 62, 0, 129, 0, 193, 64, 205, 144, 201, 0, 0, 128, 62, 0, 0, 128, 189, 0, 0, 0, 190, 0, 127, 0, 63, 72, 205, 144, 201, 0, 0, 128, 62, 0, 0, 128, 189, 0, 0, 0, 62, 0, 127, 0, 63, 64, 205, 144, 201, 0, 0, 128, 190, 0, 0, 128, 189, 0, 0, 0, 62, 0, 127, 0, 63, 64, 205, 112, 201, 0, 0, 128, 190, 0, 0, 128, 189, 0, 0, 0, 190, 0, 127, 0, 63, 72, 205, 112, 201, 0, 0, 128, 62, 0, 0, 128, 189, 0, 0, 0, 190, 127, 0, 0, 193, 72, 205, 0, 182, 0, 0, 128, 62, 0, 0, 136, 191, 0, 0, 0, 190, 127, 0, 0, 193, 72, 205, 0, 48, 0, 0, 128, 62, 0, 0, 136, 191, 0, 0, 0, 62, 127, 0, 0, 193, 64, 205, 0, 48, 0, 0, 128, 62, 0, 0, 128, 189, 0, 0, 0, 62, 127, 0, 0, 193, 64, 205, 0, 182, 0, 0, 128, 190, 0, 0, 128, 189, 0, 0, 0, 62, 0, 0, 127, 63, 112, 73, 0, 182, 0, 0, 128, 62, 0, 0, 128, 189, 0, 0, 0, 62, 0, 0, 127, 63, 144, 73, 0, 182, 0, 0, 128, 62, 0, 0, 136, 191, 0, 0, 0, 62, 0, 0, 127, 63, 144, 73, 0, 48, 0, 0, 128, 190, 0, 0, 136, 191, 0, 0, 0, 62, 0, 0, 127, 63, 112, 73, 0, 48 ),
-"array_index_data": PoolByteArray( 0, 0, 1, 0, 2, 0, 0, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 4, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 8, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 12, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 16, 0, 18, 0, 19, 0, 20, 0, 21, 0, 22, 0, 20, 0, 22, 0, 23, 0, 24, 0, 25, 0, 26, 0, 24, 0, 26, 0, 27, 0, 28, 0, 29, 0, 30, 0, 28, 0, 30, 0, 31, 0, 32, 0, 33, 0, 34, 0, 32, 0, 34, 0, 35, 0, 36, 0, 37, 0, 38, 0, 36, 0, 38, 0, 39, 0, 40, 0, 41, 0, 42, 0, 40, 0, 42, 0, 43, 0, 44, 0, 45, 0, 46, 0, 44, 0, 46, 0, 47, 0 ),
-"blend_shape_data": [  ],
-"format": 2194711,
-"index_count": 72,
-"material": SubResource( 380 ),
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 48
-}
-
-[sub_resource type="ConvexPolygonShape" id=382]
-points = PoolVector3Array( -1.5, 1.1875, -0.125, -1.5, -0.0625, -0.125, 1.5, -0.0625, -0.125, 1.5, 1.1875, -0.125, -1.5, 1.1875, 0.125, -1.5, -0.0625, 0.125, 1.5, -0.0625, 0.125, 1.5, 1.1875, 0.125 )
-
-[sub_resource type="ConvexPolygonShape" id=383]
-points = PoolVector3Array( -0.25, -0.0625, -0.125, -0.25, -1.0625, -0.125, 0.25, -1.0625, -0.125, 0.25, -0.0625, -0.125, -0.25, -0.0625, 0.125, -0.25, -1.0625, 0.125, 0.25, -1.0625, 0.125, 0.25, -0.0625, 0.125 )
 
 [sub_resource type="SpatialMaterial" id=1977]
 albedo_texture = ExtResource( 17 )
@@ -1178,6 +1163,9 @@ points = PoolVector3Array( -1, 2, -1, -1, -2, -1, 1, -2, -1, 1, 2, -1, -1, 2, 1,
 
 [sub_resource type="BoxShape" id=385]
 
+[sub_resource type="BoxShape" id=2409]
+extents = Vector3( 3, 1, 1 )
+
 [sub_resource type="AtlasTexture" id=2402]
 flags = 18
 atlas = ExtResource( 37 )
@@ -1204,6 +1192,19 @@ atlas = ExtResource( 37 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=2401]
+animations = [ {
+"frames": [ SubResource( 2402 ), SubResource( 2403 ), SubResource( 2404 ), SubResource( 2405 ) ],
+"loop": false,
+"name": "Open",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2397 ) ],
+"loop": true,
+"name": "Shut",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2406]
 animations = [ {
 "frames": [ SubResource( 2402 ), SubResource( 2403 ), SubResource( 2404 ), SubResource( 2405 ) ],
 "loop": false,
@@ -1277,11 +1278,33 @@ text = "Thine Lord Knoweth"
 font = SubResource( 388 )
 horizontal_alignment = 3
 
-[node name="FTOP" type="Label3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
-transform = Transform( -0.997782, -0.06657, 8.72288e-08, -0.06657, 0.997782, 5.81973e-09, -8.74228e-08, 0, -1, 42.2126, 1.28733, 2.995 )
+[node name="EasterEgg" type="Sprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
+transform = Transform( -1.31134e-07, 0, -4, 0, 3, 0, 3, 0, -1.74846e-07, 44.3799, 0.465855, 1.704 )
+billboard = 2
+shaded = true
 double_sided = false
-modulate = Color( 0.698039, 0.215686, 0.215686, 1 )
-text = "fuck topology >:("
+texture = ExtResource( 40 )
+
+[node name="EasterEgg2" type="Sprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
+transform = Transform( -2.62268e-07, 0, -6, 0, 6, 0, 6, 0, -2.62268e-07, 42.3126, 0.338583, -6.05762 )
+billboard = 2
+shaded = true
+double_sided = false
+texture = ExtResource( 41 )
+
+[node name="FTOP" type="Label3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 44.968, 1.28733, 1.88603 )
+double_sided = false
+modulate = Color( 0.0509804, 0.505882, 0, 1 )
+text = "f**k topology >:("
+font = SubResource( 388 )
+
+[node name="FJftw" type="Label3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
+transform = Transform( 0.991952, -0.126615, 0, 0.126615, 0.991952, 0, 0, 0, 1, 37.9078, 1.28733, -6.99564 )
+double_sided = false
+modulate = Color( 0.776471, 0.776471, 0.776471, 1 )
+text = "F + J 
+ftw"
 font = SubResource( 388 )
 
 [node name="CeilGrass" type="Sprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
@@ -1323,50 +1346,147 @@ text = "EXIT"
 font = SubResource( 3 )
 uppercase = true
 
+[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/STUFF/EXITSIGN"]
+transform = Transform( -0.5, 7.5498e-08, 3.30012e-15, 0, -2.18557e-08, 0.5, 1.50996e-07, 1, 4.37114e-08, 0.0100803, -0.7602, -3.0024 )
+mesh = SubResource( 2407 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 2408 )
+
 [node name="Torches" type="Position3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF"]
 
 [node name="TorchSprite" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 36, 2.5, 2.995 )
 frames = SubResource( 1020 )
+frame = 2
 playing = true
 
 [node name="TorchSprite2" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 43, 2.5, 2.995 )
 frames = SubResource( 1020 )
-frame = 1
 playing = true
 
 [node name="TorchSprite3" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
 transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 39.5, 2.5, 2.995 )
 frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite4" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 30.5697, 2.5, 5.01295 )
+frames = SubResource( 1020 )
 frame = 1
+playing = true
+
+[node name="TorchSprite5" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 37.5697, 2.5, 5.01295 )
+frames = SubResource( 1020 )
+frame = 2
+playing = true
+
+[node name="TorchSprite6" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 34.0697, 2.5, 5.01295 )
+frames = SubResource( 1020 )
+frame = 2
+playing = true
+
+[node name="TorchSprite7" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 40.6535, 2.5, 5.01295 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite8" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 47.6535, 2.5, 5.01295 )
+frames = SubResource( 1020 )
+frame = 1
+playing = true
+
+[node name="TorchSprite9" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 44.1535, 2.5, 5.01295 )
+frames = SubResource( 1020 )
+frame = 1
+playing = true
+
+[node name="TorchSprite10" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 36.6535, 2.5, 13.013 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite11" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 43.6535, 2.5, 13.013 )
+frames = SubResource( 1020 )
+frame = 1
+playing = true
+
+[node name="TorchSprite12" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 40.1535, 2.5, 13.013 )
+frames = SubResource( 1020 )
+frame = 1
+playing = true
+
+[node name="TorchSprite13" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, -7.34645, 2.5, 9.01295 )
+frames = SubResource( 1020 )
+frame = 2
+playing = true
+
+[node name="TorchSprite14" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 3.65355, 2.5, 9.01295 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite15" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 0.153549, 2.5, 9.01295 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite16" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 13.9944, 2.5, 13.013 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite18" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 27.9944, 2.5, 9.01295 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite17" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 7.15355, 2.5, 9.01295 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite19" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 14.6535, 2.5, 25.013 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite20" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 11.1535, 2.5, 25.013 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite21" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 18.1535, 2.5, 25.013 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite22" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 30.6535, 2.5, 21.013 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite23" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 27.1535, 2.5, 21.013 )
+frames = SubResource( 1020 )
+playing = true
+
+[node name="TorchSprite24" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/STUFF/Torches"]
+transform = Transform( 5, -2.53825e-15, -2.25441e-31, 2.53825e-15, 5, 0, 1.1272e-30, 0, 1, 34.1535, 2.5, 21.013 )
+frames = SubResource( 1020 )
 playing = true
 
 [node name="Dungeon" type="Spatial" parent="ViewportContainer/Viewport/MAIN/World"]
 
-[node name="Sign" type="StaticBody" parent="ViewportContainer/Viewport/MAIN/World/Dungeon"]
-process_priority = 2
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4 )
-collision_layer = 2
-collision_mask = 2
-
-[node name="entity_6_mesh_instance" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/Dungeon/Sign"]
-mesh = SubResource( 381 )
-software_skinning_transform_normals = false
-
-[node name="entity_6_brush_0_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/Dungeon/Sign"]
-shape = SubResource( 382 )
-
-[node name="entity_6_brush_1_collision_shape" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/Dungeon/Sign"]
-shape = SubResource( 383 )
-
-[node name="Label3D" type="Label3D" parent="ViewportContainer/Viewport/MAIN/World/Dungeon/Sign"]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.709408, 0.176502 )
-text = "You did it! 8] <3"
-
 [node name="Ceiling" type="StaticBody" parent="ViewportContainer/Viewport/MAIN/World/Dungeon"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 4.25, -32.5 )
-visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -2185,7 +2305,7 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="TriggerBattle5" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -42 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, -34 )
 visible = false
 collision_layer = 268435460
 collision_mask = 268435460
@@ -2196,7 +2316,7 @@ mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
 [node name="Col" type="CollisionShape" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle5"]
-shape = SubResource( 385 )
+shape = SubResource( 2409 )
 
 [node name="TriggerBattle6" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1, -54 )
@@ -2227,7 +2347,7 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="TriggerBattle8" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 1, -22 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -3, -22 )
 visible = false
 collision_layer = 268435460
 collision_mask = 268435460
@@ -2291,7 +2411,8 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="TriggerCutscene4" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1, -62 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1, -54 )
+visible = false
 collision_layer = 268435460
 collision_mask = 268435460
 script = ExtResource( 27 )
@@ -2306,6 +2427,7 @@ shape = SubResource( 385 )
 
 [node name="TriggerCutscene5" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2 )
+visible = false
 collision_layer = 268435460
 collision_mask = 268435460
 script = ExtResource( 27 )
@@ -2328,6 +2450,7 @@ script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2335,7 +2458,8 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.642009 )
+billboard = 2
 frames = SubResource( 2401 )
 animation = "Shut"
 script = ExtResource( 38 )
@@ -2348,6 +2472,7 @@ script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2355,7 +2480,8 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+transform = Transform( -2.18557e-07, 0, -1, 0, 5, 0, 5, 0, -4.37114e-08, 0.474713, -0.164575, 0.0742359 )
+billboard = 2
 frames = SubResource( 2401 )
 animation = "Shut"
 script = ExtResource( 38 )
@@ -2368,6 +2494,7 @@ script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2375,7 +2502,8 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+transform = Transform( -2.18557e-07, 0, -1, 0, 5, 0, 5, 0, -4.37114e-08, -0.585745, -0.164575, 0.00775719 )
+billboard = 2
 frames = SubResource( 2401 )
 animation = "Shut"
 script = ExtResource( 38 )
@@ -2388,6 +2516,7 @@ script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2395,7 +2524,8 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, -0.708157 )
+billboard = 2
 frames = SubResource( 2401 )
 animation = "Shut"
 script = ExtResource( 38 )
@@ -2408,6 +2538,7 @@ script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2415,7 +2546,8 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+transform = Transform( -2.18557e-07, 0, -1, 0, 5, 0, 5, 0, -4.37114e-08, 0.331629, -0.164575, 0.0299101 )
+billboard = 2
 frames = SubResource( 2401 )
 animation = "Shut"
 script = ExtResource( 38 )
@@ -2428,6 +2560,7 @@ script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2435,19 +2568,21 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
-frames = SubResource( 2401 )
+transform = Transform( -2.18557e-07, 0, -1, 0, 5, 0, 5, 0, -4.37114e-08, 0.216038, -0.164575, 0.0687714 )
+billboard = 2
+frames = SubResource( 2406 )
 animation = "Shut"
 script = ExtResource( 38 )
 
 [node name="TriggerItem7" type="Area" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1, -54 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -54 )
 collision_layer = 268435458
 collision_mask = 268435458
 script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2455,7 +2590,8 @@ software_skinning_transform_normals = false
 shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, -0.0192337 )
+billboard = 2
 frames = SubResource( 2401 )
 animation = "Shut"
 script = ExtResource( 38 )
@@ -2468,6 +2604,7 @@ script = ExtResource( 27 )
 event_type = 3
 
 [node name="Mesh" type="MeshInstance" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8"]
+visible = false
 mesh = SubResource( 384 )
 software_skinning_transform_normals = false
 
@@ -2476,14 +2613,20 @@ shape = SubResource( 385 )
 
 [node name="CHEST" type="AnimatedSprite3D" parent="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0.0333481, -0.164575, 0.795594 )
+billboard = 2
 frames = SubResource( 2401 )
 animation = "Shut"
 script = ExtResource( 38 )
 
-[node name="Audio" type="Node" parent="ViewportContainer/Viewport/MAIN"]
+[node name="Audio" type="Node" parent="ViewportContainer/Viewport/MAIN" groups=["audio"]]
 
 [node name="Muzak" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/MAIN/Audio"]
 stream = ExtResource( 5 )
+autoplay = true
+
+[node name="Muzak2" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/MAIN/Audio"]
+stream = ExtResource( 39 )
+autoplay = true
 
 [node name="Ambience" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/MAIN/Audio"]
 stream = ExtResource( 24 )
@@ -2541,12 +2684,17 @@ texture = ExtResource( 15 )
 
 [node name="Cutscene" parent="." instance=ExtResource( 9 )]
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle1" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle1" method="on_body_entered" flags=3 binds= [ 1 ]]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle2" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle2" method="on_body_entered" flags=3 binds= [ 2 ]]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle3" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle3" method="on_body_entered" flags=3 binds= [ 3 ]]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle4" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle4" method="on_body_entered" flags=3 binds= [ 4 ]]
-[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle5" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle5" method="on_body_entered" flags=3 binds= [ 5 ]]
-[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle6" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle6" method="on_body_entered" flags=3 binds= [ 6 ]]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle5" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle5" method="on_body_entered" flags=3 binds= [ 6 ]]
+[connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle6" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle6" method="on_body_entered" flags=3 binds= [ 5 ]]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle7" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle7" method="on_body_entered" flags=3 binds= [ 7 ]]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle8" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerBattle8" method="on_body_entered" flags=3 binds= [ 1 ]]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene" method="body_entered2" flags=3]
@@ -2565,20 +2713,29 @@ texture = ExtResource( 15 )
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5" method="body_entered2" flags=3]
 [connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5" to="." method="print_test" flags=3]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem" method="on_body_entered" flags=3 binds= [ 0 ]]
+[connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem" to="Cutscene" method="set_scene" flags=3 binds= [ 5 ]]
 [connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem/CHEST" method="openup" flags=3]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2" method="on_body_entered" flags=3 binds= [ 1 ]]
+[connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2" to="Cutscene" method="set_scene" flags=3 binds= [ 6 ]]
 [connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem2/CHEST" method="openup" flags=3]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3" method="on_body_entered" flags=3 binds= [ 2 ]]
+[connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3" to="Cutscene" method="set_scene" flags=3 binds= [ 6 ]]
 [connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem3/CHEST" method="openup" flags=3]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4" method="on_body_entered" flags=3 binds= [ 3 ]]
+[connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4" to="Cutscene" method="set_scene" flags=3 binds= [ 7 ]]
 [connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem4/CHEST" method="openup" flags=3]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5" method="on_body_entered" flags=3 binds= [ 5 ]]
+[connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5" to="Cutscene" method="set_scene" flags=3 binds= [ 8 ]]
 [connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem5/CHEST" method="openup" flags=3]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6" method="on_body_entered" flags=3 binds= [ 4 ]]
+[connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6" to="Cutscene" method="set_scene" flags=3 binds= [ 7 ]]
 [connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem6/CHEST" method="openup" flags=3]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7" method="on_body_entered" flags=3 binds= [ 6 ]]
+[connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7" to="Cutscene" method="set_scene" flags=3 binds= [ 6 ]]
 [connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem7/CHEST" method="openup" flags=3]
 [connection signal="body_entered" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8" method="on_body_entered" flags=3 binds= [ 7 ]]
+[connection signal="eventcutscene" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8" to="Cutscene" method="set_scene" flags=3 binds= [ 10 ]]
 [connection signal="eventswitch" from="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8" to="ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerItem8/CHEST" method="openup" flags=3]
+[connection signal="timeout" from="Timer" to="." method="hide_title" flags=7]
 
 [editable path="ViewportContainer/Viewport/MAIN/player"]

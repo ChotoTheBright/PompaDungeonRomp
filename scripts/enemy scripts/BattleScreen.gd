@@ -514,6 +514,7 @@ func end_combat_trans():
 
 func end_combat():
 	call_deferred("clear_log")
+	queued_player_actions.clear()
 	enemies.queue_free()
 	hud.hide()
 	action_hud.visible = false
@@ -527,6 +528,8 @@ func end_combat():
 
 
 func death():
+	# warning-ignore:return_value_discarded
+	get_tree().change_scene("res://scenes/GameOver.tscn")
 	print("penis wenis pro shenis")
 	pass
 

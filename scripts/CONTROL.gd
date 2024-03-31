@@ -12,6 +12,9 @@ onready var penis = "this does nothing, but at least it's there 8]"
 onready var cutscene = get_tree().get_nodes_in_group("cutscene")[0]
 onready var exit_sign = $ViewportContainer/Viewport/MAIN/World/STUFF/EXITSIGN
 onready var end_trigger = $ViewportContainer/Viewport/MAIN/World/INTERACTION/TriggerCutscene5
+onready var _title = $title
+onready var audio = get_tree().get_nodes_in_group("audio")[0]
+
 
 var scale_factor = 0.25
 var bhud_time = Timer.new()
@@ -21,6 +24,7 @@ var title : bool = true
 
 
 func _ready():
+	audio.get_node("Muzak2").set_volume_db(-100)
 	MapHud.visible = false
 	MapSprite.visible = false
 	env.set_fog_enabled(true)
@@ -33,8 +37,14 @@ func _ready():
 
 
 
-func _process(_delta):
+func _input(_event):
 	pass
+#	if event.is_action_pressed("ui_accept"):
+#		if title == true:
+#			$title.hide()
+#			title = false
+#		else:
+#			pass
 
 
 func show_bahud():
@@ -78,16 +88,19 @@ func endgamesetup():
 	pass
 
 func print_test():
+	#END GAME HERE! 
+# warning-ignore:return_value_discarded
+	get_tree().change_scene("res://scenes/ENDSCREEN.tscn")
 	print("congrats you beat ze game!")
 
 
 func _unhandled_key_input(event):
-
-	if title == true:
-		$title.hide()
+#	if title == true:
+#		$title.hide()
 
 	if event.is_action_pressed("menu"):
-		
 		$pause_screen.on_pause()
 
-
+func hide_title():
+	_title.visible = false
+	pass

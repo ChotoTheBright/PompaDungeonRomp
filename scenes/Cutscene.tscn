@@ -65,11 +65,10 @@ valign = 1
 autowrap = true
 
 [node name="RemoveTextTimer" type="Timer" parent="."]
-wait_time = 7.0
-one_shot = true
+wait_time = 5.0
 
 [node name="Timer2" type="Timer" parent="."]
 wait_time = 7.0
 one_shot = true
 
-[connection signal="timeout" from="RemoveTextTimer" to="." method="set_scene" flags=7 binds= [ 1 ]]
+[connection signal="timeout" from="RemoveTextTimer" to="." method="set_scene" flags=3 binds= [ 1 ]]

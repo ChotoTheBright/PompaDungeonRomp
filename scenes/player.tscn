@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts-images/PlayerArrow.png" type="Texture" id=2]
+[ext_resource path="res://scripts/PlayerSounds.gd" type="Script" id=3]
 
 [sub_resource type="PrismMesh" id=2]
 size = Vector3( 0.75, 0.75, 0.2 )
@@ -59,3 +60,12 @@ texture = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": "Z = 17"
 }
+
+[node name="Sounds" type="Node" parent="." groups=["sounds"]]
+script = ExtResource( 3 )
+
+[node name="Steps" type="AudioStreamPlayer" parent="Sounds"]
+
+[node name="Steps2" type="AudioStreamPlayer" parent="Sounds"]
+
+[node name="Steps3" type="AudioStreamPlayer" parent="Sounds"]

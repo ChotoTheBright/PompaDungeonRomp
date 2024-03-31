@@ -55,7 +55,7 @@ var stored_dict : Dictionary
 var player_actions : Dictionary = {
 	"melee_attack": 
 		{
-		"damage": 10,
+		"damage": 20, #10
 		"type" : "attack",
 		"target" : null,
 		"status" : null,
@@ -509,6 +509,7 @@ func _on_battle_effects_animation_finished():
 
 func end_combat_trans():
 	Transitions.dual_circles(0,1,Color.black)
+	queued_player_actions.clear()
 #	end_combat_timer.start()
 	pass
 
@@ -527,6 +528,8 @@ func end_combat():
 
 
 func death():
+# warning-ignore:return_value_discarded
+	get_tree().change_scene("res://scenes/GameOver.tscn")
 	print("penis wenis pro shenis")
 	pass
 

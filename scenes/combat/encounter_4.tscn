@@ -8,14 +8,11 @@
 
 [node name="encounter_4" type="TextureRect" groups=["encounter"]]
 material = ExtResource( 5 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -460.0
-margin_top = -242.0
-margin_right = -40.0
-margin_bottom = -2.0
+margin_left = -300.0
+margin_top = -100.0
+margin_right = 200.0
+margin_bottom = 200.0
+rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 stretch_mode = 2
 script = ExtResource( 2 )

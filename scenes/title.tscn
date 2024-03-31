@@ -44,4 +44,5 @@ margin_top = 634.0
 margin_right = 1146.0
 margin_bottom = 714.0
 custom_fonts/font = SubResource( 3 )
-text = "Press any key to start game"
+text = "starting up..."
+align = 1
