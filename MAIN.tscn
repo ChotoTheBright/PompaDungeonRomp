@@ -2510,17 +2510,17 @@ script = ExtResource( 38 )
 
 [node name="Muzak" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/MAIN/Audio"]
 stream = ExtResource( 5 )
-volume_db = -5.0
+volume_db = -20.0
 autoplay = true
 
 [node name="Muzak2" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/MAIN/Audio"]
 stream = ExtResource( 39 )
-volume_db = -5.0
+volume_db = -20.0
 autoplay = true
 
 [node name="Ambience" type="AudioStreamPlayer" parent="ViewportContainer/Viewport/MAIN/Audio"]
 stream = ExtResource( 24 )
-volume_db = 5.0
+volume_db = -5.0
 autoplay = true
 
 [node name="QodotMap" type="Spatial" parent="ViewportContainer/Viewport/MAIN"]

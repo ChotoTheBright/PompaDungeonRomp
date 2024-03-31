@@ -53,12 +53,12 @@ func dual_circles(encounter: int, duration: float, color: Color): #from, to,
 	yield(tween, "tween_all_completed")
 	if encounter == 0:
 		bat_scr.end_combat()
-		_audio.get_node("Muzak").set_volume_db(0)
+		_audio.get_node("Muzak").set_volume_db(-20)
 		_audio.get_node("Muzak2").set_volume_db(-100)
 	elif encounter != 0:
 		bat_scr.start_combat(encounter)
 		_audio.get_node("Muzak").set_volume_db(-100)
-		_audio.get_node("Muzak2").set_volume_db(0)
+		_audio.get_node("Muzak2").set_volume_db(-20)
 	
 #	var new_scene = load(to).instance()
 #	get_tree().get_root().add_child(new_scene)
