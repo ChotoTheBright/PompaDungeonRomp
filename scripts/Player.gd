@@ -17,6 +17,10 @@ onready var walls_2 = control.get_node("ViewportContainer/Viewport/MAIN/World/Du
 onready var walls_3 = control.get_node("ViewportContainer/Viewport/MAIN/World/Dungeon/END_DOOR2")
 onready var walls_4 = control.get_node("ViewportContainer/Viewport/MAIN/World/Dungeon/END_DOOR3")
 onready var walls_5 = control.get_node("ViewportContainer/Viewport/MAIN/World/Dungeon/MAPDOOR")
+onready var audio = $AudioStreamPlayer
+var step0_sound = preload("res://assets/Step0.ogg")
+var step1_sound = preload("res://assets/Step1.ogg")
+var step2_sound = preload("res://assets/Step2.ogg")
 var cur_state = STATES.SPLORE
 var speed = 5
 var angle_speed = 10
@@ -57,7 +61,24 @@ func _physics_process(_delta):
 		if Input.is_action_pressed("walk_front") and btn_time.is_stopped():
 			if control.get_node("title").visible == true:
 				control.get_node("title").visible = false
-#			sounds.footsteps()
+#			
+			# Disgusting audio steps
+			var random = RandomNumberGenerator.new();
+			random.randomize();
+			match random.randi_range(0,2):
+				0:
+					audio.stream = step0_sound;
+					audio.play(0)
+				1:
+					audio.stream = step1_sound;
+					audio.play(0)
+				2:
+					audio.stream = step2_sound;
+					audio.play(0)
+			
+			
+			
+			
 			next_pos = next_pos
 			current_dir = current_dir
 			if ray_w.is_colliding(): #Wall
