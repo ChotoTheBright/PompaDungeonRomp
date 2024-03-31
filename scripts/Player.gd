@@ -57,7 +57,7 @@ func _physics_process(_delta):
 		if Input.is_action_pressed("walk_front") and btn_time.is_stopped():
 			if control.get_node("title").visible == true:
 				control.get_node("title").visible = false
-			sounds.footsteps()
+#			sounds.footsteps()
 			next_pos = next_pos
 			current_dir = current_dir
 			if ray_w.is_colliding(): #Wall
